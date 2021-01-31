@@ -1,0 +1,30 @@
+#Номенклатурни данни за области
+INSERT INTO school_health.region (region_code, region_name) VALUES ('BLG','Благоевград');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('BGS','Бургас');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('VAR','Варна');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('VTR','Велико Търново');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('VID','Видин');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('VRC','Враца');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('GAB','Габрово');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('DOB','Добрич');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('KRZ','Кърджали');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('KNL','Кюстендил');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('LOV','Ловеч');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('MON','Монтана');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('PAZ','Пазарджик');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('PER','Перник');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('PVN','Плевен');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('PDV','Пловдив');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('RAZ','Разград');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('RSE','Русе');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SLS','Силистра');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SLV','Сливен');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SML','Смолян');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SFO','София');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SOF','София (столица)');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SZR','Стара Загора');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('TGV','Търговище');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('HKV','Хасково');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('SHU','Шумен');
+INSERT INTO school_health.region (region_code, region_name) VALUES ('JAM','Ямбол');
+

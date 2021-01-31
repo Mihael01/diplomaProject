@@ -1,0 +1,3 @@
+#Номенклатурни данни за имунизации - не подлежи/подлежи за възрастта
+INSERT INTO school_health.immunization_comment (immunization_comment_code, immunization_comment_value) VALUES ('Y','Не подлежи за възрастта');
+INSERT INTO school_health.immunization_comment (immunization_comment_code, immunization_comment_value) VALUES ('N','Подлежи за възрастта');
