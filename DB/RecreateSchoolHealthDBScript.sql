@@ -97,7 +97,7 @@ id INT NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(50),
 middle_name VARCHAR(50),
 last_name VARCHAR(50),
-class VARCHAR(10),
+class_ VARCHAR(10),
 class_letter VARCHAR(1), # паралелка
 school_id INT,
 egn INT(20), # ЕГН или номер на чужд гражданин
@@ -142,6 +142,11 @@ student_id INT NOT NULL,
 parent_id INT NOT NULL,
 CONSTRAINT student_fk FOREIGN KEY (student_id) REFERENCES student(id),
 CONSTRAINT parent_fk FOREIGN KEY (parent_id) REFERENCES parent(id));
+
+#Добавяме първичен ключ към таблица родител - ученик
+ALTER TABLE student_parent
+ADD COLUMN id INT,
+ADD CONSTRAINT student_parent_id PRIMARY KEY (id);
 
 #Таблица с лични лекари на учениците
 CREATE TABLE IF NOT EXISTS gp(
@@ -245,7 +250,7 @@ CONSTRAINT anthr_student_fk FOREIGN KEY (student_id) REFERENCES student(id));
 CREATE TABLE IF NOT EXISTS addictions(
 id INT NOT NULL AUTO_INCREMENT,
 addictions_description VARCHAR(1000), # Вредни навици и пристрастявания 
-metodologies VARCHAR(1000), # Индивидуална работа за преодоляването им / методологии
+methodologies VARCHAR(1000), # Индивидуална работа за преодоляването им / методологии
 results VARCHAR(1000), # Резултати
 student_id INT,
 CONSTRAINT addictions_pk PRIMARY KEY (id),
@@ -278,6 +283,11 @@ student_id INT NOT NULL,
 CONSTRAINT parasit_type_fk FOREIGN KEY (parasit_type_code) REFERENCES parasit_type(parasit_type_code),
 CONSTRAINT sp_student_fk FOREIGN KEY (student_id) REFERENCES student(id));
 
+#Добавяме първичен ключ към таблица ученик - паразити
+ALTER TABLE student_parasit
+ADD COLUMN id INT,
+ADD CONSTRAINT student_parasit_id PRIMARY KEY (id);
+
 #Номенклатурна таблица за заболявания и аномалии
 CREATE TABLE IF NOT EXISTS diseases_and_abnorm_type(
 diseases_and_abnorm_type_code VARCHAR(4) NOT NULL UNIQUE, # Шифър
@@ -308,6 +318,28 @@ CONSTRAINT do_student_fk FOREIGN KEY (student_id) REFERENCES student(id));
 ALTER TABLE school_medics
 ADD COLUMN active_from DATE,
 ADD COLUMN active_to DATE;
+
+#Добавяме първичен ключ към таблица ученик - паразити
+ALTER TABLE student_dispensary_observation
+ADD COLUMN id INT,
+ADD CONSTRAINT st_dispensary_observ_id PRIMARY KEY (id);
+
+#Добавяме първичен ключ към таблица ученик - паразити
+ALTER TABLE student_diseases_and_abnormalities
+ADD COLUMN id INT,
+ADD CONSTRAINT st_diseases_and_abnorm_id PRIMARY KEY (id);
+
+#таблица само с тестова цел
+create table IF NOT EXISTS test_table
+(
+    test_code varchar(3)  not null,
+    test_name varchar(30) not null,
+    constraint test_code
+        unique (test_code)
+);
+
+alter table test_table
+    add primary key (test_code);
 
 
 
