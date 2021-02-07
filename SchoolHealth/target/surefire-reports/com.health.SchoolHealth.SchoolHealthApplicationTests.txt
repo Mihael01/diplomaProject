@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.health.SchoolHealth.SchoolHealthApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.356 s <<< FAILURE! - in com.health.SchoolHealth.SchoolHealthApplicationTests
+com.health.SchoolHealth.SchoolHealthApplicationTests  Time elapsed: 0.354 s  <<< ERROR!
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to read candidate component class: file [/home/mihael/Desktop/DiplomaWork/SchoolHealth/target/classes/com/health/SchoolHealth/SchoolHealthApplication.class]; nested exception is org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.autoconfigure.SpringBootApplication] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].
+Caused by: org.springframework.core.annotation.AnnotationConfigurationException: Attribute 'proxyBeanMethods' in annotation [org.springframework.boot.autoconfigure.SpringBootApplication] is declared as an @AliasFor nonexistent attribute 'proxyBeanMethods' in annotation [org.springframework.context.annotation.Configuration].
+
