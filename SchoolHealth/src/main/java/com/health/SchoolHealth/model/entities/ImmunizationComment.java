@@ -12,6 +12,9 @@ public class ImmunizationComment {
     @Column(name = "immunization_comment_value")
     private String immunizationCommentValue;
 
+    @OneToOne(mappedBy = "mandatoryImmunizationFlag")
+    private HealthCondition mandatoryImmunizationFlag;
+
     public String getImmunizationCommentCode() {
         return this.immunizationCommentCode;
     }
@@ -27,4 +30,13 @@ public class ImmunizationComment {
     public void setImmunizationCommentValue(String immunizationCommentValue) {
         this.immunizationCommentValue = immunizationCommentValue;
     }
+
+    public HealthCondition getMandatoryImmunizationFlag() {
+        return mandatoryImmunizationFlag;
+    }
+
+    public void setMandatoryImmunizationFlag(HealthCondition mandatoryImmunizationFlag) {
+        this.mandatoryImmunizationFlag = mandatoryImmunizationFlag;
+    }
+
 }

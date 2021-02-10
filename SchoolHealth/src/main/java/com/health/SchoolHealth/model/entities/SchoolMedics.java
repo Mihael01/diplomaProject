@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "school_medics")
@@ -20,6 +21,9 @@ public class SchoolMedics {
 
     @Column(name = "active_to")
     private java.sql.Date activeTo;
+
+    @OneToMany(mappedBy = "schoolMedics")
+    private List<School> schools;
 
     public Long getId() {
         return this.id;
@@ -59,5 +63,13 @@ public class SchoolMedics {
 
     public void setActiveTo(java.sql.Date activeTo) {
         this.activeTo = activeTo;
+    }
+
+    public List<School> getSchools() {
+        return schools;
+    }
+
+    public void setSchools(List<School> schools) {
+        this.schools = schools;
     }
 }

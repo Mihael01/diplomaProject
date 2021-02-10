@@ -9,27 +9,13 @@ public class StudentDiseasesAndAbnormalities {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "diseases_and_abnorm_type_code")
-    private String diseasesAndAbnormTypeCode;
+    @ManyToOne
+    @JoinColumn(name = "diseases_and_abnorm_type_code")
+    private DiseasesAndAbnormType diseasesAndAbnormType;
 
-    @Column(name = "student_id")
-    private Long studentId;
-
-    public String getDiseasesAndAbnormTypeCode() {
-        return this.diseasesAndAbnormTypeCode;
-    }
-
-    public void setDiseasesAndAbnormTypeCode(String diseasesAndAbnormTypeCode) {
-        this.diseasesAndAbnormTypeCode = diseasesAndAbnormTypeCode;
-    }
-
-    public Long getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public Long getId() {
         return this.id;
@@ -37,5 +23,21 @@ public class StudentDiseasesAndAbnormalities {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DiseasesAndAbnormType getDiseasesAndAbnormType() {
+        return diseasesAndAbnormType;
+    }
+
+    public void setDiseasesAndAbnormType(DiseasesAndAbnormType diseasesAndAbnormType) {
+        this.diseasesAndAbnormType = diseasesAndAbnormType;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

@@ -9,27 +9,13 @@ public class StudentParent {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "student_id")
-    private Long studentId;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
-    @Column(name = "parent_id")
-    private Long parentId;
-
-    public Long getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Long getParentId() {
-        return this.parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Parent parent;
 
     public Long getId() {
         return this.id;
@@ -37,5 +23,21 @@ public class StudentParent {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public void setParent(Parent parent) {
+        this.parent = parent;
     }
 }

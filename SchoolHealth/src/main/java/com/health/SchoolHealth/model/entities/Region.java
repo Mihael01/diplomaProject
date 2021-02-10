@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "region")
@@ -11,6 +12,9 @@ public class Region {
 
     @Column(name = "region_name")
     private String regionName;
+
+    @OneToMany(mappedBy = "region")
+    private List<SettlementPlace> settlementPlaces;
 
     public String getRegionCode() {
         return this.regionCode;
@@ -26,5 +30,13 @@ public class Region {
 
     public void setRegionName(String regionName) {
         this.regionName = regionName;
+    }
+
+    public List<SettlementPlace> getSettlementPlaces() {
+        return settlementPlaces;
+    }
+
+    public void setSettlementPlaces(List<SettlementPlace> settlementPlaces) {
+        this.settlementPlaces = settlementPlaces;
     }
 }

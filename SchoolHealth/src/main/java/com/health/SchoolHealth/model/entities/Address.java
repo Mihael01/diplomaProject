@@ -22,6 +22,15 @@ public class Address {
     @JoinColumn(name = "ekatte", referencedColumnName = "ekatte")
     private SettlementPlace settlementPlace;
 
+    @OneToOne(mappedBy = "parentAddress")
+    private Parent parent;
+
+    @OneToOne(mappedBy = "schoolAddress")
+    private School school;
+
+    @OneToOne(mappedBy = "studentAddress")
+    private Student student;
+
     public Long getId() {
         return this.id;
     }
@@ -60,5 +69,29 @@ public class Address {
 
     public void setSettlementPlace(SettlementPlace settlementPlace) {
         this.settlementPlace = settlementPlace;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public void setParent(Parent parent) {
+        this.parent = parent;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

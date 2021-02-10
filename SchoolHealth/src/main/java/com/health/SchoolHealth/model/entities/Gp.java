@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "gp")
@@ -17,6 +18,9 @@ public class Gp {
 
     @Column(name = "medical_center")
     private String medicalCenter;
+
+    @OneToMany(mappedBy = "gp")
+    private List<Student> students;
 
     public Long getId() {
         return this.id;
@@ -48,5 +52,13 @@ public class Gp {
 
     public void setMedicalCenter(String medicalCenter) {
         this.medicalCenter = medicalCenter;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

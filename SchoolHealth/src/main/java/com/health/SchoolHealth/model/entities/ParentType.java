@@ -12,6 +12,9 @@ public class ParentType {
     @Column(name = "parent_type_name")
     private String parentTypeName;
 
+    @OneToOne(mappedBy = "parentTypeCode")
+    private Parent parent;
+
     public String getParentTypeCode() {
         return this.parentTypeCode;
     }
@@ -26,5 +29,13 @@ public class ParentType {
 
     public void setParentTypeName(String parentTypeName) {
         this.parentTypeName = parentTypeName;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public void setParent(Parent parent) {
+        this.parent = parent;
     }
 }

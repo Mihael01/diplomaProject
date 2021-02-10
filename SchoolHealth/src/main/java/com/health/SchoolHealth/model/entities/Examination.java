@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "examination")
@@ -30,8 +31,9 @@ public class Examination {
     @Column(name = "paraclinical_examinations")
     private String paraclinicalExaminations;
 
-    @Column(name = "health_condition_id")
-    private Long healthConditionId;
+    @ManyToOne
+    @JoinColumn(name = "health_condition_id")
+    private HealthCondition healthCondition;
 
     public Long getId() {
         return this.id;
@@ -97,11 +99,11 @@ public class Examination {
         this.paraclinicalExaminations = paraclinicalExaminations;
     }
 
-    public Long getHealthConditionId() {
-        return this.healthConditionId;
+    public HealthCondition getHealthCondition() {
+        return healthCondition;
     }
 
-    public void setHealthConditionId(Long healthConditionId) {
-        this.healthConditionId = healthConditionId;
+    public void setHealthCondition(HealthCondition healthCondition) {
+        this.healthCondition = healthCondition;
     }
 }

@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "school")
@@ -12,8 +13,9 @@ public class School {
     @Column(name = "school_number")
     private String schoolNumber;
 
-    @Column(name = "school_type")
-    private String schoolType;
+    @OneToOne
+    @JoinColumn(name = "school_type", referencedColumnName = "school_type_code")
+    private SchoolType schoolType;
 
     @Column(name = "school_type_other")
     private String schoolTypeOther;
@@ -24,11 +26,16 @@ public class School {
     @Column(name = "school_telephone_number")
     private String schoolTelephoneNumber;
 
-    @Column(name = "address_id")
-    private Long addressId;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address schoolAddress;
 
-    @Column(name = "school_medics_id")
-    private Long schoolMedicsId;
+    @ManyToOne
+    @JoinColumn(name = "school_medics_id", referencedColumnName = "id")
+    private SchoolMedics schoolMedics;
+
+    @OneToMany(mappedBy = "school")
+    private List<Student> students;
 
     public Long getId() {
         return this.id;
@@ -46,11 +53,11 @@ public class School {
         this.schoolNumber = schoolNumber;
     }
 
-    public String getSchoolType() {
+    public SchoolType getSchoolType() {
         return this.schoolType;
     }
 
-    public void setSchoolType(String schoolType) {
+    public void setSchoolType(SchoolType schoolType) {
         this.schoolType = schoolType;
     }
 
@@ -78,19 +85,27 @@ public class School {
         this.schoolTelephoneNumber = schoolTelephoneNumber;
     }
 
-    public Long getAddressId() {
-        return this.addressId;
+    public Address getSchoolAddress() {
+        return schoolAddress;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setSchoolAddress(Address schoolAddress) {
+        this.schoolAddress = schoolAddress;
     }
 
-    public Long getSchoolMedicsId() {
-        return this.schoolMedicsId;
+    public SchoolMedics getSchoolMedics() {
+        return schoolMedics;
     }
 
-    public void setSchoolMedicsId(Long schoolMedicsId) {
-        this.schoolMedicsId = schoolMedicsId;
+    public void setSchoolMedics(SchoolMedics schoolMedics) {
+        this.schoolMedics = schoolMedics;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

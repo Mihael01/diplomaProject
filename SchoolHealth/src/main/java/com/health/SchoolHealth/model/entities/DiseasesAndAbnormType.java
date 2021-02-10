@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "diseases_and_abnorm_type")
@@ -11,6 +12,9 @@ public class DiseasesAndAbnormType {
 
     @Column(name = "diseases_and_abnorm_type_name")
     private String diseasesAndAbnormTypeName;
+
+    @OneToMany(mappedBy = "diseasesAndAbnormType")
+    List<StudentDiseasesAndAbnormalities> studentDiseasesAndAbnormalities;
 
     public String getDiseasesAndAbnormTypeCode() {
         return this.diseasesAndAbnormTypeCode;
@@ -26,5 +30,13 @@ public class DiseasesAndAbnormType {
 
     public void setDiseasesAndAbnormTypeName(String diseasesAndAbnormTypeName) {
         this.diseasesAndAbnormTypeName = diseasesAndAbnormTypeName;
+    }
+
+    public List<StudentDiseasesAndAbnormalities> getStudentDiseasesAndAbnormalities() {
+        return studentDiseasesAndAbnormalities;
+    }
+
+    public void setStudentDiseasesAndAbnormalities(List<StudentDiseasesAndAbnormalities> studentDiseasesAndAbnormalities) {
+        this.studentDiseasesAndAbnormalities = studentDiseasesAndAbnormalities;
     }
 }

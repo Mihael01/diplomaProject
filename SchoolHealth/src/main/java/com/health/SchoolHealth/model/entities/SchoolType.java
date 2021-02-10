@@ -12,6 +12,9 @@ public class SchoolType {
     @Column(name = "school_type_name")
     private String schoolTypeName;
 
+    @OneToOne(mappedBy = "schoolType")
+    private School school;
+
     public String getSchoolTypeCode() {
         return this.schoolTypeCode;
     }
@@ -26,5 +29,13 @@ public class SchoolType {
 
     public void setSchoolTypeName(String schoolTypeName) {
         this.schoolTypeName = schoolTypeName;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

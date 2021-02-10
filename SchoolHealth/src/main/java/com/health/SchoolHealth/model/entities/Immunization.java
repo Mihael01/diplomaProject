@@ -15,8 +15,9 @@ public class Immunization {
     @Column(name = "immunization_name")
     private String immunizationName;
 
-    @Column(name = "health_condition_id")
-    private Long healthConditionId;
+    @ManyToOne
+    @JoinColumn(name = "health_condition_id", referencedColumnName = "id")
+    private HealthCondition healthCondition;
 
     public Long getId() {
         return this.id;
@@ -42,11 +43,11 @@ public class Immunization {
         this.immunizationName = immunizationName;
     }
 
-    public Long getHealthConditionId() {
-        return this.healthConditionId;
+    public HealthCondition getHealthCondition() {
+        return healthCondition;
     }
 
-    public void setHealthConditionId(Long healthConditionId) {
-        this.healthConditionId = healthConditionId;
+    public void setHealthCondition(HealthCondition healthCondition) {
+        this.healthCondition = healthCondition;
     }
 }

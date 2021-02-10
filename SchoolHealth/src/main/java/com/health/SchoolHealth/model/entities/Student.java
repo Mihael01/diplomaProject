@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -24,8 +25,9 @@ public class Student {
     @Column(name = "class_letter")
     private String classLetter;
 
-    @Column(name = "school_id")
-    private Long schoolId;
+    @ManyToOne
+    @JoinColumn(name = "school_id", referencedColumnName = "id")
+    private School school;
 
     @Column(name = "egn")
     private Long egn;
@@ -36,14 +38,16 @@ public class Student {
     @Column(name = "birth_place")
     private String birthPlace;
 
-    @Column(name = "address_id")
-    private Long addressId;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address studentAddress;
 
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @Column(name = "sex")
-    private String sex;
+    @OneToOne
+    @JoinColumn(name = "sex", referencedColumnName = "sex_type_code")
+    private SexType sexType;
 
     @Column(name = "family_burden")
     private String familyBurden;
@@ -60,14 +64,36 @@ public class Student {
     @Column(name = "allergies")
     private String allergies;
 
-    @Column(name = "gp_id")
-    private Long gpId;
+    @ManyToOne
+    @JoinColumn(name = "gp_id", referencedColumnName = "id")
+    private Gp gp;
 
-    @Column(name = "lzpk_id")
-    private Long lzpkId;
+    @OneToOne
+    @JoinColumn(name = "lzpk_id", referencedColumnName = "id")
+    private Lzpk lzpk;
 
     @OneToOne(mappedBy = "student")
     private Addictions addictions;
+
+    @OneToOne(mappedBy = "student")
+    private HealthCondition healthCondition;
+
+    @OneToOne(mappedBy = "student")
+    private PhysicalCapacity physicalCapacity;
+
+    //RELATION BETWEEN JOINING TABLES
+
+    @OneToMany(mappedBy = "student")
+    List<StudentParasit> studentParasits;
+
+    @OneToMany(mappedBy = "student")
+    List<StudentParent> studentParents;
+
+    @OneToMany(mappedBy = "student")
+    List<StudentDispensaryObservation> studentDispensaryObservations;
+
+    @OneToMany(mappedBy = "student")
+    List<StudentDiseasesAndAbnormalities> studentDiseasesAndAbnormalities;
 
     public Long getId() {
         return this.id;
@@ -105,7 +131,7 @@ public class Student {
         return this.class_;
     }
 
-    public void setClass(String class_) {
+    public void setClass_(String class_) {
         this.class_ = class_;
     }
 
@@ -115,14 +141,6 @@ public class Student {
 
     public void setClassLetter(String classLetter) {
         this.classLetter = classLetter;
-    }
-
-    public Long getSchoolId() {
-        return this.schoolId;
-    }
-
-    public void setSchoolId(Long schoolId) {
-        this.schoolId = schoolId;
     }
 
     public Long getEgn() {
@@ -149,28 +167,12 @@ public class Student {
         this.birthPlace = birthPlace;
     }
 
-    public Long getAddressId() {
-        return this.addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
-
     public String getTelephoneNumber() {
         return this.telephoneNumber;
     }
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
-    }
-
-    public String getSex() {
-        return this.sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public String getFamilyBurden() {
@@ -213,27 +215,99 @@ public class Student {
         this.allergies = allergies;
     }
 
-    public Long getGpId() {
-        return this.gpId;
-    }
-
-    public void setGpId(Long gpId) {
-        this.gpId = gpId;
-    }
-
-    public Long getLzpkId() {
-        return this.lzpkId;
-    }
-
-    public void setLzpkId(Long lzpkId) {
-        this.lzpkId = lzpkId;
-    }
-
     public Addictions getAddictions() {
         return addictions;
     }
 
     public void setAddictions(Addictions addictions) {
         this.addictions = addictions;
+    }
+
+    public HealthCondition getHealthCondition() {
+        return healthCondition;
+    }
+
+    public void setHealthCondition(HealthCondition healthCondition) {
+        this.healthCondition = healthCondition;
+    }
+
+    public PhysicalCapacity getPhysicalCapacity() {
+        return physicalCapacity;
+    }
+
+    public void setPhysicalCapacity(PhysicalCapacity physicalCapacity) {
+        this.physicalCapacity = physicalCapacity;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public Address getStudentAddress() {
+        return studentAddress;
+    }
+
+    public void setStudentAddress(Address studentAddress) {
+        this.studentAddress = studentAddress;
+    }
+
+    public SexType getSexType() {
+        return sexType;
+    }
+
+    public void setSexType(SexType sexType) {
+        this.sexType = sexType;
+    }
+
+    public Gp getGp() {
+        return gp;
+    }
+
+    public void setGp(Gp gp) {
+        this.gp = gp;
+    }
+
+    public Lzpk getLzpk() {
+        return lzpk;
+    }
+
+    public void setLzpk(Lzpk lzpk) {
+        this.lzpk = lzpk;
+    }
+
+    public List<StudentParasit> getStudentParasits() {
+        return studentParasits;
+    }
+
+    public void setStudentParasits(List<StudentParasit> studentParasits) {
+        this.studentParasits = studentParasits;
+    }
+
+    public List<StudentParent> getStudentParents() {
+        return studentParents;
+    }
+
+    public void setStudentParents(List<StudentParent> studentParents) {
+        this.studentParents = studentParents;
+    }
+
+    public List<StudentDispensaryObservation> getStudentDispensaryObservations() {
+        return studentDispensaryObservations;
+    }
+
+    public void setStudentDispensaryObservations(List<StudentDispensaryObservation> studentDispensaryObservations) {
+        this.studentDispensaryObservations = studentDispensaryObservations;
+    }
+
+    public List<StudentDiseasesAndAbnormalities> getStudentDiseasesAndAbnormalities() {
+        return studentDiseasesAndAbnormalities;
+    }
+
+    public void setStudentDiseasesAndAbnormalities(List<StudentDiseasesAndAbnormalities> studentDiseasesAndAbnormalities) {
+        this.studentDiseasesAndAbnormalities = studentDiseasesAndAbnormalities;
     }
 }

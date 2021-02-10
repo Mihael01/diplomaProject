@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "parent")
@@ -12,11 +13,13 @@ public class Parent {
     @Column(name = "parent_name")
     private String parentName;
 
-    @Column(name = "parent_type_code")
-    private String parentTypeCode;
+    @OneToOne
+    @JoinColumn(name = "parent_type_code", referencedColumnName = "parent_type_code")
+    private ParentType parentTypeCode;
 
-    @Column(name = "address_id")
-    private Long addressId;
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address parentAddress;
 
     @Column(name = "telephone_number")
     private String telephoneNumber;
@@ -26,6 +29,9 @@ public class Parent {
 
     @Column(name = "business_telephone_number")
     private String businessTelephoneNumber;
+
+    @OneToMany(mappedBy = "parent")
+    List<StudentParent> studentParents;
 
     public Long getId() {
         return this.id;
@@ -43,20 +49,12 @@ public class Parent {
         this.parentName = parentName;
     }
 
-    public String getParentTypeCode() {
+    public ParentType getParentTypeCode() {
         return this.parentTypeCode;
     }
 
-    public void setParentTypeCode(String parentTypeCode) {
+    public void setParentTypeCode(ParentType parentTypeCode) {
         this.parentTypeCode = parentTypeCode;
-    }
-
-    public Long getAddressId() {
-        return this.addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
     }
 
     public String getTelephoneNumber() {
@@ -81,5 +79,21 @@ public class Parent {
 
     public void setBusinessTelephoneNumber(String businessTelephoneNumber) {
         this.businessTelephoneNumber = businessTelephoneNumber;
+    }
+
+    public Address getParentAddress() {
+        return parentAddress;
+    }
+
+    public void setParentAddress(Address parentAddress) {
+        this.parentAddress = parentAddress;
+    }
+
+    public List<StudentParent> getStudentParents() {
+        return studentParents;
+    }
+
+    public void setStudentParents(List<StudentParent> studentParents) {
+        this.studentParents = studentParents;
     }
 }

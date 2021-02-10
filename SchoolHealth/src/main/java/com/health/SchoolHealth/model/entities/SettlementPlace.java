@@ -15,11 +15,13 @@ public class SettlementPlace {
     @Column(name = "settlement_place_name")
     private String settlementPlaceName;
 
-    @Column(name = "municipality_code")
-    private String municipalityCode;
+    @ManyToOne
+    @JoinColumn(name = "municipality_code", referencedColumnName = "municipality_code")
+    private Municipality municipality;
 
-    @Column(name = "region_code")
-    private String regionCode;
+    @ManyToOne
+    @JoinColumn(name = "region_code", referencedColumnName = "region_code")
+    private Region region;
 
     @OneToOne(mappedBy = "settlementPlace")
     private Address address;
@@ -48,20 +50,20 @@ public class SettlementPlace {
         this.settlementPlaceName = settlementPlaceName;
     }
 
-    public String getMunicipalityCode() {
-        return this.municipalityCode;
+    public Municipality getMunicipality() {
+        return municipality;
     }
 
-    public void setMunicipalityCode(String municipalityCode) {
-        this.municipalityCode = municipalityCode;
+    public void setMunicipality(Municipality municipality) {
+        this.municipality = municipality;
     }
 
-    public String getRegionCode() {
-        return this.regionCode;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public Address getAddress() {

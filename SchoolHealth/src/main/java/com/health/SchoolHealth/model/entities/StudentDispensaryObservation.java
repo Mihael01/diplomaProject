@@ -9,27 +9,13 @@ public class StudentDispensaryObservation {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "dispensary_observ_illness_type_code")
-    private String dispensaryObservIllnessTypeCode;
+    @ManyToOne
+    @JoinColumn(name = "dispensary_observ_illness_type_code")
+    private DispensaryObservationIllnessType dispensaryObservIllnessType;
 
-    @Column(name = "student_id")
-    private Long studentId;
-
-    public String getDispensaryObservIllnessTypeCode() {
-        return this.dispensaryObservIllnessTypeCode;
-    }
-
-    public void setDispensaryObservIllnessTypeCode(String dispensaryObservIllnessTypeCode) {
-        this.dispensaryObservIllnessTypeCode = dispensaryObservIllnessTypeCode;
-    }
-
-    public Long getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public Long getId() {
         return this.id;
@@ -37,5 +23,21 @@ public class StudentDispensaryObservation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DispensaryObservationIllnessType getDispensaryObservIllnessType() {
+        return dispensaryObservIllnessType;
+    }
+
+    public void setDispensaryObservIllnessType(DispensaryObservationIllnessType dispensaryObservIllnessType) {
+        this.dispensaryObservIllnessType = dispensaryObservIllnessType;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

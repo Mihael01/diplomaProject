@@ -12,6 +12,9 @@ public class SexType {
     @Column(name = "sex_type_name")
     private String sexTypeName;
 
+    @OneToOne(mappedBy = "sexType")
+    private Student student;
+
     public String getSexTypeCode() {
         return this.sexTypeCode;
     }
@@ -26,5 +29,13 @@ public class SexType {
 
     public void setSexTypeName(String sexTypeName) {
         this.sexTypeName = sexTypeName;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

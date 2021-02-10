@@ -12,6 +12,22 @@ public class ConfirmationFlag {
     @Column(name = "confirmation_flag_value")
     private String confirmationFlagValue;
 
+    @OneToOne(mappedBy = "additionalActivities")
+    private HealthCondition additionalActivities;
+
+    @OneToOne(mappedBy = "exemptFromPhysicalEducation")
+    private HealthCondition exemptFromPhysicalEducation;
+
+    @OneToOne(mappedBy = "missingImmunizationFlag")
+    private HealthCondition missingImmunizationFlag;
+
+    @OneToOne(mappedBy = "therapeuticPhysicalEducation")
+    private HealthCondition therapeuticPhysicalEducation;
+
+    @OneToOne(mappedBy = "parasites")
+    private HealthCondition parasites;
+
+
     public String getConfirmationFlagCode() {
         return this.confirmationFlagCode;
     }
@@ -26,5 +42,29 @@ public class ConfirmationFlag {
 
     public void setConfirmationFlagValue(String confirmationFlagValue) {
         this.confirmationFlagValue = confirmationFlagValue;
+    }
+
+    public HealthCondition getAdditionalActivities() {
+        return additionalActivities;
+    }
+
+    public void setAdditionalActivities(HealthCondition additionalActivities) {
+        this.additionalActivities = additionalActivities;
+    }
+
+    public HealthCondition getExemptFromPhysicalEducation() {
+        return exemptFromPhysicalEducation;
+    }
+
+    public void setExemptFromPhysicalEducation(HealthCondition exemptFromPhysicalEducation) {
+        this.exemptFromPhysicalEducation = exemptFromPhysicalEducation;
+    }
+
+    public HealthCondition getMissingImmunizationFlag() {
+        return missingImmunizationFlag;
+    }
+
+    public void setMissingImmunizationFlag(HealthCondition missingImmunizationFlag) {
+        this.missingImmunizationFlag = missingImmunizationFlag;
     }
 }

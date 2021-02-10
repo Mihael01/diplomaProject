@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "health_condition")
@@ -21,17 +22,20 @@ public class HealthCondition {
     @Column(name = "treatment_result")
     private String treatmentResult;
 
-    @Column(name = "additional_activities")
-    private String additionalActivities;
+    @OneToOne
+    @JoinColumn(name = "additional_activities", referencedColumnName = "confirmation_flag_code")
+    private ConfirmationFlag additionalActivities;
+
+    @OneToOne
+    @JoinColumn(name = "exempt_from_physical_education", referencedColumnName = "confirmation_flag_code")
+    private ConfirmationFlag exemptFromPhysicalEducation;
 
     @Column(name = "additional_activities_description")
     private String additionalActivitiesDescription;
 
-    @Column(name = "exempt_from_physical_education")
-    private String exemptFromPhysicalEducation;
-
-    @Column(name = "therapeutic_physical_education")
-    private String therapeuticPhysicalEducation;
+    @OneToOne
+    @JoinColumn(name = "therapeutic_physical_education", referencedColumnName = "confirmation_flag_code")
+    private ConfirmationFlag therapeuticPhysicalEducation;
 
     @Column(name = "dispensarysation")
     private String dispensarysation;
@@ -39,17 +43,27 @@ public class HealthCondition {
     @Column(name = "observer")
     private String observer;
 
-    @Column(name = "missing_immunization_flag")
-    private String missingImmunizationFlag;
+    @OneToOne
+    @JoinColumn(name = "mandatory_immunization_flag", referencedColumnName = "immunization_comment_code")
+    private ImmunizationComment mandatoryImmunizationFlag;
 
-    @Column(name = "mandatory_immunization_flag")
-    private String mandatoryImmunizationFlag;
+    @OneToOne
+    @JoinColumn(name = "missing_immunization_flag", referencedColumnName = "confirmation_flag_code")
+    private ConfirmationFlag missingImmunizationFlag;
 
-    @Column(name = "parasites")
-    private String parasites;
+    @OneToOne
+    @JoinColumn(name = "parasites", referencedColumnName = "confirmation_flag_code")
+    private ConfirmationFlag parasites;
 
-    @Column(name = "student_id")
-    private Long studentId;
+    @OneToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private Student student;
+
+    @OneToMany(mappedBy = "healthCondition")
+    private List<Examination> examinations;
+
+    @OneToMany(mappedBy = "healthCondition")
+    private List<Immunization> immunizations;
 
     public Long getId() {
         return this.id;
@@ -91,36 +105,12 @@ public class HealthCondition {
         this.treatmentResult = treatmentResult;
     }
 
-    public String getAdditionalActivities() {
-        return this.additionalActivities;
-    }
-
-    public void setAdditionalActivities(String additionalActivities) {
-        this.additionalActivities = additionalActivities;
-    }
-
     public String getAdditionalActivitiesDescription() {
         return this.additionalActivitiesDescription;
     }
 
     public void setAdditionalActivitiesDescription(String additionalActivitiesDescription) {
         this.additionalActivitiesDescription = additionalActivitiesDescription;
-    }
-
-    public String getExemptFromPhysicalEducation() {
-        return this.exemptFromPhysicalEducation;
-    }
-
-    public void setExemptFromPhysicalEducation(String exemptFromPhysicalEducation) {
-        this.exemptFromPhysicalEducation = exemptFromPhysicalEducation;
-    }
-
-    public String getTherapeuticPhysicalEducation() {
-        return this.therapeuticPhysicalEducation;
-    }
-
-    public void setTherapeuticPhysicalEducation(String therapeuticPhysicalEducation) {
-        this.therapeuticPhysicalEducation = therapeuticPhysicalEducation;
     }
 
     public String getDispensarysation() {
@@ -139,35 +129,75 @@ public class HealthCondition {
         this.observer = observer;
     }
 
-    public String getMissingImmunizationFlag() {
-        return this.missingImmunizationFlag;
+    public List<Examination> getExaminations() {
+        return examinations;
     }
 
-    public void setMissingImmunizationFlag(String missingImmunizationFlag) {
+    public void setExaminations(List<Examination> examinations) {
+        this.examinations = examinations;
+    }
+
+    public ConfirmationFlag getAdditionalActivities() {
+        return additionalActivities;
+    }
+
+    public void setAdditionalActivities(ConfirmationFlag additionalActivities) {
+        this.additionalActivities = additionalActivities;
+    }
+
+    public ConfirmationFlag getExemptFromPhysicalEducation() {
+        return exemptFromPhysicalEducation;
+    }
+
+    public void setExemptFromPhysicalEducation(ConfirmationFlag exemptFromPhysicalEducation) {
+        this.exemptFromPhysicalEducation = exemptFromPhysicalEducation;
+    }
+
+    public ConfirmationFlag getTherapeuticPhysicalEducation() {
+        return therapeuticPhysicalEducation;
+    }
+
+    public void setTherapeuticPhysicalEducation(ConfirmationFlag therapeuticPhysicalEducation) {
+        this.therapeuticPhysicalEducation = therapeuticPhysicalEducation;
+    }
+
+    public ConfirmationFlag getMissingImmunizationFlag() {
+        return missingImmunizationFlag;
+    }
+
+    public void setMissingImmunizationFlag(ConfirmationFlag missingImmunizationFlag) {
         this.missingImmunizationFlag = missingImmunizationFlag;
     }
 
-    public String getMandatoryImmunizationFlag() {
-        return this.mandatoryImmunizationFlag;
+    public ConfirmationFlag getParasites() {
+        return parasites;
     }
 
-    public void setMandatoryImmunizationFlag(String mandatoryImmunizationFlag) {
-        this.mandatoryImmunizationFlag = mandatoryImmunizationFlag;
-    }
-
-    public String getParasites() {
-        return this.parasites;
-    }
-
-    public void setParasites(String parasites) {
+    public void setParasites(ConfirmationFlag parasites) {
         this.parasites = parasites;
     }
 
-    public Long getStudentId() {
-        return this.studentId;
+    public void setMandatoryImmunizationFlag(ImmunizationComment mandatoryImmunizationFlag) {
+        this.mandatoryImmunizationFlag = mandatoryImmunizationFlag;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public ImmunizationComment getMandatoryImmunizationFlag() {
+        return mandatoryImmunizationFlag;
+    }
+
+    public List<Immunization> getImmunizations() {
+        return immunizations;
+    }
+
+    public void setImmunizations(List<Immunization> immunizations) {
+        this.immunizations = immunizations;
     }
 }

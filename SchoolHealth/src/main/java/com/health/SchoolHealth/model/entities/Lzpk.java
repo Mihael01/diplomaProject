@@ -18,6 +18,9 @@ public class Lzpk {
     @Column(name = "issued_from")
     private String issuedFrom;
 
+    @OneToOne(mappedBy = "lzpk")
+    private Student student;
+
     public Long getId() {
         return this.id;
     }
@@ -49,4 +52,13 @@ public class Lzpk {
     public void setIssuedFrom(String issuedFrom) {
         this.issuedFrom = issuedFrom;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }
+

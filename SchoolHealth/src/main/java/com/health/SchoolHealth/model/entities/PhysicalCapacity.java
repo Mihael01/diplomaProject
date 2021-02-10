@@ -30,8 +30,9 @@ public class PhysicalCapacity {
     @Column(name = "physical_capacity_mark")
     private Long physicalCapacityMark;
 
-    @Column(name = "student_id")
-    private Long studentId;
+    @OneToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private Student student;
 
     public Long getId() {
         return this.id;
@@ -97,11 +98,11 @@ public class PhysicalCapacity {
         this.physicalCapacityMark = physicalCapacityMark;
     }
 
-    public Long getStudentId() {
-        return this.studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

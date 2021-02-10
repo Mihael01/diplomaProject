@@ -9,27 +9,13 @@ public class StudentParasit {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "parasit_type_code")
-    private String parasitTypeCode;
+    @ManyToOne
+    @JoinColumn(name = "parasit_type_code")
+    private ParasitType parasitType;
 
-    @Column(name = "student_id")
-    private Long studentId;
-
-    public String getParasitTypeCode() {
-        return this.parasitTypeCode;
-    }
-
-    public void setParasitTypeCode(String parasitTypeCode) {
-        this.parasitTypeCode = parasitTypeCode;
-    }
-
-    public Long getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public Long getId() {
         return this.id;
@@ -37,5 +23,21 @@ public class StudentParasit {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public ParasitType getParasitType() {
+        return parasitType;
+    }
+
+    public void setParasitType(ParasitType parasitType) {
+        this.parasitType = parasitType;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }
