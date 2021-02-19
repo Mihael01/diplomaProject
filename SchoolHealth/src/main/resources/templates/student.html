@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Core Online Tutorial - List Products</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+</head>
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>ИС "Училищно здраве"</title>-->
+<!--    &lt;!&ndash; Bootstrap CSS file &ndash;&gt;-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">&ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}" />-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+
+<!--    <style>-->
+<!--        table {-->
+<!--            font-family: arial, sans-serif;-->
+<!--            border-collapse: collapse;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        td, th {-->
+<!--            border: 1px solid #dddddd;-->
+<!--            text-align: left;-->
+<!--            padding: 8px;-->
+<!--        }-->
+
+<!--        tr:nth-child(even) {-->
+<!--            background-color: #dddddd;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<body>
+<p>student.html</p>
+<th:div class="container">
+    <!--<a href="#" id="placeholder" ></a>-->
+
+    <table>
+        <tr>
+            <div class="row row-no-gutters" >
+                    <td class="col-sm-4" style="background-color:lavender;"> Пристрастявания</td>
+
+                    <td class="col-sm-4" style="background-color:lavender;"> Методологии </td>
+
+                    <td class="col-sm-4" style="background-color:lavender;"> Резултати </td>
+
+            </div>
+
+        </tr>
+        <tr th:each="addiction : ${addictions}">
+            <div class="row row-no-gutters" >
+
+                    <td style="background-color:lavenderblush;" th:text="${addiction.addictionsDescription}"></td>
+
+                    <td style="background-color:lavenderblush;" th:text="${addiction.methodologies}"></td>
+
+                    <td style="background-color:lavenderblush;" th:text="${addiction.results}"></td>
+
+            </div>
+
+        </tr>
+    </table>
+
+</th:div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>ИС "Училищно здраве"</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+    <link href="../../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<form action="#" th:action="@{/school}" th:object="${schoolForm}">
+<!--      method="post">-->
+
+    <th:div class="container">
+        <!--<a href="#" id="placeholder" ></a>-->
+
+        <table>
+            <tr>
+                <div class="row row-no-gutters" >
+                        <td class="col-sm-4" style="background-color:lavender;"> schoolTypeName</td>
+
+                        <td class="col-sm-4" style="background-color:lavender;"> schoolTypeCode </td>
+
+
+                </div>
+
+            </tr>
+            <tr th:each="schoolTypeName : ${schoolTypeNames}">
+                <div class="row row-no-gutters" >
+                        <td style="background-color:lavenderblush;" th:text="${schoolTypeName}"></td>
+                </div>
+
+            </tr>
+        </table>
+
+    </th:div>
+    <select th:field="*{settlementPlaceType}">
+        <option th:value="'гр.'" th:text="Град"></option>
+        <option th:value="'с.'" th:text="Село"></option>
+    </select>
+    <p th:text="${addedAtribute}"></p>
+
+
+    <!--<select th:field="*{percentage}">-->
+    <!--    <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}">-->
+    <!--    </option>-->
+    <!--</select>-->
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>
