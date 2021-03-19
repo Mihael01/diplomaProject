@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment"></head>
+
+<body>
+
+<!--/*@thymesVar id="schoolMedicForm" type="model"*/-->
+<form action="#" th:action="@{/schoolMedicPostData}" th:object="${schoolMedicForm}" method="post" th:fragment="schoolMedicFragment" class="container alert alert-info">
+
+    <H3 class="text-center">Данни за училищното медицинско лице</H3>
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-3">
+            <label class="labelWidthExtra" > Име:
+                <!--/*@thymesVar id="schoolMedic" type="model"*/-->
+                <input type="text" th:field="*{schoolMedic.schoolMedicsName}" />
+            </label>
+        </div>
+        <div class="col-lg-6">
+            <label class="labelWidthExtra"> Телефонен номер на медицинското лице:
+                <input type="text" th:field="*{schoolMedic.schoolMedicsTelephoneNumber}" />
+            </label>
+        </div>
+    </div>
+    <input type="hidden" th:field="*{schoolMedic.id}" />
+    <br/><br/>
+    <input type="submit" value="Запишете данните за медицинското лице" class="btn btn-primary pull-right"/>
+
+</form>
+</body>
+</html>

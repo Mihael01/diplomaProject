@@ -3,60 +3,83 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>ИС "Училищно здраве"</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head th:insert="header :: headerFragment">
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen"/>
-
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-    <link href="../../static/css/spring-core.css"
-          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 
-<form action="#" th:action="@{/school}" th:object="${schoolForm}">
-<!--      method="post">-->
+<div th:insert="schoolMedic :: schoolMedicFragment"></div>
 
+<form action="#" th:action="@{/schoolPostData}" th:object="${schoolForm}" method="post"  class="container alert alert-info">
+
+    <H3 class="text-center">Основни данни за учебното заведение</H3>
+    <br/>
     <th:div class="container">
-        <!--<a href="#" id="placeholder" ></a>-->
+        <div class="row">
+            <div class="col-lg-3 ">
+                <label class="labelWidthExtra" > Номер:
+                    <input type="text" th:field="*{school.schoolNumber}" />
+                </label>
+            </div>
+            <div class="col-lg-4">
+                <label class="labelWidthExtra"> Вид:
 
-        <table>
-            <tr>
-                <div class="row row-no-gutters" >
-                        <td class="col-sm-4" style="background-color:lavender;"> schoolTypeName</td>
+                    <select  th:field="*{school.schoolType.id}" >
+                        <option th:each="schoolType : *{schoolTypes}"
+                                th:text="${schoolType.schoolTypeName}"
+                                th:value="${schoolType.id}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-lg-4">
+                <label class="labelWidthExtra"> Наименование:
+                    <input type="text" th:field="*{school.schoolName}" />
+                </label>
+            </div>
 
-                        <td class="col-sm-4" style="background-color:lavender;"> schoolTypeCode </td>
+        </div>
+        <br/>
+        <div calss="row">
+            <div class="col-lg-3">
+            </div>
+            <div class="col-lg-4">
+                <label class="labelWidthExtra"> Вид непосочен в списъка :
+                    <input type="text" th:field="*{school.schoolTypeOther}" />
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <label class="labelWidthExtra" > Телефонен номер:
+                    <input type="text" th:field="*{school.schoolTelephoneNumber}" />
+                </label>
+            </div>
+        </div>
 
+        <input hidden th:field = "*{school.schoolMedics.id}" />
+        <input hidden th:field = "*{school.schoolAddress.id}" />
+        <input hidden th:field = "*{school.id}" />
 
-                </div>
-
-            </tr>
-            <tr th:each="schoolTypeName : ${schoolTypeNames}">
-                <div class="row row-no-gutters" >
-                        <td style="background-color:lavenderblush;" th:text="${schoolTypeName}"></td>
-                </div>
-
-            </tr>
-        </table>
-
+    <br/> <br/>
+    <input type="submit" value="Запишете данните за учебното заведение" class="btn btn-primary pull-right"/>
     </th:div>
-    <select th:field="*{settlementPlaceType}">
-        <option th:value="'гр.'" th:text="Град"></option>
-        <option th:value="'с.'" th:text="Село"></option>
-    </select>
-    <p th:text="${addedAtribute}"></p>
-
-
-    <!--<select th:field="*{percentage}">-->
-    <!--    <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}">-->
-    <!--    </option>-->
-    <!--</select>-->
-    <input type="submit" value="Submit"/>
 </form>
+
+<div th:insert="address :: addressFragment"></div>
+
+<form  class="container alert alert-info" th:fragment="linksFragment">
+    <th:div class="container">
+        <div class="row">
+            <div class="col-lg-1 ">
+                <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+            </div>
+            <div class="col-lg-2 ">
+                <a class="btn btn-primary pull-left" href="home" role="button" >Към начало</a>
+            </div>
+        </div>
+    </th:div>
+</form>
+
 </body>
 </html>

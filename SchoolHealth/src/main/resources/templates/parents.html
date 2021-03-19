@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+</head>
+
+
+<body>
+    <div class="container alert alert-info">
+        <H3 class="text-center">Данни за родителите на ученика</H3>
+        <br/>
+    </div>
+    <form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
+        <th:div class="container" >
+            <div class="row">
+                <div class="col-lg-2">
+                    <label class="labelWidthExtra"> Родител/Настойник
+                        <select th:field="*{parent1.parentType.parentTypeCode}">
+                            <option th:each="parentType : *{parentTypes}"
+                                    th:text="${parentType.parentTypeName}"
+                                    th:value="${parentType.parentTypeCode}">
+                        </select>
+                    </label>
+                </div>
+
+                <div class="col-lg-6">
+                    <label  class="labelWidthExtra"> Име:
+                        <input type="text" th:field="*{parent1.parentName}" size="50" />
+                    </label>
+                </div>
+                <div class="col-lg-4">
+                    <label> Телефонен номер:
+                        <input type="text" th:field="*{parent1.telephoneNumber}" />
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-6 ">
+                    <label  class="labelWidthExtra"> Месторабота:
+                        <input type="text" th:field="*{parent1.placeOfWork}" size="50" />
+                    </label>
+                </div>
+                <div class="col-lg-4">
+                    <label> Бизнес телефонен номер:
+                        <input type="text" th:field="*{parent1.businessTelephoneNumber}" />
+                    </label>
+                </div>
+            </div>
+            <br/>
+            <input hidden th:field = "*{parent1.id}" id="parent1Id"/>
+            <input hidden th:field = "*{parent1.parentAddress.id}" id="parent1AddressId"/>
+            <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+        </th:div>
+    </form>
+
+    <form action="#" th:action="@{/addressPostData}" th:object="${addressForm}" method="post" class="container alert alert-info">
+
+        <H3 class="text-center" th:text="*{'Адрес на ' + addressAbout}" > </H3>
+        <br/><br/>
+        <div class="row">
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+            function showMunicipalities() {
+                $("#regionCode").change(function () {
+                    var regCode = $("#regionCode").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/regionPostData?element=1",
+                        contentType: 'text/plain; charset=UTF-8',
+                        data: regCode,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { showMunicipalities(); });
+            /*]]>*/
+        </script>
+
+            <div class="col-lg-4">
+                <label class="labelWidthExtra">  Област:
+                    <!--/*@thymesVar id="address" type="model"*/-->
+                    <!--                <select th:field="*{address.settlementPlace.region.regionCode}">-->
+                    <select id="regionCode" th:field="*{regionCode}" style="width:150px;"   th:disabled="*{isOwnerNotPresent}" title="Преди да въведете адрес, първо попълните и запишете горните данни.">
+                        <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
+                        <option th:each="region : *{regions}"
+                                th:text="${region.regionName}"
+                                th:value="${region.regionCode}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+
+
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+            function showSettlementPlaces() {
+                $("#municipalityCode").change(function () {
+                    var regCode = $("#municipalityCode").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/municipalitiesPostData?element=1",
+                        contentType: 'text/plain; charset=UTF-8',
+                        data: regCode,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { showSettlementPlaces(); });
+            /*]]>*/
+        </script>
+            <div class="col-lg-3" th:disabled="*{isMunicipalityEnable}">
+                <label class="labelWidthExtra"  > Община:
+                    <select id="municipalityCode" th:field="*{municipalityCode}" style="width:150px;" title="Изберете област преди община">
+
+                        <option th:each="municipality : *{municipalities}"
+                                th:text="${municipality.municipalityName}"
+                                th:value="${municipality.municipalityCode}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-lg-5" th:disabled="*{isSettlementPlaceEnable}">
+                <label class="labelWidthExtra"> Населено място:
+                    <!--/*@thymesVar id="address" type="model"*/-->
+
+                    <select  th:field="*{address.settlementPlace.settlementPlaceType}" >
+
+                        <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
+                        <option th:each="settlementPlaceNomenclature : *{settlementPlacesNomenclature}"
+                                th:text="${settlementPlaceNomenclature}"
+                                th:value="${settlementPlaceNomenclature}">
+                        </option>
+                    </select>
+                    <select th:field="*{address.settlementPlace.ekatte}" style="width:150px;" title="Изберете община преди селище" required="true"
+                            oninvalid="this.setCustomValidity('Населеното място е задължително поле')" oninput="this.setCustomValidity('')" >
+                        <option th:each="settlementPlace : *{settlementPlaces}"
+                                th:text="${settlementPlace.settlementPlaceName}"
+                                th:value="${settlementPlace.ekatte}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <label class="labelWidthExtra col-lg-4" > Улица:
+                <input type="text" th:field="*{address.street}" th:disabled="!*{isSettlementPlaceEnable}"/>
+            </label>
+
+            <div class="col-lg-6" >
+                <label class="labelWidthExtra" > Номер:
+                    <input type="text" th:field="*{address.number}"  th:disabled="!*{isSettlementPlaceEnable}"  />
+                </label>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-lg-4" >
+                <label class="labelWidthExtra" > Допълнителна информация за адреса:
+                    <textarea class="text-area text-box multi-line" data-val="true" th:field="*{address.comment}"  th:disabled="!*{isSettlementPlaceEnable}"
+                              data-val-length="Maximum = 2045 characters" data-val-length-max="2045" cols="90" rows="2"></textarea>
+                </label>
+            </div>
+        </div>
+        <input hidden th:field = "*{parent1Id}" />
+        <!--<input hidden th:field = "*{parent2.id}" />-->
+        <input hidden th:field = "*{address.id}" />
+        <br>
+        <input type="submit" value="Запишете адреса" class="btn btn-primary pull-right" th:disabled="*{isOwnerNotPresent}" />
+    </form>
+
+
+    <form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
+        <th:div class="container" >
+            <div class="row">
+                <div class="col-lg-2">
+                    <label class="labelWidthExtra"> Родител/Настойник
+                        <select th:field="*{parent2.parentType.parentTypeCode}">
+                            <option th:each="parentType : *{parentTypes}"
+                                    th:text="${parentType.parentTypeName}"
+                                    th:value="${parentType.parentTypeCode}">
+                        </select>
+                    </label>
+                </div>
+
+                <div class="col-lg-6">
+                    <label  class="labelWidthExtra"> Име:
+                        <input type="text" th:field="*{parent2.parentName}" size="50" />
+                    </label>
+                </div>
+                <div class="col-lg-4">
+                    <label> Телефонен номер:
+                        <input type="text" th:field="*{parent2.telephoneNumber}" />
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-6 ">
+                    <label  class="labelWidthExtra"> Месторабота:
+                        <input type="text" th:field="*{parent2.placeOfWork}" size="50" />
+                    </label>
+                </div>
+                <div class="col-lg-4">
+                    <label> Бизнес телефонен номер:
+                        <input type="text" th:field="*{parent2.businessTelephoneNumber}" />
+                    </label>
+                </div>
+            </div>
+            <br/>
+            <input hidden th:field = "*{parent2.id}" />
+            <input hidden th:field = "*{parent2.parentAddress.id}" id="parent2AddressId"/>
+            <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+        </th:div>
+    </form>
+
+    <form action="#" th:action="@{/addressPostData}" th:object="${addressForm2}" method="post" class="container alert alert-info">
+
+        <H3 class="text-center" th:text="*{'Адрес на ' + addressAbout}" > </H3>
+        <br/><br/>
+        <div class="row">
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+            function showMunicipalities2() {
+                $("#regionCode2").change(function () {
+                    var regCode = $("#regionCode2").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/regionPostData?element=2",
+                        contentType: 'text/plain; charset=UTF-8',
+                        data: regCode,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { showMunicipalities2(); });
+            /*]]>*/
+        </script>
+
+            <div class="col-lg-4">
+                <label class="labelWidthExtra">  Област:
+                    <!--/*@thymesVar id="address" type="model"*/-->
+                    <!--                <select th:field="*{address.settlementPlace.region.regionCode}">-->
+                    <select id="regionCode2" th:field="*{regionCode2}" style="width:150px;"   th:disabled="*{isOwner2NotPresent}" title="Преди да въведете адрес, първо попълните и запишете горните данни.">
+                        <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
+                        <option th:each="region : *{regions}"
+                                th:text="${region.regionName}"
+                                th:value="${region.regionCode}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+
+
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+            function showSettlementPlaces2() {
+                $("#municipalityCode2").change(function () {
+                    var regCode2 = $("#municipalityCode2").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/municipalitiesPostData?element=2",
+                        contentType: 'text/plain; charset=UTF-8',
+                        data: regCode2,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { showSettlementPlaces2(); });
+            /*]]>*/
+        </script>
+            <div class="col-lg-3" th:disabled="*{isMunicipalityEnable2}">
+                <label class="labelWidthExtra"  > Община:
+                    <select id="municipalityCode2" th:field="*{municipalityCode2}" style="width:150px;" title="Изберете област преди община">
+
+                        <option th:each="municipality : *{municipalities2}"
+                                th:text="${municipality.municipalityName}"
+                                th:value="${municipality.municipalityCode}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+            <div class="col-lg-5" th:disabled="*{isSettlementPlaceEnable2}">
+                <label class="labelWidthExtra"> Населено място:
+                    <!--/*@thymesVar id="address" type="model"*/-->
+
+                    <select  th:field="*{address2.settlementPlace.settlementPlaceType}" >
+
+                        <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
+                        <option th:each="settlementPlaceNomenclature : *{settlementPlacesNomenclature}"
+                                th:text="${settlementPlaceNomenclature}"
+                                th:value="${settlementPlaceNomenclature}">
+                        </option>
+                    </select>
+                    <select th:field="*{address2.settlementPlace.ekatte}" style="width:150px;" title="Изберете община преди селище" required="true"
+                            oninvalid="this.setCustomValidity('Населеното място е задължително поле')" oninput="this.setCustomValidity('')" >
+                        <option th:each="settlementPlace : *{settlementPlaces2}"
+                                th:text="${settlementPlace.settlementPlaceName}"
+                                th:value="${settlementPlace.ekatte}">
+                        </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <!--        <div class="col-lg-6">-->
+            <label class="labelWidthExtra col-lg-4" > Улица:
+                <input type="text" th:field="*{address2.street}" th:disabled="!*{isSettlementPlaceEnable2}"/>
+            </label>
+            <!--        </div>-->
+
+            <div class="col-lg-6" >
+                <label class="labelWidthExtra" > Номер:
+                    <input type="text" th:field="*{address2.number}"  th:disabled="!*{isSettlementPlaceEnable2}"  />
+                </label>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-lg-4" >
+                <label class="labelWidthExtra" > Допълнителна информация за адреса:
+                    <textarea class="text-area text-box multi-line" data-val="true" th:field="*{address2.comment}"  th:disabled="!*{isSettlementPlaceEnable2}"
+                              data-val-length="Maximum = 2045 characters" data-val-length-max="2045" cols="90" rows="2"></textarea>
+                </label>
+            </div>
+        </div>
+        <input hidden th:field = "*{parent2Id}" />
+        <!--<input hidden th:field = "*{parent2.id}" />-->
+        <input hidden th:field = "*{address2.id}" />
+        <br>
+        <input type="submit" value="Запишете адреса" class="btn btn-primary pull-right" th:disabled="*{isOwner2NotPresent}" />
+    </form>
+    <form  class="container alert alert-info" th:fragment="linksFragment">
+        <th:div class="container">
+            <div class="row">
+                <div class="col-lg-1 ">
+                    <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+                </div>
+                <div class="col-lg-2 ">
+                    <a class="btn btn-primary pull-left" href="home" role="button" >Към начало</a>
+                </div>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    function cleanParentDataOnLzpkRedirect() {
+                        $("#lzpkLink").click(function () {
+                            $.ajax({
+                                type: "POST",
+                                url: "/cleanSessionParentDataOnLzpkRedirect",
+                                contentType: 'text/plain; charset=UTF-8',
+                                success: function () {
+                                    location.reload();
+                                }
+                            });
+                        })
+                    }
+                    $(function() { cleanParentDataOnLzpkRedirect(); });
+                    /*]]>*/
+                </script>
+                <div class="col-lg-4 text-center" >
+                    <a th:href="lzpk" th:text="'Към ЛЗПК на ученика'" id="lzpkLink" class="btn btn-primary pull-center"></a>
+                </div>
+            </div>
+            </div>
+        </th:div>
+    </form>
+</body>
+</html>

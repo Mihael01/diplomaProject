@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment"></head>
+
+<body>
+<form action="#" th:action="@{/classmatesPostData}" th:object="${classmatesForm}" method="post"  class="container alert alert-info">
+
+    <H3 class="text-center">Списъци на учениците по класове</H3>
+    <br/>
+    <th:div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                    <!--/*@thymesVar id="lzpk" type="model"*/-->
+                    <select th:field="*{class_}" id="class_">
+                        <option th:each="class_ : *{classesNomenclature}"
+                                th:text="${class_}"
+                                th:value="${class_}">
+                        </option>
+                    </select>
+            </div>
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+            function showClassmates() {
+                $("#classLetter").change(function () {
+
+                    var class_ =  $("#class_").val();
+                    var classLetter = $("#classLetter").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/classmatesPostData?class_=" + class_ + "&classLetter=" + classLetter,
+                        contentType: 'text/plain; charset=UTF-8',
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { showClassmates(); });
+            /*]]>*/
+        </script>
+            <div class="col-lg-2">
+                    <select th:field="*{classLetter}" id="classLetter">
+                        <option th:each="classLetter : *{classLettersNomenclature}"
+                                th:text="${classLetter}"
+                                th:value="${classLetter}">
+                        </option>
+                    </select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div>
+                <table>
+                    <tr>
+                        <th>Клас</th>
+                        <th>Паралелка</th>
+                        <th>№</th>
+                        <th>Име</th>
+                        <th>Презиме</th>
+                        <th>Фамилия</th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="classmate : *{classmates}">
+                        <td th:text="${classmate.class_}"></td>
+                        <td th:text="${classmate.classLetter}"></td>
+                        <td th:text="${classmate.studentNumber}"></td>
+                        <td th:text="${classmate.firstName}"></td>
+                        <td th:text="${classmate.middleName}"></td>
+                        <td th:text="${classmate.lastName}"></td>
+                        <td th:value="${classmate.id}">Към данни за ученика </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+    </th:div>
+<!--</form>-->
+<!--    <form action="#" th:action="@{/schoolPostData}" th:object="${schoolForm}" method="post"  class="container alert alert-info">-->
+
+        <!--<H3 class="text-center">Лични данни на ученика</H3>-->
+        <!--<br/>-->
+
+        <!--<th:div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-4 ">-->
+                    <!--<label class="labelWidthExtra"> Име:-->
+                        <!--<input type="text" th:field="*{student.firstName}"  required="true" oninvalid="this.setCustomValidity('Полето е задължително')" oninput="this.setCustomValidity('')"/>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 ">-->
+                    <!--<label lass="labelWidthExtra"> Презиме:-->
+                        <!--<input type="text" th:field="*{student.middleName}" required="true" oninvalid="this.setCustomValidity('Полето е задължително')" oninput="this.setCustomValidity('')"/>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4">-->
+                    <!--<label class="labelWidthExtra">  Фамилия:-->
+                        <!--<input type="text"  th:field="*{student.lastName}" required="true" oninvalid="this.setCustomValidity('Полето е задължително')" oninput="this.setCustomValidity('')"/>-->
+                    <!--</label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br/><br/>-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-lg-4">-->
+                    <!--<label class="labelWidthExtra" th:label="'Въведете дата във формат: 01.01.2021'">  Роден на:-->
+                        <!--<input type="date" title="Изберете дата" th:field="*{student.birthDate}" required="true"-->
+                               <!--oninvalid="this.setCustomValidity('Датата е задължително поле')" oninput="this.setCustomValidity('')" />-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4">-->
+                    <!--<label class="labelWidthExtra">  Роден в:-->
+                        <!--<input type="text" th:field="*{student.birthPlace}" />-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4">-->
+                    <!--<label class="labelWidthExtra">  ЕГН:-->
+                        <!--<input type="text" th:field="*{student.egn}" />-->
+                    <!--</label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br/><br/>-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-1">-->
+                    <!--<label class="labelWidthExtra"> Клас:-->
+                        <!--&lt;!&ndash;/*@thymesVar id="lzpk" type="model"*/&ndash;&gt;-->
+                        <!--<select th:field="*{student.class_}">-->
+                            <!--<option th:each="class_ : *{classesNomenclature}"-->
+                                    <!--th:text="${class_}"-->
+                                    <!--th:value="${class_}">-->
+                            <!--</option>-->
+                        <!--</select>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-1">-->
+                    <!--<label class="labelWidthExtra"> Паралелка:-->
+                        <!--<select th:field="*{student.classLetter}">-->
+                            <!--<option th:each="classLetter : *{classLettersNomenclature}"-->
+                                    <!--th:text="${classLetter}"-->
+                                    <!--th:value="${classLetter}">-->
+                            <!--</option>-->
+                        <!--</select>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-1">-->
+                    <!--<label class="labelWidthExtra"> Пол:-->
+                        <!--<select  th:field="*{student.sexType.sexTypeCode}" >-->
+                            <!--<option th:each="sexType : *{sexNomenclature}"-->
+                                    <!--th:text="${sexType.sexTypeName}"-->
+                                    <!--th:value="${sexType.sexTypeCode}">-->
+                            <!--</option>-->
+                        <!--</select>-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4">-->
+                    <!--<label> Телефонен номер на ученика:-->
+                        <!--<input type="text" th:field="*{student.telephoneNumber}" />-->
+                    <!--</label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<input hidden th:field = "*{student.id}" />-->
+            <!--<input hidden th:field = "*{student.lzpk.id}" />-->
+            <!--<input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>-->
+        <!--</th:div>-->
+
+    <!--</form>-->
+
+
+    <!--<div th:insert="address :: addressFragment" ></div>-->
+
+    <!--<form  class="container alert alert-info" th:object="${buttonsForm}">-->
+        <!--<th:div class="container">-->
+            <!--<div class="row">-->
+                <!--<script th:inline="javascript">-->
+                    <!--/*<![CDATA[*/-->
+                    <!--function cleanDataOnHomeRedirect() {-->
+                        <!--$("#home").click(function () {-->
+                            <!--$.ajax({-->
+                                <!--type: "POST",-->
+                                <!--url: "/cleanSessionDataOnHomeRedirect",-->
+                                <!--contentType: 'text/plain; charset=UTF-8',-->
+                                <!--success: function () {-->
+                                    <!--location.reload();-->
+                                <!--}-->
+                            <!--});-->
+                        <!--})-->
+                    <!--}-->
+                    <!--$(function() { cleanDataOnHomeRedirect(); });-->
+                    <!--/*]]>*/-->
+                <!--</script>-->
+                <!--<div class="col-lg-2">-->
+                    <!--<a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>-->
+                <!--</div>-->
+                <!--<div class="col-lg-3">-->
+                    <!--<a class="btn btn-primary рull-right " href="parents" role="button" th:disabled="*{hasNotStudent}" >Към данни за родителите</a>-->
+                <!--</div>-->
+                <!--<div th:if="${session.containsKey('studentId')}" th:text="${session.studentId}"></div>-->
+                <!--<div class="col-lg-3 text-center">-->
+                    <!--<a th:href="basedata" th:text="'Към основна здравна информация'" class="btn btn-primary рull-right"-->
+                       <!--th:disabled="*{hasNotStudent}"  ></a>-->
+                <!--</div>-->
+
+                <!--<div class="col-lg-3">-->
+                    <!--<a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към профилактични прегледи</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br/><br/>-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-2">-->
+                <!--</div>-->
+                <!--<div class="col-lg-3">-->
+                    <!--<a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към здравословно състояние</a>-->
+                <!--</div>-->
+                <!--<div class="col-lg-3">-->
+                    <!--<a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към физическа дееспособност</a>-->
+                <!--</div>-->
+                <!--<div class="col-lg-3">-->
+                    <!--<a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към вредни навици и пристрастявания</a>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</th:div>-->
+    </form>
+</body>
+</html>

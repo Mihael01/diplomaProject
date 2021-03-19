@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+<!--    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>-->
+
+<!--    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>-->
+</head>
+
+<body>
+<form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
+    <th:div class="container" >
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="labelWidthExtra"> Родител/Настойник
+                    <select th:field="*{parent1.parentType.parentTypeCode}">
+                        <option th:each="parentType : *{parentTypes}"
+                                th:text="${parentType.parentTypeName}"
+                                th:value="${parentType.parentTypeCode}">
+                    </select>
+                </label>
+            </div>
+
+
+
+            <!--<div class="col-lg-4">-->
+                <!--<label class="labelWidthExtra">  Област:-->
+                    <!--&lt;!&ndash;/*@thymesVar id="address" type="model"*/&ndash;&gt;-->
+                    <!--&lt;!&ndash;                <select th:field="*{address.settlementPlace.region.regionCode}">&ndash;&gt;-->
+                    <!--<select id="regionCode" th:field="*{regionCode}" style="width:150px;"   th:disabled="*{isOwnerNotPresent}" title="Преди да въведете адрес, първо попълните и запишете горните данни.">-->
+                        <!--&lt;!&ndash;/*@thymesVar id="settlementPlacesNomenclature" type="model"*/&ndash;&gt;-->
+                        <!--<option th:each="region : *{regions}"-->
+                                <!--th:text="${region.regionName}"-->
+                                <!--th:value="${region.regionCode}">-->
+                        <!--</option>-->
+                    <!--</select>-->
+                <!--</label>-->
+            <!--</div>-->
+
+
+            <!--<div class="col-lg-6 ">-->
+                <!--<label for="parentName" class="labelWidthExtra"> Име:-->
+                    <!--<input type="text"-->
+                           <!--id="parentName" name="parentName" size="50" />-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div class="col-lg-4">-->
+                <!--<label for="parentTelephoneNumber" > Телефонен номер:-->
+                    <!--<input type="text"-->
+                           <!--th:value="'088 000 00 00'" id="parentTelephoneNumber" name="parentTelephoneNumber" />-->
+                <!--</label>-->
+            <!--</div>-->
+        </div>
+        <br/>
+        <input type="submit" value="Запишете данните за родителя" class="btn btn-primary pull-right"/>
+    </th:div>
+</form>
+<form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
+    <th:div class="container" >
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="labelWidthExtra"> Родител / Настойник
+                    <select th:field="*{parent2.parentType.parentTypeCode}">
+                        <option th:each="parentType : *{parentTypes}"
+                                th:text="${parentType.parentTypeName}"
+                                th:value="${parentType.parentTypeCode}">
+                    </select>
+                </label>
+            </div>
+
+
+
+            <!--<div class="col-lg-4">-->
+            <!--<label class="labelWidthExtra">  Област:-->
+            <!--&lt;!&ndash;/*@thymesVar id="address" type="model"*/&ndash;&gt;-->
+            <!--&lt;!&ndash;                <select th:field="*{address.settlementPlace.region.regionCode}">&ndash;&gt;-->
+            <!--<select id="regionCode" th:field="*{regionCode}" style="width:150px;"   th:disabled="*{isOwnerNotPresent}" title="Преди да въведете адрес, първо попълните и запишете горните данни.">-->
+            <!--&lt;!&ndash;/*@thymesVar id="settlementPlacesNomenclature" type="model"*/&ndash;&gt;-->
+            <!--<option th:each="region : *{regions}"-->
+            <!--th:text="${region.regionName}"-->
+            <!--th:value="${region.regionCode}">-->
+            <!--</option>-->
+            <!--</select>-->
+            <!--</label>-->
+            <!--</div>-->
+
+
+            <!--<div class="col-lg-6 ">-->
+            <!--<label for="parentName" class="labelWidthExtra"> Име:-->
+            <!--<input type="text"-->
+            <!--id="parentName" name="parentName" size="50" />-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="col-lg-4">-->
+            <!--<label for="parentTelephoneNumber" > Телефонен номер:-->
+            <!--<input type="text"-->
+            <!--th:value="'088 000 00 00'" id="parentTelephoneNumber" name="parentTelephoneNumber" />-->
+            <!--</label>-->
+            <!--</div>-->
+        </div>
+        <br/>
+        <input type="submit" value="Запишете данните за родителя" class="btn btn-primary pull-right"/>
+    </th:div>
+</form>
+</body>
+</html>

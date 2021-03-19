@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment"></head>
+
+<body>
+<!--healthcondition.html-->
+<form action="#" th:action="@{/addressPostData}" th:object="${addressForm}" method="post" class="container alert alert-info">
+    <H3 class="text-center">Здравословно състояние на ученика</H3>
+    <th:div class="container" >
+        <div class="col-lg-12 ">
+
+        <div class="row">
+            <label for="examinationDate" class="labelWidthExtra"> Дата на прегледа:
+                <input type="text"
+                       id="examinationDate" name="examinationDate" />
+            </label>
+        </div>
+
+        <br/>
+        <div class="row">
+            <label class="labelWidthExtra"> Диагноза: <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="diagnosis" name="diagnosis" cols="120" rows="3"></textarea>
+            </label>
+        </div>
+        <br/>
+        <div class="row">
+
+            <label class="labelWidthExtra"> Къде е лекуван ученикът (лечебно заведение) <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="treatmentPlace" name="treatmentPlace" cols="120" rows="2"></textarea>
+            </label>
+
+        </div>
+        <br/>
+        <div class="row">
+            <label class="labelWidthExtra"> Резултат от лечението <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="treatmentResult" name="treatmentResult" cols="120" rows="3"></textarea>
+            </label>
+        </div>
+        <br/>
+        <div class="row">
+
+            <label class="labelWidthExtra"> Диспансеризация (заболяване, диспансерна група) <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="dispensarysation" name="dispensarysation" cols="120" rows="2"></textarea>
+            </label>
+
+        </div>
+        <br/>
+        <div class="row">
+            <label class="labelWidthExtra"> От кого се наблюдава <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="observer" name="observer" cols="120" rows="2"></textarea>
+            </label>
+        </div>
+        <br/>
+
+        <div class="row">
+            <label class="checkbox-inline">
+                <input type="checkbox" value="" id="additionalActivities">Необходимост от провеждане на допълнителни мероприатия
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" value="" id="exemptFromPhysicalEducation">Освобождаване от физкултура
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" value="" id="therapeuticPhysicalEducation">Включване в групи по лечебна физкултура
+            </label>
+        </div>
+            <br/>
+            <div class="row">
+            <label class="labelWidthExtra"> Необходимост от провеждане на допълнителни мероприятия (Описание) <br/>
+                <textarea class="text-area text-box multi-line" data-val="true"
+                          id="additionalActivitiesDescription" name="additionalActivitiesDescription" cols="120" rows="2"></textarea>
+            </label>
+            </div>
+        <br/>
+        <div class="row">
+            <div class="col-lg-3">
+                <label class="checkbox-inline"><b>Имунизации и реимунизации: </b>
+                </label>
+            </div>
+            <div class="col-lg-4 ">
+                <input type="checkbox" value="" id="mandatoryImmunizationFlag"> Подлежи/не подлежи за възрастта
+            </div>
+            <div class="col-lg-4 ">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="" id="missingImmunizationFlag"> Има/няма <b>лиспващи</b> за възрастта
+                </label>
+            </div>
+
+<!--        </div>-->
+
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-primary рull-right" href="/imunisations" role="button">Към всички имунизации/реимунизации</a>
+
+            <input type="submit" value="Запишете здравословното състояние" class="btn btn-primary pull-right"/>
+            </div>
+        </div>
+        </div>
+        </div>
+    </th:div>
+</form>
+<form  class="container alert alert-info">
+    <th:div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <a class="btn btn-primary pull-left " href="#" role="button">Към начало</a>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right " href="#" role="button">Към данни за родителите</a>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right " href="#" role="button">Към основна здравна информация</a>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right" href="#" role="button">Към профилактични прегледи</a>
+            </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right" href="#" role="button">Към ЛЗПК</a>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right" href="#" role="button">Към физическа дееспособност</a>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right" href="#" role="button">Към вредни навици и пристрастявания</a>
+            </div>
+
+        </div>
+    </th:div>
+</form>
+</body>
+</html>

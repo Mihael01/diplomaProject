@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="header :: headerFragment">
+
+</head>
+<body>
+<form action="#"   class="container alert alert-info">
+
+    <H2 class="text-center" th:text="Начало" > </H2>
+    <br/>
+    <H3 class="text-center" th:text="'Основни данни'" > </H3>
+    <br/><br/>
+    <div class="row">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            function cleanDataOnSchoolRedirect() {
+                $("#schoolLink").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/cleanSessionDataOnSchoolRedirect",
+                        contentType: 'text/plain; charset=UTF-8',
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { cleanDataOnSchoolRedirect(); });
+            /*]]>*/
+        </script>
+        <div class="col-lg-4 text-center" >
+            <a th:href="school" id="schoolLink" th:text="'Към данни за училището и училищното медицинско лице'" class="btn btn-primary pull-center"></a>
+        </div>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            function cleanDataOnLzpkRedirect() {
+                $("#lzpkLink").click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/cleanSessionDataOnLzpkRedirect",
+                        contentType: 'text/plain; charset=UTF-8',
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                })
+            }
+            $(function() { cleanDataOnLzpkRedirect(); });
+            /*]]>*/
+        </script>
+        <div class="col-lg-4 text-center" >
+            <a th:href="lzpk" th:text="'Създай ЛЗПК на ученик'" id="lzpkLink" class="btn btn-primary pull-center"></a>
+        </div>
+    </div>
+    <div class="row">
+        <br/>
+    </div>
+
+</form>
+</body>
+</html>
