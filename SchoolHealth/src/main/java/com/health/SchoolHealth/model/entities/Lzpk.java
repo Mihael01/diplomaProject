@@ -1,19 +1,26 @@
 package com.health.SchoolHealth.model.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "lzpk")
 public class Lzpk {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "lzpk_number")
     private Long lzpkNumber;
 
     @Column(name = "issue_date")
-    private java.sql.Date issueDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String issueDate;
 
     @Column(name = "issued_from")
     private String issuedFrom;
@@ -37,11 +44,11 @@ public class Lzpk {
         this.lzpkNumber = lzpkNumber;
     }
 
-    public java.sql.Date getIssueDate() {
-        return this.issueDate;
+    public String getIssueDate() {
+        return issueDate;
     }
 
-    public void setIssueDate(java.sql.Date issueDate) {
+    public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
     }
 

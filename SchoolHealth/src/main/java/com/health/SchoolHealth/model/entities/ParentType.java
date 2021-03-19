@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "parent_type")
@@ -12,8 +13,8 @@ public class ParentType {
     @Column(name = "parent_type_name")
     private String parentTypeName;
 
-    @OneToOne(mappedBy = "parentTypeCode")
-    private Parent parent;
+    @OneToMany(mappedBy = "parentType")
+    private List<Parent> parents;
 
     public String getParentTypeCode() {
         return this.parentTypeCode;
@@ -31,11 +32,11 @@ public class ParentType {
         this.parentTypeName = parentTypeName;
     }
 
-    public Parent getParent() {
-        return parent;
+    public List<Parent> getParents() {
+        return parents;
     }
 
-    public void setParent(Parent parent) {
-        this.parent = parent;
+    public void setParents(List<Parent> parents) {
+        this.parents = parents;
     }
 }

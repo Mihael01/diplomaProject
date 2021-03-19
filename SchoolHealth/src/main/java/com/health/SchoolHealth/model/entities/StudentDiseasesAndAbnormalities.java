@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class StudentDiseasesAndAbnormalities {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

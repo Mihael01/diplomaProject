@@ -1,6 +1,12 @@
 package com.health.SchoolHealth.model.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -8,15 +14,18 @@ import java.util.List;
 public class Student {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
     @Column(name = "last_name")
+    @NotNull
     private String lastName;
 
     @Column(name = "class_")
@@ -25,6 +34,9 @@ public class Student {
     @Column(name = "class_letter")
     private String classLetter;
 
+    @Column(name = "student_number")
+    private Integer studentNumber;
+
     @ManyToOne
     @JoinColumn(name = "school_id", referencedColumnName = "id")
     private School school;
@@ -32,8 +44,17 @@ public class Student {
     @Column(name = "egn")
     private Long egn;
 
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Column(name = "birth_date")
-    private java.sql.Date birthDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String birthDate;
 
     @Column(name = "birth_place")
     private String birthPlace;
@@ -45,7 +66,7 @@ public class Student {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "sex", referencedColumnName = "sex_type_code")
     private SexType sexType;
 
@@ -143,6 +164,14 @@ public class Student {
         this.classLetter = classLetter;
     }
 
+    public Integer getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(Integer studentNumber) {
+        this.studentNumber = studentNumber;
+    }
+
     public Long getEgn() {
         return this.egn;
     }
@@ -151,13 +180,21 @@ public class Student {
         this.egn = egn;
     }
 
-    public java.sql.Date getBirthDate() {
-        return this.birthDate;
-    }
+//    public java.util.Date getBirthDate() {
+//        return this.birthDate;
+//    }
+//
+//    public void setBirthDate(java.sql.Date birthDate) {
+//        this.birthDate = birthDate;
+//    }
+//    public String getBirthDate() {
+//        return this.birthDate != null ? this.birthDate.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+//                : null;
+//    }
 
-    public void setBirthDate(java.sql.Date birthDate) {
-        this.birthDate = birthDate;
-    }
+//    public void setBirthDate(String birthDate) {
+//        this.birthDate = Date.valueOf(birthDate);
+//    }
 
     public String getBirthPlace() {
         return this.birthPlace;

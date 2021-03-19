@@ -1,20 +1,20 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "school")
 public class School {
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "school_number")
     private String schoolNumber;
 
-    @OneToOne
-    @JoinColumn(name = "school_type", referencedColumnName = "school_type_code")
+    @ManyToOne
+    @JoinColumn(name = "school_type", referencedColumnName = "id")
     private SchoolType schoolType;
 
     @Column(name = "school_type_other")
@@ -34,14 +34,11 @@ public class School {
     @JoinColumn(name = "school_medics_id", referencedColumnName = "id")
     private SchoolMedics schoolMedics;
 
-    @OneToMany(mappedBy = "school")
-    private List<Student> students;
-
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -89,8 +86,8 @@ public class School {
         return schoolAddress;
     }
 
-    public void setSchoolAddress(Address schoolAddress) {
-        this.schoolAddress = schoolAddress;
+    public void setSchoolAddress(Address address) {
+        this.schoolAddress = address;
     }
 
     public SchoolMedics getSchoolMedics() {
@@ -99,13 +96,5 @@ public class School {
 
     public void setSchoolMedics(SchoolMedics schoolMedics) {
         this.schoolMedics = schoolMedics;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

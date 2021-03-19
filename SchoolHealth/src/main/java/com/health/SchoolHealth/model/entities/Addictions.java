@@ -1,8 +1,5 @@
 package com.health.SchoolHealth.model.entities;
 
-import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +7,8 @@ import javax.persistence.*;
 public class Addictions {
     @Id
     @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "addictions_description")
     private String addictionsDescription;
@@ -25,11 +23,11 @@ public class Addictions {
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

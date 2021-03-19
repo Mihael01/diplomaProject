@@ -8,14 +8,15 @@ import java.util.List;
 public class Parent {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "parent_name")
     private String parentName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "parent_type_code", referencedColumnName = "parent_type_code")
-    private ParentType parentTypeCode;
+    private ParentType parentType;
 
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -47,14 +48,6 @@ public class Parent {
 
     public void setParentName(String parentName) {
         this.parentName = parentName;
-    }
-
-    public ParentType getParentTypeCode() {
-        return this.parentTypeCode;
-    }
-
-    public void setParentTypeCode(ParentType parentTypeCode) {
-        this.parentTypeCode = parentTypeCode;
     }
 
     public String getTelephoneNumber() {
@@ -95,5 +88,13 @@ public class Parent {
 
     public void setStudentParents(List<StudentParent> studentParents) {
         this.studentParents = studentParents;
+    }
+
+    public ParentType getParentType() {
+        return parentType;
+    }
+
+    public void setParentType(ParentType parentType) {
+        this.parentType = parentType;
     }
 }

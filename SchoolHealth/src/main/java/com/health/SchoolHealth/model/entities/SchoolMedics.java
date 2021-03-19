@@ -1,13 +1,13 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "school_medics")
 public class SchoolMedics {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "school_medics_name")
@@ -22,8 +22,8 @@ public class SchoolMedics {
     @Column(name = "active_to")
     private java.sql.Date activeTo;
 
-    @OneToMany(mappedBy = "schoolMedics")
-    private List<School> schools;
+//    @OneToMany
+//    private List<School> schools;
 
     public Long getId() {
         return this.id;
@@ -65,11 +65,11 @@ public class SchoolMedics {
         this.activeTo = activeTo;
     }
 
-    public List<School> getSchools() {
-        return schools;
-    }
-
-    public void setSchools(List<School> schools) {
-        this.schools = schools;
-    }
+//    public List<School> getSchools() { TODO:  да се добави форин ключа в базата
+//        return schools;
+//    }
+//
+//    public void setSchools(List<School> schools) {
+//        this.schools = schools;
+//    }
 }

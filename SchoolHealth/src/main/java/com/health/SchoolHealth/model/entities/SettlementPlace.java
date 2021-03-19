@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "settlement_place")
@@ -23,8 +24,8 @@ public class SettlementPlace {
     @JoinColumn(name = "region_code", referencedColumnName = "region_code")
     private Region region;
 
-    @OneToOne(mappedBy = "settlementPlace")
-    private Address address;
+    @OneToMany(mappedBy = "settlementPlace")
+    private List<Address> address;
 
     public Long getEkatte() {
         return this.ekatte;
@@ -66,11 +67,11 @@ public class SettlementPlace {
         this.region = region;
     }
 
-    public Address getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 }

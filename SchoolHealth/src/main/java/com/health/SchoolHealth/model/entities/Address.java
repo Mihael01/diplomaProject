@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Address {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "street")
@@ -18,7 +19,7 @@ public class Address {
     @Column(name = "comment")
     private String comment;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ekatte", referencedColumnName = "ekatte")
     private SettlementPlace settlementPlace;
 

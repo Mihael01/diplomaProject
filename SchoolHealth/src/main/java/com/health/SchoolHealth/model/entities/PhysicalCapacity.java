@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class PhysicalCapacity {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "strength_left_hand")

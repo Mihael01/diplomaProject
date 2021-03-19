@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sex_type")
@@ -12,8 +13,8 @@ public class SexType {
     @Column(name = "sex_type_name")
     private String sexTypeName;
 
-    @OneToOne(mappedBy = "sexType")
-    private Student student;
+    @OneToMany(mappedBy = "sexType")
+    private List<Student> student;
 
     public String getSexTypeCode() {
         return this.sexTypeCode;
@@ -31,11 +32,11 @@ public class SexType {
         this.sexTypeName = sexTypeName;
     }
 
-    public Student getStudent() {
+    public List<Student> getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(List<Student> student) {
         this.student = student;
     }
 }
