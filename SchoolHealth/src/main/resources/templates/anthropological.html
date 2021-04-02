@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+</head>
+
+<body>
+<form action="#" th:action="@{/anthropologicalPostData}" th:object="${anthropologicalForm}" method="post" class="container alert alert-info">
+    <H3 class="text-center">Антропологични показатели на ученика</H3>
+    <br/><br/><br/>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <label class="labelWidthExtra"> Височина:
+                <input type="text"  th:field="*{anthropologicalIndicators.bodyHeight}" />
+            </label>
+        </div>
+        <div class="col-lg-4">
+            <label class="labelWidthExtra"> Тегло:
+                <input type="text"  th:field="*{anthropologicalIndicators.bodyWeight}" />
+            </label>
+        </div>
+         <div class="col-lg-4">
+            <label class="labelWidthExtra"> Обиколка на тялото:
+                <input type="text"  th:field="*{anthropologicalIndicators.bodyCircumference}" />
+            </label>
+        </div>
+    </div>
+    <input hidden th:field = "*{anthropologicalIndicators.id}" />
+    <br/><br/><br/>
+
+    <div class="col-lg-2">
+        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+    </div>
+    <div class="col-lg-2 ">
+        <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
+    </div>
+
+    <input type="submit" value="Запишете антропологичните показатели" class="btn btn-primary pull-right"/>
+</form>
+
+
+
+</body>
+</html>

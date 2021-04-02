@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+    <!--<style>-->
+    <!--.row{-->
+    <!--table, th, td {-->
+    <!--border: 1px solid black;-->
+    <!--border-collapse: collapse;-->
+    <!--width:100%;-->
+    <!--}-->
+    <!--}-->
+    <!--</style>-->
+</head>
+
+<body>
+<form action="#" method="post"  class="container alert alert-info">
+    <th:div class="container">
+    <H3 class="text-center">Обслужван контингент</H3>
+    <br/>
+
+        <div class="row">
+            <div>
+
+                <br/><br/>
+                <table class="table table-bordered"  >
+                    <thread>
+                        <tr>
+                            <th style="border: 2px solid white; !important" rowspan="3" class="text-center">Общ брой паралелки</th>
+                            <th style="border: 2px solid white; !important" rowspan="3" class="text-center">Общ брой ученици</th>
+                            <th  style="border: 2px solid white; !important" rowspan="1" colspan="4" class="text-center">От тях на възраст</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" class="text-center">момчета</th>
+                            <th style="border: 2px solid white; !important" class="text-center">момичета</th>
+                            <th style="border: 2px solid white; !important" class="text-center">момчета</th>
+                            <th style="border: 2px solid white; !important" class="text-center">момичета</th>
+                        </tr>
+                    </thread>
+                    <tr >
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                        <td style="border: 2px solid white; !important" rowspan="2"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <br/><br/>
+        <H3 class="text-center">Данни за антропометричните показатели</H3>
+        <br/>
+        <H4 class="text-center">Сборна таблица за оценка на ръста на учениците от училището</H4>
+        <div class="row">
+            <div>
+
+                <br/><br/>
+                <table class="table table-bordered"  >
+                    <thread>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >І група<br>норма</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >ІІ група<br>разширена норма</th>
+                            <th  style="border: 2px solid white; !important" colspan="8" class="text-center" >ІІІ група<br>извън нормата</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >брой ученици<br>(Х  1S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >брой ученици между<br>(Х  1S) и (Х  2S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >под<br>(Х - 2S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >над<br>(Х + 2S)</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                        </tr>
+
+                    </thread>
+                    <tr >
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <br/><br/>
+        <H4 class="text-center">Сборна таблица за оценка на телесната маса на учениците от училището</H4>
+        <div class="row">
+            <div>
+
+                <br/><br/>
+                <table class="table table-bordered"  >
+                    <thread>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >І група<br>норма</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >ІІ група<br>разширена норма</th>
+                            <th  style="border: 2px solid white; !important" colspan="8" class="text-center" >ІІІ група<br>извън нормата</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >брой ученици<br>(Х  1S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >брой ученици между<br>(Х  1S) и (Х  2S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >под<br>(Х - 2S)</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center" >над<br>(Х + 2S)</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >14-18 г.</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Мом-<br>чета</th>
+                            <th style="border: 2px solid white; !important" colspan="1" class="text-center" >Моми-<br>чета</th>
+                        </tr>
+
+                    </thread>
+                    <tr >
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <br/><br/>
+        <p><i>Забележка:</i>
+            Индивидуалната оценка на ръста и телесната маса за всеки ученик се определя по таблиците, посочени в Приложение № 6.</p>
+        <br/><br/>
+        <H3 class="text-center">Изследване на физическа дееспособност</H3>
+        <br/>
+        <div>Брой ученици, получили оценка над среден (3)</div>
+        <div class="row">
+            <div>
+
+                <br/><br/>
+                <table class="table table-bordered"  >
+                    <thread>
+                        <tr>
+                            <th style="border: 2px solid white; !important;" rowspan="2" class="text-center">Показател</th>
+                            <th style="border: 2px solid white; !important" rowspan="2" colspan="1" class="text-center">Общ брой<br>ученици</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center">7-14 г.</th>
+                            <th style="border: 2px solid white; !important" colspan="4" class="text-center">14-18 г.</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >Момчета</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >Момичета</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >Момчета</th>
+                            <th style="border: 2px solid white; !important" colspan="2" class="text-center" >Момичета</th>
+                        </tr>
+
+                    </thread>
+                    <tr >
+                        <td style="border: 2px solid white; !important; " >
+                            Брой ученици, получили оценка над среден (3) <br> при изследване на физическата дееспособност</td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                    </tr>
+                    <tr >
+                        <td style="border: 2px solid white; !important; " >
+                            Брой ученици, освободени от часовете по <br>физическо възпитание
+                        </td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                    </tr>
+                    <tr >
+                        <td style="border: 2px solid white; !important; "  >
+                            Брой ученици, включени в групи по лечебна <br>физкултура в училище
+                        </td>
+                        <td style="border: 2px solid white; !important" colspan="1" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                        <td  style="border: 2px solid white; !important" colspan="2" class="text-center"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <p><i>Забележка:</i>
+            Измерванията на показателите за физическа дееспособност се извършва от учителя по физическо възпитание.</p>
+    </th:div>
+</form>
+</body>
+</html>

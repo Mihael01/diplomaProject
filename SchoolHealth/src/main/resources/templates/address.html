@@ -12,6 +12,7 @@
 
 <body>
 <!--/*@thymesVar id="addressForm" type="model"*/-->
+
 <form action="#" th:action="@{/addressPostData}" th:object="${addressForm}" method="post" th:fragment="addressFragment" class="container alert alert-info">
 
     <H3 class="text-center" th:text="*{'Адрес на ' + addressAbout}" > </H3>
@@ -27,8 +28,11 @@
                         url: "/regionPostData",
                         contentType: 'text/plain; charset=UTF-8',
                         data: regCode,
-                        success: function () {
-                            location.reload();
+                        success: function (data) {
+                        <!--location.reload();-->
+                              var placeholder = document.getElementById("addressWrapperId");
+                              placeholder.innerHTML = "";
+                              $("#addressWrapperId").html(data);
                         }
                     });
                 })
@@ -40,7 +44,6 @@
         <div class="col-lg-4">
             <label class="labelWidthExtra">  Област:
                 <!--/*@thymesVar id="address" type="model"*/-->
-<!--                <select th:field="*{address.settlementPlace.region.regionCode}">-->
                 <select id="regionCode" th:field="*{regionCode}" style="width:150px;"   th:disabled="*{isOwnerNotPresent}" title="Преди да въведете адрес, първо попълните и запишете горните данни.">
                     <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
                     <option th:each="region : *{regions}"
@@ -62,8 +65,11 @@
                         url: "/municipalitiesPostData",
                         contentType: 'text/plain; charset=UTF-8',
                         data: regCode,
-                        success: function () {
-                            location.reload();
+                        success: function (data) {
+                        <!--location.reload();-->
+                            var placeholder = document.getElementById("addressWrapperId");
+                            placeholder.innerHTML = "";
+                            $("#addressWrapperId").html(data);
                         }
                     });
                 })
@@ -85,19 +91,10 @@
         <div class="col-lg-5" th:disabled="*{isSettlementPlaceEnable}">
             <label class="labelWidthExtra"> Населено място:
                 <!--/*@thymesVar id="address" type="model"*/-->
-
-                <select  th:field="*{address.settlementPlace.settlementPlaceType}" >
-
-                    <!--/*@thymesVar id="settlementPlacesNomenclature" type="model"*/-->
-                    <option th:each="settlementPlaceNomenclature : *{settlementPlacesNomenclature}"
-                            th:text="${settlementPlaceNomenclature}"
-                            th:value="${settlementPlaceNomenclature}">
-                    </option>
-                </select>
                 <select th:field="*{address.settlementPlace.ekatte}" style="width:150px;" title="Изберете община преди селище" required="true"
                         oninvalid="this.setCustomValidity('Датата е задължително поле')" oninput="this.setCustomValidity('')" >
                     <option th:each="settlementPlace : *{settlementPlaces}"
-                            th:text="${settlementPlace.settlementPlaceName}"
+                            th:text="${settlementPlace.settlementPlaceType} + ' ' + ${settlementPlace.settlementPlaceName}"
                             th:value="${settlementPlace.ekatte}">
                     </option>
                 </select>
@@ -134,6 +131,8 @@
         <input hidden th:field = "*{address.id}" />
     <br>
     <input type="submit" value="Запишете адреса" class="btn btn-primary pull-right" th:disabled="*{isOwnerNotPresent}" />
+
 </form>
+
 </body>
 </html>

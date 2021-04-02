@@ -1,66 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <title>File manager</title>
-    <script
-            src="https://code.jquery.com/jquery-3.5.1.js"
-            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-            crossorigin="anonymous"></script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <script>
+<head th:insert="header :: headerFragment">
 
-        $( document ).ready(function() {
-            console.log( "document loaded" );
-        });
-        $(window).on('load', function load() {
-
-            var pathVariable = window.location.pathname;
-
-            var pathV = "/main";
-            // if (pathVariable.length > 1) {
-            //     pathV =  pathV + pathVariable;
-            // }
-
-            console.log("Called it");
-            console.log("pathV = " + pathV);
-
-            $.ajax({
-                type: "GET",
-                url: pathV,
-                success: function (data, textStatus, jqXHR) {
-                    var placeholder = document.getElementById("placeholder");
-                    placeholder.innerHTML = "";
-                    for (const idx in data) {
-
-                        var value = data[idx]
-
-                        console.log("redirect to " + window.location.href + value);
-                        console.log("idx " + idx);
-
-                        var a = document.createElement('div');
-                        var hrf = window.location.href;
-                        hrf = hrf.replace(/\/$/, "");
-                        a.href = hrf + "/" + value;
-                        a.id = "link_" + idx;
-                        a.innerHTML = value;
-
-                        placeholder.appendChild(a);
-
-                    }
-                }
-            });
-        }
-
-    </script>
 </head>
 <body>
-<p>zdr pesho</p>
-<div id="placeholder">
-    <!--<a href="#" id="placeholder" ></a>-->
-
-</div>
-
 </body>
 </html>

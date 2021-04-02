@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment"></head>
+
+<body>
+
+<form action="#" th:action="@{/gpPostData}" th:object="${gpForm}" method="post" class="container alert alert-info">
+
+    <H3 class="text-center">Данни за личния лекар</H3>
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-6">
+            <label class="labelWidthExtra" > Име:
+                <input type="text" th:field="*{gp.gpName}"  style="width: 400px !important; min-width: 400px; max-width: 400px;"/>
+            </label>
+        </div>
+        <div class="col-lg-6">
+            <label class="labelWidthExtra"> Телефонен номер на личния лекар:
+                <input type="text" th:field="*{gp.gpTelephoneNumber}" />
+            </label>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-6">
+            <label class="labelWidthExtra" > Медицински център:
+                <input type="text" th:field="*{gp.medicalCenter}" style="width: 285px !important; min-width: 285px; max-width: 285px;"/>
+            </label>
+        </div>
+    </div>
+    <input type="hidden" th:field="*{gp.id}" />
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-1 ">
+            <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+        </div>
+        <div class="col-lg-10 ">
+        </div>
+        <div class="col-lg-1 float-right">
+            <input type="submit" value="Запишете данните за  личния лекар" class="btn btn-primary pull-right"/>
+        </div>
+    </div>
+</form>
+</body>
+</html>

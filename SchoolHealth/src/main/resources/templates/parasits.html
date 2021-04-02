@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment"></head>
+
+<body>
+<th:div class="container" id="immunizationInput">
+<form action="#" th:action="@{/parasitsPostData}" th:object="${gpForm}" method="post"  class="container alert alert-info">
+
+        <H4 class="text-center">Открити паразити на ученика</H4>
+        <br/>
+
+        <div class="row" >
+            <div class="col-lg-6">
+                <label class="labelWidthExtra">  Паразити:
+                    <select id="dispensaryObservIllnessTypeCode" style="width: 700px !important; min-width: 700px; max-width: 700px;"   >
+                        <option value="Изберете" selected>Изберете</option>
+                        <!--<option th:each="dispensaryObservationIllnessType : *{dispensaryObservationIllnessTypes}"-->
+                                <!--th:text="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeName}"-->
+                                <!--th:value="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeCode}">-->
+                        <!--</option>-->
+                    </select>
+                </label>
+            </div>
+        </div>
+
+    <br/><br/>
+
+
+
+    <div class="col-lg-2">
+        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+    </div>
+    <div class="col-lg-1 ">
+        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+    </div>
+    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+
+    <!--<input hidden th:field = "*{immunization.id}" />-->
+
+    <br/><br/>PhysicalCapacity
+
+</form>
+</th:div>
+</body>
+</html>

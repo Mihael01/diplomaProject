@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+</head>
+
+
+<!--public class User {-->
+<!--@Id-->
+<!--@Column(name = "id")-->
+<!--@GeneratedValue(strategy=GenerationType.IDENTITY)-->
+<!--private Long id;-->
+
+<!--@Column(name = "first_name")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String firstName;-->
+
+<!--@Column(name = "middle_name")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String middleName;-->
+
+<!--@Column(name = "last_name")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String lastName;-->
+
+<!--@Column(name = "user_name")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String userName;-->
+
+<!--@Column(name = "password")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String password;-->
+
+<!--@Column(name = "matching_password")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String matchingPassword;-->
+
+<!--@Column(name = "email")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--@ValidEmail-->
+<!--private String email;-->
+
+<!--@Column(name = "user_type")-->
+<!--@NotNull-->
+<!--@NotEmpty-->
+<!--private String userType;-->
+
+
+
+
+
+<body>
+
+<form action="#"  th:action="@{/userLoginPostData}" th:object="${userLoginForm}"  method="post"  class="container alert alert-info">
+    <br>
+    <H2 class="text-center">Информационна система "УЧИЛИЩНО ЗДРАВЕ"</H2>
+    <br>
+    <H3 class="text-center"><b>Вход</b></H3>
+        <br><br>
+
+        <div class="row">
+            <div class="col-lg-2"><label span="2">Потребителско име</label></div>
+            <div class="col-lg-2"><input span="2" id="userName"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-2"><label >Парола</label></div>
+            <div class="col-lg-2"><input span="2" id="password"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                    alert("Ще получите нова парола на Вашия e-mail.", "")
+                /*]]>*/
+            </script>
+            <div class="col-lg-8 float-left">
+                <a th:href="@{/login.html}" class="btn btn-primary" ><b>Забравена парола</b></a>
+            </div>
+
+            <div class="col-lg-2 float-right">
+            <a th:href="@{/registration.html}" class="btn btn-primary" ><b>Регистрация</b></a>
+            </div>
+            <div class="col-lg-1 float-right">
+            <button type="submit"  class="btn btn-primary" ><b>Вход</b></button>
+            </div>
+        </div>
+
+</form>
+
+
+<!--<form action="#"  th:action="@{/userRegistrationPostData}" th:object="${userRegistrationForm}"  method="post"  class="container alert alert-info">-->
+    <!--<H3 class="text-center">Регистрация</H3>-->
+
+    <!--<div>-->
+        <!--<label th:text="#{label.user.firstName}">first</label>-->
+        <!--<input th:field="*{user.firstName}"/>-->
+        <!--<p th:each="error: ${#fields.errors('user.firstName')}"-->
+           <!--th:text="${error}">Validation error</p>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<label th:text="#{label.user.lastName}">last</label>-->
+        <!--<input th:field="*{user.lastName}"/>-->
+        <!--<p th:each="error : ${#fields.errors('user.lastName')}"-->
+           <!--th:text="${error}">Validation error</p>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<label th:text="#{label.user.email}">email</label>-->
+        <!--<input type="email" th:field="*{user.email}"/>-->
+        <!--<p th:each="error : ${#fields.errors('user.email')}"-->
+           <!--th:text="${error}">Validation error</p>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<label th:text="#{label.user.password}">password</label>-->
+        <!--<input type="password" th:field="*{user.password}"/>-->
+        <!--<p th:each="error : ${#fields.errors('user.password')}"-->
+           <!--th:text="${error}">Validation error</p>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<label th:text="#{label.user.confirmPass}">confirm</label>-->
+        <!--<input type="password" th:field="*{user.matchingPassword}"/>-->
+    <!--</div>-->
+    <!--<button type="submit" th:text="#{label.form.submit}">submit</button>-->
+<!--</form>-->
+
+<!--<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>-->
+
+<!--</form>-->
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+</head>
+
+<body>
+<form action="#"  th:action="@{/userPostData}" th:object="${gpForm}"  method="post"  class="container alert alert-info">
+
+
+
+    <!--@Column(name = "strength_left_hand")-->
+    <!--private String strengthLeftHand;-->
+
+    <!--@Column(name = "strength_right_hand")-->
+    <!--private String strengthRightHand;-->
+
+    <!--@Column(name = "running")-->
+    <!--private String running;-->
+
+    <!--@Column(name = "long_jump")-->
+    <!--private String longJump;-->
+
+    <!--@Column(name = "throwing_ball")-->
+    <!--private String throwingBall;-->
+
+    <!--@Column(name = "maximum_squats")-->
+    <!--private Long maximumSquats;-->
+
+    <!--@Column(name = "physical_capacity_mark")-->
+    <!--private Long physicalCapacityMark;-->
+
+
+
+    <H3 class="text-center"><b>Физическа дееспособност</b></H3>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label >Мускулна сила на лява ръка</label></div>
+            <div class="col-lg-3"><input id="strengthLeftHand"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label span="2">Мускулна сила на дясна ръка</label></div>
+            <div class="col-lg-3"><input span="2" id="strengthRightHand"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label span="2" >Гладко бягане</label></div>
+            <div class="col-lg-3"><input span="2" id="running"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label span="2">Скок на дължина</label></div>
+            <div class="col-lg-3"><input span="2" id="longJump"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label >Хвърляне на малка плътна топка</label></div>
+            <div class="col-lg-3"><input span="2" id="throwingBall"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label span="2">Mаксимален брой клякания</label></div>
+            <div class="col-lg-3"><input span="2" id="maximumSquats"/></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-5"><label >Обща оценка на ученика за физическа дееспособност</label></div>
+            <div class="col-lg-3"><input id="physicalCapacityMark"/></div>
+        </div>
+
+        <br><br>
+
+        <div class="col-lg-2">
+            <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+        </div>
+        <div class="col-lg-3 ">
+            <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
+        </div>
+
+        <input type="submit" value="Зпишете Данните" class="btn btn-primary pull-right"/>
+
+</form>
+
+
+</body>
+</html>
