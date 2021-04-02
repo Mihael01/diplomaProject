@@ -37,7 +37,8 @@ CONSTRAINT region_code_fk FOREIGN KEY (region_code) REFERENCES region(region_cod
 CREATE TABLE IF NOT EXISTS address(
 id INT NOT NULL AUTO_INCREMENT,
 street VARCHAR(30),
-number VARCHAR(10),
+
+ VARCHAR(10),
 comment VARCHAR(50), # Допълнителна информация за адреса
 ekatte INT(5),
 CONSTRAINT address_pk PRIMARY KEY (id),
@@ -341,6 +342,31 @@ create table IF NOT EXISTS test_table
 alter table test_table
     add primary key (test_code);
 
+#======================
+#======================
+#======================
+select * from student;
+alter table student add column student_number INT(2);
+
+
+#Добавяме първичен ключ към таблица родител - ученик
+ALTER TABLE student_parent
+CHANGE id id INT AUTO_INCREMENT;
+
+ALTER TABLE health_condition MODIFY additional_activities_description VARCHAR(500);
+
+#Добавяме AUTO_INCREMENT към първичен ключ към таблица ученик - паразити
+ALTER TABLE student_dispensary_observation
+CHANGE id id INT AUTO_INCREMENT;
+
+#Добавяме AUTO_INCREMENT към първичен ключ към таблица ученик - паразити
+ALTER TABLE student_diseases_and_abnormalities
+CHANGE id id INT AUTO_INCREMENT;
+
+#Променяме цялата част на височина и тегло да съдържа 3 цифри
+ALTER TABLE anthropological_indicators
+CHANGE body_height body_height DECIMAL(5,2), # Височина 
+CHANGE body_weight body_weight DECIMAL(5,2); # Телесна маса
 
 
 
