@@ -23,18 +23,18 @@ public class HealthCondition {
     @Column(name = "treatment_result")
     private String treatmentResult;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "additional_activities", referencedColumnName = "confirmation_flag_code")
     private ConfirmationFlag additionalActivities;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "exempt_from_physical_education", referencedColumnName = "confirmation_flag_code")
     private ConfirmationFlag exemptFromPhysicalEducation;
 
     @Column(name = "additional_activities_description")
     private String additionalActivitiesDescription;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "therapeutic_physical_education", referencedColumnName = "confirmation_flag_code")
     private ConfirmationFlag therapeuticPhysicalEducation;
 
@@ -44,15 +44,15 @@ public class HealthCondition {
     @Column(name = "observer")
     private String observer;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "mandatory_immunization_flag", referencedColumnName = "immunization_comment_code")
     private ImmunizationComment mandatoryImmunizationFlag;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "missing_immunization_flag", referencedColumnName = "confirmation_flag_code")
     private ConfirmationFlag missingImmunizationFlag;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "parasites", referencedColumnName = "confirmation_flag_code")
     private ConfirmationFlag parasites;
 

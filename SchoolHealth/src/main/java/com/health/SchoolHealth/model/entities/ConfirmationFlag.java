@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "confirmation_flag")
@@ -12,24 +13,24 @@ public class ConfirmationFlag {
     @Column(name = "confirmation_flag_value")
     private String confirmationFlagValue;
 
-    @OneToOne(mappedBy = "additionalActivities")
-    private HealthCondition additionalActivities;
+    @OneToMany(mappedBy = "additionalActivities")
+    private List<HealthCondition> additionalActivities;
 
-    @OneToOne(mappedBy = "exemptFromPhysicalEducation")
-    private HealthCondition exemptFromPhysicalEducation;
+    @OneToMany(mappedBy = "exemptFromPhysicalEducation")
+    private List<HealthCondition> exemptFromPhysicalEducation;
 
-    @OneToOne(mappedBy = "missingImmunizationFlag")
-    private HealthCondition missingImmunizationFlag;
+    @OneToMany(mappedBy = "missingImmunizationFlag")
+    private List<HealthCondition> missingImmunizationFlag;
 
-    @OneToOne(mappedBy = "therapeuticPhysicalEducation")
-    private HealthCondition therapeuticPhysicalEducation;
+    @OneToMany(mappedBy = "therapeuticPhysicalEducation")
+    private List<HealthCondition> therapeuticPhysicalEducation;
 
-    @OneToOne(mappedBy = "parasites")
-    private HealthCondition parasites;
+    @OneToMany(mappedBy = "parasites")
+    private List<HealthCondition> parasites;
 
 
     public String getConfirmationFlagCode() {
-        return this.confirmationFlagCode;
+        return confirmationFlagCode;
     }
 
     public void setConfirmationFlagCode(String confirmationFlagCode) {
@@ -37,34 +38,50 @@ public class ConfirmationFlag {
     }
 
     public String getConfirmationFlagValue() {
-        return this.confirmationFlagValue;
+        return confirmationFlagValue;
     }
 
     public void setConfirmationFlagValue(String confirmationFlagValue) {
         this.confirmationFlagValue = confirmationFlagValue;
     }
 
-    public HealthCondition getAdditionalActivities() {
+    public List<HealthCondition> getAdditionalActivities() {
         return additionalActivities;
     }
 
-    public void setAdditionalActivities(HealthCondition additionalActivities) {
+    public void setAdditionalActivities(List<HealthCondition> additionalActivities) {
         this.additionalActivities = additionalActivities;
     }
 
-    public HealthCondition getExemptFromPhysicalEducation() {
+    public List<HealthCondition> getExemptFromPhysicalEducation() {
         return exemptFromPhysicalEducation;
     }
 
-    public void setExemptFromPhysicalEducation(HealthCondition exemptFromPhysicalEducation) {
+    public void setExemptFromPhysicalEducation(List<HealthCondition> exemptFromPhysicalEducation) {
         this.exemptFromPhysicalEducation = exemptFromPhysicalEducation;
     }
 
-    public HealthCondition getMissingImmunizationFlag() {
+    public List<HealthCondition> getMissingImmunizationFlag() {
         return missingImmunizationFlag;
     }
 
-    public void setMissingImmunizationFlag(HealthCondition missingImmunizationFlag) {
+    public void setMissingImmunizationFlag(List<HealthCondition> missingImmunizationFlag) {
         this.missingImmunizationFlag = missingImmunizationFlag;
+    }
+
+    public List<HealthCondition> getTherapeuticPhysicalEducation() {
+        return therapeuticPhysicalEducation;
+    }
+
+    public void setTherapeuticPhysicalEducation(List<HealthCondition> therapeuticPhysicalEducation) {
+        this.therapeuticPhysicalEducation = therapeuticPhysicalEducation;
+    }
+
+    public List<HealthCondition> getParasites() {
+        return parasites;
+    }
+
+    public void setParasites(List<HealthCondition> parasites) {
+        this.parasites = parasites;
     }
 }

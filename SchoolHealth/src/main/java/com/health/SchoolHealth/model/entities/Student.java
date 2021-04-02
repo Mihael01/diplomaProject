@@ -4,9 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -87,7 +84,7 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "gp_id", referencedColumnName = "id")
-    private Gp gp;
+    private GP gp;
 
     @OneToOne
     @JoinColumn(name = "lzpk_id", referencedColumnName = "id")
@@ -300,11 +297,11 @@ public class Student {
         this.sexType = sexType;
     }
 
-    public Gp getGp() {
+    public GP getGp() {
         return gp;
     }
 
-    public void setGp(Gp gp) {
+    public void setGp(GP gp) {
         this.gp = gp;
     }
 

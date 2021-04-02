@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface SettlementPlaceDao extends CrudRepository<SettlementPlace, Long> {
 
-    @Query("select sp from SettlementPlace as sp where sp.municipality.municipalityCode = :municipalityCode order by sp.settlementPlaceName")
+    @Query("select sp from SettlementPlace as sp where sp.municipality.municipalityCode = :municipalityCode order by  sp.settlementPlaceType, sp.settlementPlaceName")
     public Iterable<SettlementPlace> findAllSettlementPlacesByMunicipality(String municipalityCode);
 
 }
