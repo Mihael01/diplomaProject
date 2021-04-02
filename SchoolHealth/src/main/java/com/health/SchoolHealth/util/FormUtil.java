@@ -18,6 +18,7 @@ public class FormUtil {
     public static final String ADDRESS_ABOUT_SCHOOL = "учебното заведение";
     public static final String ADDRESS_ABOUT_STUDENT = "ученика";
     public static final String ADDRESS_ABOUT_PARENT = "родителя";
+    public static final String CONFIRM_FLAG = "Y";
 
     public static AddressForm setAddressForm(String addressAbout, Long addressId, Long addressId2, AddressService addressService,
                                              AddressForm addressForm, HttpSession httpSession) {
@@ -229,12 +230,12 @@ System.out.println("isSettlementPlaceEnable2 >>>> " + municipalityCode2);
 
 
     public static List<String> getClassesNomenclature() {
-        List<String> classesNomenclature = Arrays.asList("Изберете клас", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII");
+        List<String> classesNomenclature = Arrays.asList("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII");
         return classesNomenclature;
     }
 
     public static List<String> getClassLettersNomenclature() {
-        List<String> classLettersNomenclature = Arrays.asList("Изберете паралелка", "А", "Б", "В", "Г", "Д", "Е", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О");
+        List<String> classLettersNomenclature = Arrays.asList("А", "Б", "В", "Г", "Д", "Е", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О");
         return classLettersNomenclature;
     }
 }
