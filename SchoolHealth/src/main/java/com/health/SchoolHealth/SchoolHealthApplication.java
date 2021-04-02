@@ -7,7 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
+import java.util.Locale;
 
 
 @SpringBootApplication
@@ -27,4 +32,19 @@ public class SchoolHealthApplication implements WebMvcConfigurer  { // extends W
 					.addResourceHandler("/webjars/**")
 					.addResourceLocations("/webjars/");
 		}
+
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+//		localeChangeInterceptor.setParamName("lang");
+//		registry.addInterceptor(localeChangeInterceptor);
+//	}
+//
+//	@Bean
+//	public LocaleResolver localeResolver() {
+//		CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+//		java.util.Locale bgLocale=new java.util.Locale("bg","BG");
+//		cookieLocaleResolver.setDefaultLocale(bgLocale);
+//		return cookieLocaleResolver;
+//	}
 }
