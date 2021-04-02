@@ -1,22 +1,17 @@
 package com.health.SchoolHealth.controlers.formPOJOs;
 
+import com.health.SchoolHealth.model.entities.Immunization;
 import com.health.SchoolHealth.model.entities.School;
 import com.health.SchoolHealth.model.entities.SchoolMedics;
 import com.health.SchoolHealth.model.entities.SchoolType;
-
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class SchoolForm {
+public class ImmunizationForm {
 
-    String settlementPlaceType;
+    Immunization immunization;
 
-    School school;
-
-    List<SchoolType> schoolTypes;
-
-    SchoolMedics schoolMedics;
+    List<Immunization> allImmunizations;
 }

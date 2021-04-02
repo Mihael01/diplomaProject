@@ -45,14 +45,26 @@ public class lzpkController {
     ButtonsForm buttonsForm = new ButtonsForm();
 
     @GetMapping
-    @RequestMapping(value = { "/lzpk"}, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getLzpkData(HttpSession httpSession) {
+    @RequestMapping(value = { "/lzpk", "/lzpk/{studentId}"}, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getLzpkData(HttpSession httpSession, @PathVariable(value="studentId", required = false) Long studentIdParam ) {
 
         modelAndView = new ModelAndView("lzpk");
 
+System.out.println("studentId::param :::::: "+studentIdParam);
+        System.out.println("(Long) httpSession.getAttribute(\"studentId\")::param :::::: "+ httpSession.getAttribute("studentId"));
         // Ученик
-        httpSession.setAttribute("studentId", 2L); //Remove hardcode
-        Long studentId = (Long) httpSession.getAttribute("studentId");
+//        httpSession.setAttribute("studentId", 2L); //Remove hardcode
+        Long studentId = null;
+        if (studentIdParam != null){
+            try {
+                studentId = Long.valueOf(studentIdParam);
+                httpSession.setAttribute("studentId", studentIdParam);
+            } catch (NumberFormatException ex) {
+
+            }
+        } else if ((Long) httpSession.getAttribute("studentId") != null) {
+            studentId = (Long) httpSession.getAttribute("studentId");
+        }
 
         System.out.println(" httpSession.getAttribute(\"studentId\" " + httpSession.getAttribute("studentId"));
 //
@@ -116,9 +128,18 @@ public class lzpkController {
         modelAndView.addObject("lzpkForm", lzpkForm);
         modelAndView.addObject("addressForm", addressForm);
         modelAndView.addObject("buttonsForm", buttonsForm);
+        System.out.println("VIEW " + modelAndView.getViewName() );
         return modelAndView;
     }
 
+//    @PostMapping
+//    @RequestMapping(value = { "/lzpk/{studentId}"})
+//    public ModelAndView lzpkRedirect(HttpSession httpSession, @PathVariable(value="studentId", required = false) String studentIdParam ) {
+//        httpSession.setAttribute("studentId", studentIdParam);
+//
+//        modelAndView = new ModelAndView("redirect:/lzpk");
+//        return modelAndView;
+//    }
     @PostMapping
     @RequestMapping(value = {"lzpkPostData"})
     public ModelAndView lzpkPostData(@ModelAttribute("lzpkForm") LzpkForm lzpkForm, HttpSession httpSession) {
@@ -163,6 +184,7 @@ public class lzpkController {
     @PostMapping
     @RequestMapping(value = {"/cleanSessionDataOnHomeRedirect"})
     public ModelAndView cleanSessionDataOnHomeRedirect(HttpSession httpSession) {
+        System.out.println("in cleanSessionDataOnHomeRedirect ");
         httpSession.setAttribute("studentId", null);
         modelAndView = new ModelAndView("redirect:/home");
         return modelAndView;

@@ -34,7 +34,7 @@ public class BaseStudentDataController {
     public ModelAndView getStudentBaseDatadata(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("/basedata");
-
+        System.out.println("studentId w getStudentBaseDatadata" +  httpSession.getAttribute("studentId"));
         Long studentId = (Long) httpSession.getAttribute("studentId");
 System.out.println("studentId w getStudentBaseDatadata" + studentId);
         if (studentId != null) {

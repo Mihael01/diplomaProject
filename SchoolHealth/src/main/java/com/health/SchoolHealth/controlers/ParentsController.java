@@ -4,8 +4,11 @@ import com.health.SchoolHealth.controlers.formPOJOs.AddressForm;
 import com.health.SchoolHealth.controlers.formPOJOs.ParentForm;
 import com.health.SchoolHealth.model.entities.Parent;
 import com.health.SchoolHealth.model.entities.ParentType;
+import com.health.SchoolHealth.model.entities.StudentParent;
 import com.health.SchoolHealth.services.AddressService;
 import com.health.SchoolHealth.services.ParentService;
+import com.health.SchoolHealth.services.StudentParentService;
+import com.health.SchoolHealth.services.StudentService;
 import com.health.SchoolHealth.util.FormUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +28,12 @@ public class ParentsController {
     @Autowired
     private AddressService addressService;
 
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private StudentParentService studentParentService;
+
     ModelAndView modelAndView;
 
     // Forms
@@ -41,6 +50,7 @@ public class ParentsController {
         modelAndView = new ModelAndView("parents");
         httpSession.setAttribute("redirect", "redirect:/parents");
 
+        System.out.println("STUDENT ID " +  httpSession.getAttribute("studentId"));
         Long studentId = (Long) httpSession.getAttribute("studentId");
 //        studentId = 2L; //REMOVE HARDCODE
 //        httpSession.setAttribute("studentId", studentId); // заради хардкода по време на тестване
@@ -148,7 +158,23 @@ System.out.println("ADDRESS 1 ID addressId1 " + addressId1);
                 parentForm.getParent1().setParentAddress(null);
             }
 
+            boolean isNotParentExistInDB = true;
+
+            if (parentForm.getParent1().getId() != null) {
+                isNotParentExistInDB = false;
+            }
+
             Parent parent = parentService.createOrUpdateParent(parentForm.getParent1());
+
+            if (isNotParentExistInDB && parent != null && (Long)httpSession.getAttribute("studentId") != null) {
+                StudentParent studentParent = new StudentParent();
+                studentParent.setParent(parent);
+                studentParent.setStudent(studentService.findStudentById((Long)httpSession.getAttribute("studentId")));
+                studentParentService.createOrUpdateStudentParent(studentParent);
+            }
+
+            System.out.println("parent1Id " + parent.getId());
+            System.out.println("StudentId  " + httpSession.getAttribute("studentId"));
             httpSession.setAttribute("parent1Id", parent.getId());
         } else {
             // Ако нямаме записан адрес, сетвавме полето на null, защото в противен случай при запис на родителя,
@@ -158,7 +184,22 @@ System.out.println("ADDRESS 1 ID addressId1 " + addressId1);
                 parentForm.getParent2().setParentAddress(null);
             }
 
+            boolean isNotParentExistInDB = true;
+
+            if (parentForm.getParent2().getId() != null) {
+                isNotParentExistInDB = false;
+            }
+
             Parent parent = parentService.createOrUpdateParent(parentForm.getParent2());
+
+            if (isNotParentExistInDB && parent != null && (Long)httpSession.getAttribute("studentId") != null) {
+                StudentParent studentParent = new StudentParent();
+                studentParent.setParent(parent);
+                studentParent.setStudent(studentService.findStudentById((Long)httpSession.getAttribute("studentId")));
+                studentParentService.createOrUpdateStudentParent(studentParent);
+            }
+            System.out.println("parent2Id " + parent.getId());
+            System.out.println("StudentId  " + httpSession.getAttribute("studentId"));
             httpSession.setAttribute("parent2Id", parent.getId());
         }
 
@@ -172,6 +213,8 @@ System.out.println("ADDRESS 1 ID addressId1 " + addressId1);
 
         httpSession.setAttribute("parent1Id", null);
         httpSession.setAttribute("paren21Id", null);
+        httpSession.setAttribute("regionCode", null);
+        httpSession.setAttribute("municipalityCode", null);
         modelAndView = new ModelAndView("redirect:/lzpk");
         return modelAndView;
     }

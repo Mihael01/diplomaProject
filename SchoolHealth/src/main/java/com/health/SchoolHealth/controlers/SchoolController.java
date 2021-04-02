@@ -51,7 +51,12 @@ public class SchoolController {
         // Училищно медицинско лице
         Long schoolMedicId = medicId.orElse(1L);
         SchoolMedics schoolMedic = schoolMedicsService.getSchoolMedic(schoolMedicId);
-        schoolMedicForm.setSchoolMedic(schoolMedic);
+        if (schoolMedic != null) {
+            schoolMedicForm.setSchoolMedic(schoolMedic);
+        } else {
+            schoolMedicForm.setSchoolMedic(new SchoolMedics());
+        }
+
         modelAndView.addObject("schoolMedicForm", schoolMedicForm);
 
         // Училище
@@ -83,23 +88,16 @@ public class SchoolController {
             addressId = schoolForm.getSchool().getSchoolAddress().getId();
         }
 
-        System.out.println("schoolForm.getSchool()vvvvvvvvvvvvvll ");
-                System.out.println("schoolForm.getSchool()vvvvvvvvvvvvvll " + schoolForm.getSchool() == null);
-
-        System.out.println("schoolForm.getSchool().getId()xxxxxxxxxxxxxxx " + schoolForm.getSchool().getId());
         if (schoolForm.getSchool() == null || schoolForm.getSchool().getId() == null) {
             addressForm.setIsOwnerNotPresent(true);
-            System.out.println("TRUE");
         } else {
             addressForm.setIsOwnerNotPresent(false);
-            System.out.println("FALSE");
         }
         FormUtil.setAddressForm(FormUtil.ADDRESS_ABOUT_SCHOOL, addressId, null,
                 addressService, addressForm, httpSession);
 
         // Пазим schoolId в addressForm, за да можем след събмит на формата да актуализираме училището
         addressForm.setSchoolId(schoolForm.getSchool().getId());
-System.out.println("@@@@@@@@@@@ " + addressForm.getIsOwnerNotPresent());
         modelAndView.addObject("addressForm" , addressForm);
         modelAndView.addObject("schoolForm" , schoolForm);
         return modelAndView;
