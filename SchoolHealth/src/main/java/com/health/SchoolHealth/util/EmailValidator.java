@@ -9,19 +9,26 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
         private Pattern pattern;
         private Matcher matcher;
-        private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
+        private static final String EMAIL_PATTERN = "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)";
         @Override
         public void initialize(ValidEmail constraintAnnotation) {
         }
         @Override
         public boolean isValid(String email, ConstraintValidatorContext context){
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Невалиден e-mail.");
-            return (validateEmail(email));
+
+//            context.buildConstraintViolationWithTemplate("Невалиден e-mail.");
+            if (validateEmail(email)) {
+                System.out.println("VALID EMAIL");
+                return true;
+            }
+            //context.disableDefaultConstraintViolation();
+            //context.buildConstraintViolationWithTemplate("Невалиден e-mail.").addConstraintViolation();;
+            return false;
         }
 
         private boolean validateEmail(String email) {
             pattern = Pattern.compile(EMAIL_PATTERN);
+            System.out.println("PATERN " + pattern +"email " + email);
             matcher = pattern.matcher(email);
             return matcher.matches();
         }
