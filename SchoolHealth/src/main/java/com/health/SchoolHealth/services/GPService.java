@@ -38,5 +38,18 @@ public class GPService {
         return RepositoryUtil.iterableToList(studentDao.findAllStudentsByGp(gpId));
     }
 
+    public List<GP> findAllGPs() {
+        return  RepositoryUtil.iterableToList(gpDao.findAllGPsWithUser());
+    }
+
+    public List<GP> findGPByTelephoneNumber(String telephoneNumber) {
+        return  RepositoryUtil.iterableToList(gpDao.findGPsWithUserByTelephoneNumber(telephoneNumber));
+    }
+
+    public void deleteGPById(Long gpId) {
+        if (gpId != null) {
+            gpDao.deleteById(gpId);
+        }
+    }
 
 }
