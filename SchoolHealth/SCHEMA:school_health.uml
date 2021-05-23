@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>906c2fb0-f703-4156-b109-66cb4644bd8c.SCHEMA:school_health</OriginalElement>
+  <nodes>
+    <node x="271.24285714285713" y="1928.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.immunization</node>
+    <node x="120.75" y="1569.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parent</node>
+    <node x="1720.642857142857" y="609.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.sex_type</node>
+    <node x="877.9595238095237" y="370.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school_type</node>
+    <node x="0.0" y="2162.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.test_table</node>
+    <node x="81.95952380952372" y="0.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.municipality</node>
+    <node x="557.2428571428571" y="1868.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.examination</node>
+    <node x="2157.9928571428572" y="1028.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parasit_type</node>
+    <node x="636.2928571428572" y="537.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school</node>
+    <node x="341.0" y="1028.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.confirmation_flag</node>
+    <node x="817.9928571428571" y="1545.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.addictions</node>
+    <node x="1741.9928571428572" y="1028.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.dispensary_observation_illness_type</node>
+    <node x="1416.9928571428572" y="1497.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.physical_capacity</node>
+    <node x="2108.2428571428572" y="1569.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parasit</node>
+    <node x="0.0" y="968.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent</node>
+    <node x="236.95952380952372" y="131.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.settlement_place</node>
+    <node x="1491.642857142857" y="585.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.lzpk</node>
+    <node x="1130.9928571428572" y="1545.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.anthropological_indicators</node>
+    <node x="290.9595238095237" y="334.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.address</node>
+    <node x="1193.642857142857" y="585.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.gp</node>
+    <node x="2367.2428571428572" y="1569.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_diseases_and_abnormalities</node>
+    <node x="350.9595238095237" y="0.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.region</node>
+    <node x="402.1662301587302" y="1425.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition</node>
+    <node x="2443.7428571428572" y="1028.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.diseases_and_abnorm_type</node>
+    <node x="106.01888888888914" y="609.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent_type</node>
+    <node x="1651.9928571428572" y="1569.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_dispensary_observation</node>
+    <node x="492.9595238095237" y="334.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school_medics</node>
+    <node x="1197.4412301587301" y="812.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student</node>
+    <node x="646.7688888888891" y="1028.0">906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.immunization_comment</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parent" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="39.75" y="-52.5" />
+      <point x="240.0" y="1375.0" />
+      <point x="1213.1912301587301" y="1375.0" />
+      <point x="-110.25" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school_medics">
+      <point x="-1.1368683772161603E-13" y="-112.5" />
+      <point x="789.792857142857" y="507.0" />
+      <point x="675.4595238095237" y="507.0" />
+      <point x="0.0" y="76.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.address">
+      <point x="-100.80000000000007" y="-256.5" />
+      <point x="1222.6412301587302" y="792.0" />
+      <point x="408.7162301587301" y="792.0" />
+      <point x="408.7162301587301" y="517.0" />
+      <point x="381.9595238095237" y="517.0" />
+      <point x="0.0" y="76.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.physical_capacity" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="0.0" y="-124.5" />
+      <point x="1548.4928571428572" y="1405.0" />
+      <point x="1339.1912301587301" y="1405.0" />
+      <point x="15.75" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.settlement_place" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.region">
+      <point x="72.5" y="-76.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_diseases_and_abnormalities" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="-86.5" y="-52.5" />
+      <point x="2453.7428571428572" y="1375.0" />
+      <point x="1433.6912301587301" y="1375.0" />
+      <point x="110.25" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school">
+      <point x="-50.40000000000009" y="-256.5" />
+      <point x="1273.04123015873" y="782.0" />
+      <point x="789.7928571428572" y="782.0" />
+      <point x="0.0" y="112.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.address">
+      <point x="-102.33333333333337" y="-112.5" />
+      <point x="687.4595238095237" y="517.0" />
+      <point x="442.62619047619046" y="517.0" />
+      <point x="60.66666666666674" y="76.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.lzpk">
+      <point x="50.40000000000009" y="-256.5" />
+      <point x="1373.8412301587302" y="782.0" />
+      <point x="1596.142857142857" y="782.0" />
+      <point x="0.0" y="64.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.address">
+      <point x="-80.25" y="-100.5" />
+      <point x="80.25" y="792.0" />
+      <point x="95.51888888888914" y="792.0" />
+      <point x="95.51888888888914" y="517.0" />
+      <point x="321.292857142857" y="517.0" />
+      <point x="-60.66666666666674" y="76.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.school_type">
+      <point x="102.33333333333326" y="-112.5" />
+      <point x="892.1261904761905" y="517.0" />
+      <point x="1006.4595238095237" y="517.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.immunization_comment">
+      <point x="99.71428571428567" y="-196.5" />
+      <point x="676.3805158730158" y="1365.0" />
+      <point x="813.7688888888891" y="1365.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="149.57142857142856" y="-196.5" />
+      <point x="726.2376587301587" y="1385.0" />
+      <point x="1244.6912301587301" y="1385.0" />
+      <point x="-78.75" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.gp">
+      <point x="0.0" y="-256.5" />
+      <point x="1323.4412301587301" y="792.0" />
+      <point x="1332.642857142857" y="792.0" />
+      <point x="0.0" y="64.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_dispensary_observation" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.dispensary_observation_illness_type">
+      <point x="96.0" y="-52.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.addictions" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="0.0" y="-76.5" />
+      <point x="964.4928571428571" y="1395.0" />
+      <point x="1276.1912301587301" y="1395.0" />
+      <point x="-47.25" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parent" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent">
+      <point x="-39.75" y="-52.5" />
+      <point x="0.0" y="100.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_diseases_and_abnormalities" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.diseases_and_abnorm_type">
+      <point x="86.5" y="-52.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.address" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.settlement_place">
+      <point x="0.0" y="-76.5" />
+      <point x="0.0" y="76.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parasit" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="-59.75" y="-52.5" />
+      <point x="2167.9928571428572" y="1385.0" />
+      <point x="1402.1912301587301" y="1385.0" />
+      <point x="78.75" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.settlement_place" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.municipality">
+      <point x="-72.5" y="-76.5" />
+      <point x="309.4595238095237" y="106.0" />
+      <point x="206.45952380952372" y="106.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.examination" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition">
+      <point x="0.0" y="-124.5" />
+      <point x="710.7428571428571" y="1843.0" />
+      <point x="663.9162301587302" y="1843.0" />
+      <point x="87.25" y="196.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.confirmation_flag">
+      <point x="49.85714285714283" y="-196.5" />
+      <point x="626.523373015873" y="1365.0" />
+      <point x="593.9" y="1365.0" />
+      <point x="112.39999999999998" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.anthropological_indicators" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="0.0" y="-76.5" />
+      <point x="1263.9928571428572" y="1405.0" />
+      <point x="1307.6912301587301" y="1405.0" />
+      <point x="-15.75" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_parasit" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parasit_type">
+      <point x="59.75" y="-52.5" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.parent_type">
+      <point x="80.25" y="-100.5" />
+      <point x="240.75" y="792.0" />
+      <point x="235.01888888888914" y="792.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.immunization" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.health_condition">
+      <point x="0.0" y="-64.5" />
+      <point x="404.24285714285713" y="1843.0" />
+      <point x="489.4162301587302" y="1843.0" />
+      <point x="-87.25" y="196.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student_dispensary_observation" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student">
+      <point x="-96.0" y="-52.5" />
+      <point x="1747.9928571428572" y="1395.0" />
+      <point x="1370.6912301587301" y="1395.0" />
+      <point x="47.25" y="256.5" />
+    </edge>
+    <edge source="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.student" target="906c2fb0-f703-4156-b109-66cb4644bd8c.TABLE:school_health.sex_type">
+      <point x="100.79999999999995" y="-256.5" />
+      <point x="1424.24123015873" y="792.0" />
+      <point x="1833.642857142857" y="792.0" />
+      <point x="0.0" y="40.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.40888201502430394" x="1415.810443490701" y="1121.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
