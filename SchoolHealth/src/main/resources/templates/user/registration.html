@@ -6,50 +6,38 @@
 </head>
 
 <body>
-<form action="#"  th:action="@{/userRegistrationPostData}" th:object="${userRegistrationForm}"  method="post"  class="container alert alert-info">
+<form action="#"  th:action="@{/user/registration}" th:object="${user}"  method="post"  class="container alert alert-info">
+
     <br>
     <H2 class="text-center">Информационна система "УЧИЛИЩНО ЗДРАВЕ"</H2>
     <br>
     <H3 class="text-center"><b>Регистрация</b></H3>
         <br><br>
+
+    <fieldset>
+        <!--<div th:if="${successfulSubmitOfRegistrationData}" class="alert alert-error">-->
+            <!--<div class="alert alert-warning" role="alert">-->
+                <!--Вашата регистрация е изпратена за одобрение. <br>Ще получите e-mail на адреса, който въведохте при регистрацията.-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <br><br>
         <div class="row">
-            <div class="col-lg-2"><label >Име</label></div>
-            <div class="col-lg-2"><input th:field="*{user.firstName}"/></div>
-            <p th:each="error: ${#fields.errors('user.firstName')}"
-               th:text="${error}">Validation error</p>
+            <div class="col-lg-2"><label>Потребителски код *</label></div>
+            <div class="col-lg-2"><input th:field="*{userCode}"/></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('userCode')}" class="help-block" th:errors="*{userCode}"></span></div>
         </div>
         <br><br>
         <div class="row">
-            <div class="col-lg-2"><label span="2">Презиме</label></div>
-            <div class="col-lg-2"><input span="2" th:field="*{user.middleName}"/></div>
-            <p th:each="error : ${#fields.errors('user.middleName')}"
-               th:text="${error}">Validation error</p>
+            <div class="col-lg-2"><label>Парола *</label></div>
+            <div class="col-lg-2"><input th:field="*{password}"/></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('password')}" class="help-block" th:errors="*{password}"></span></div>
         </div>
         <br><br>
         <div class="row">
-            <div class="col-lg-2"><label span="2" >Фамилия</label></div>
-            <div class="col-lg-2"><input span="2" th:field="*{user.lastName}"/></div>
-            <p th:each="error : ${#fields.errors('user.lastName')}"
-               th:text="${error}">Validation error</p>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-2"><label span="2">Потребителско име</label></div>
-            <div class="col-lg-2"><input span="2" th:field="*{user.userName}"/></div>
-            <p th:each="error : ${#fields.errors('user.userName')}"
-               th:text="${error}">Validation error</p>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-2"><label >Парола</label></div>
-            <div class="col-lg-2"><input span="2" th:field="*{user.password}"/></div>
-            <p th:each="error : ${#fields.errors('user.password')}"
-               th:text="${error}">Validation error</p>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-2"><label span="2">Потвърдете паролата</label></div>
-            <div class="col-lg-2"><input span="2" th:field="*{user.matchingPassword}" /></div>
+            <div class="col-lg-2"><label>Потвърдете паролата *</label></div>
+            <div class="col-lg-2"><input th:field="*{matchingPassword}" /></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('matchingPassword')}" class="help-block" th:errors="*{matchingPassword}"></span></div>
         </div>
         <br><br>
         <!--<div class="row">-->
@@ -58,16 +46,16 @@
             <!--<p th:each="error : ${#fields.errors('user.email')}"-->
                <!--th:text="${error}">Validation error</p>-->
         <!--</div>-->
-    <div>
-        <div class="col-lg-2"><label>e-mail</label></div>
-    <input type="email" th:field="*{user.email}"/>
-    <p th:each="error : ${#fields.errors('user.email')}"
-    th:text="Моля, въведете валиден e-mail адрес!">Validation error</p>
-    </div>
+        <div class="row">
+            <div class="col-lg-2"><label>E-mail *</label></div>
+            <div class="col-lg-2"><input th:field="*{email}" /></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}"></span></div>
+        </div>
         <br><br>
         <div class="row">
-            <div class="col-lg-2"><label span="2">Вид потребител</label></div>
-            <div class="col-lg-2"><input th:field="*{user.userType}"/></div>
+            <div class="col-lg-2"><label>Вид потребител *</label></div>
+            <div class="col-lg-2"><input th:field="*{userType}"/></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('userType')}" class="help-block" th:errors="*{userType}"></span></div>
         </div>
 
         <br><br>
@@ -80,7 +68,7 @@
             <button type="submit"  class="btn btn-primary" ><b>Регистрация</b></button>
             </div>
         </div>
-
+    </fieldset>
 </form>
 
 <!--<form action="#"  th:action="@{/userRegistrationPostData}" th:object="${userRegistrationForm}"  method="post"  class="container alert alert-info">-->

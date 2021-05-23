@@ -15,43 +15,65 @@
     <form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
         <th:div class="container" >
             <div class="row">
-                <div class="col-lg-2">
-                    <label class="labelWidthExtra"> Родител/Настойник
-                        <select th:field="*{parent1.parentType.parentTypeCode}">
+                <div class="form-group">
+                    <label class="labelWidthExtra col-lg-4"  > Родител/Настойник
+                        <!--<div class="col-lg-4">-->
+                        <select  class="form-control" style="width:auto;"  th:field="*{parent1.parentType.parentTypeCode}" >
                             <option th:each="parentType : *{parentTypes}"
                                     th:text="${parentType.parentTypeName}"
                                     th:value="${parentType.parentTypeCode}">
                         </select>
+                        <!--</div>-->
                     </label>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label  class="labelWidthExtra"> Име:
-                        <input type="text" th:field="*{parent1.parentName}" size="50" />
+                        <input type="text" class="form-control" th:field="*{parent1.parentName}" size="30%" />
                     </label>
                 </div>
                 <div class="col-lg-4">
                     <label> Телефонен номер:
-                        <input type="text" th:field="*{parent1.telephoneNumber}" />
+                        <input type="text" class="form-control" size="20%" th:field="*{parent1.telephoneNumber}" />
                     </label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-6 ">
+                <!--<div class="col-lg-3" th:object="${parentForm.user1}">-->
+                    <!--<label> E-mail *:</label>-->
+                        <!--<input type="text"  class="form-control" size="30%"  th:field="*{email}" />-->
+
+                        <!--&lt;!&ndash;<div class="col-lg-2"><label>E-mail *</label></div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="col-lg-2"><input th:field="*{email}" /></div>&ndash;&gt;-->
+                        <!--<span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}"></span>-->
+                <div class="col-lg-4 ">
+                    <label  class="labelWidthExtra"> E-mail* :
+
+                        <input class="form-control" size="30%" th:field="*{parent1.user.email}" pattern= "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
+                                                     oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
+                                                     oninput="this.setCustomValidity('')" />
+                        <span th:if="${#fields.hasErrors('parent1.user.email')}" class="help-block" th:errors="*{parent1.user.email}"></span>
+                    </label>
+                </div>
+
+                <!--</div>-->
+
+                <!--<div class="col-lg-2"></div>-->
+                <div class="col-lg-4 ">
                     <label  class="labelWidthExtra"> Месторабота:
-                        <input type="text" th:field="*{parent1.placeOfWork}" size="50" />
+                        <input type="text"  class="form-control" size="30%"  th:field="*{parent1.placeOfWork}"  />
                     </label>
                 </div>
                 <div class="col-lg-4">
                     <label> Бизнес телефонен номер:
-                        <input type="text" th:field="*{parent1.businessTelephoneNumber}" />
+                        <input type="text"  class="form-control" size="20%"  th:field="*{parent1.businessTelephoneNumber}" />
                     </label>
                 </div>
             </div>
             <br/>
             <input hidden th:field = "*{parent1.id}" id="parent1Id"/>
             <input hidden th:field = "*{parent1.parentAddress.id}" id="parent1AddressId"/>
+            <input hidden th:field = "*{parent1.user.id}" id="parent1UserId"/>
             <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
         </th:div>
     </form>
@@ -195,6 +217,15 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-4 ">
+                    <label  class="labelWidthExtra"> E-mail* :
+
+                        <input class="form-control" size="30%" th:field="*{parent2.user.email}" pattern= "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
+                               oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
+                               oninput="this.setCustomValidity('')" />
+                        <span th:if="${#fields.hasErrors('parent2.user.email')}" class="help-block" th:errors="*{parent2.user.email}"></span>
+                    </label>
+                </div>
                 <div class="col-lg-2"></div>
                 <div class="col-lg-6 ">
                     <label  class="labelWidthExtra"> Месторабота:
@@ -210,6 +241,7 @@
             <br/>
             <input hidden th:field = "*{parent2.id}" />
             <input hidden th:field = "*{parent2.parentAddress.id}" id="parent2AddressId"/>
+            <input hidden th:field = "*{parent2.user.id}" id="parent2UserId"/>
             <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
         </th:div>
     </form>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: headerFragment">
+
+</head>
+
+<body>
+
+
+<th:div class="container" id="stInput">
+<form id="formId" action="#" th:action="@{/createSTPostData}" th:object="${createSTForm}" method="post"  class="container alert alert-info" >
+
+    <H3 class="text-center">Регистрация на учител по ФВС</H3>
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-6 form-group form-inline">
+            <label class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> Име: </label>
+                <input class="form-control  col-lg-9" style="width:70%" type="text" th:field="*{sportTeacher.sportTeacherName}"   required="true"
+                       oninvalid="this.setCustomValidity('Името е задължително поле.')"
+                       oninput="this.setCustomValidity('')" />
+
+        </div>
+        <div class="col-lg-6 form-group form-inline">
+                    <label class="col-form-label col-lg-4" style="white-space: nowrap; width:40" > Телефонен номер: </label>
+                    <input class="form-control  col-lg-8" style="width:60%" type="text" th:field="*{sportTeacher.sportTeacherTelephoneNumber}"
+                           id="telephoneNumber" required="true"
+                           pattern= "(^[0-9]+$)"
+                           oninvalid="this.setCustomValidity('Телефонът е задължително поле. Моля, въведете валиден номер само от цифри!')"
+                           oninput="this.setCustomValidity('')"/>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        <div class="col-lg-6 form-group form-inline">
+            <label  class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> E-mail* : </label>
+                <input  class="form-control  col-lg-9" style="width:70%" th:field="*{sportTeacher.user.email}"  required="true"
+                       pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
+                       oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
+                       oninput="this.setCustomValidity('')" />
+                <span th:if="${#fields.hasErrors('sportTeacher.user.email')}" class="help-block" th:errors="*{sportTeacher.user.email}"></span>
+        </div>
+    </div>
+
+    <br/><br/>
+
+    <div class="col-lg-2">
+        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+    </div>
+    <div class="col-lg-1 ">
+        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+    </div>
+
+    <input type="submit" id="saveId" value="Запишете данните" class="btn btn-primary pull-right"  onclick="return checkForSTFunc();"/>
+
+            <div class="modal" id="submitModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Медицнско лице с този телефонен номер, вече съществува в системата!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Сигурни ли сте, че искате да създадете запис за друго лице, със същия телефонен номер?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a  href="javascript: void(0);" id="submit" class="btn btn-success success" data-dismiss="modal" onclick="confirmFunc()">Да</a>
+                            <a  href="javascript: void(0);" id="reject" class="btn btn-default" data-dismiss="modal" onclick="dismisFunc()">Не</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+         function dismisFunc() {
+            return false;
+         }
+     /*]]>*/
+     </script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+         function confirmFunc() {
+         $('#saveId').unbind('click');
+         $('#formId').submit();
+            return true;
+         }
+     /*]]>*/
+     </script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+         function dismisDeleteFunc() {
+            return false;
+         }
+     /*]]>*/
+     </script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+         function confirmDeleteFunc() {
+              $.ajax({
+                  type: "POST",
+                  url: "/deleteSTData?stId=" + currentSportTeacherId,
+                  contentType: 'text/plain; charset=UTF-8',
+                  success: function () {
+                      location.reload();
+                  }
+              });
+              return true;
+         }
+     /*]]>*/
+     </script>
+
+    <input hidden th:field = "*{sportTeacher.id}" id="sportTeacherId" />
+    <input type="hidden" th:field="*{sportTeacher.user.id}" />
+    <br/><br/>
+    <hr class="divider" style="border: 2px solid white;">
+    <br/><br/>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+         function searchSTFunc() {
+          var searchedTelephoneNumber = $("#searchedTelephoneNumber").val();
+
+                 $.ajax({
+                     type: "POST",
+                     url: "/createst?telephoneNumber=" + searchedTelephoneNumber,
+                     contentType: 'text/plain; charset=UTF-8',
+                     success: function (response) {
+                         var placeholder = document.getElementById("sportTeacherTable");
+                         placeholder.innerHTML = "";
+
+                         $("#stInput").html(response);
+                     }
+                 });
+          }
+    /*]]>*/
+    </script>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        function cleanSTFunc() {
+                $.ajax({
+                        type: "GET",
+                        url: "/createst",
+                        contentType: 'text/plain; charset=UTF-8',
+                        success: function (response) {
+                        var placeholder = document.getElementById("sportTeacherTable");
+                        placeholder.innerHTML = "";
+                        $("#stInput").html(response);
+                    }
+                });
+        }
+    /*]]>*/
+    </script>
+
+    <div class="col-lg-6 form-group form-inline">
+        <label class="col-form-label col-lg-6" style="white-space: nowrap; width:50" >Търсене по телефонен номер: </label>
+        <input class="form-control  col-lg-6" style="width:50%" type="text" th:field="*{telephoneNumber}" id="searchedTelephoneNumber" title="Телефонен номер за търсене"/>
+
+    </div>
+    <div class="col-lg-2">
+        <button type="button" id="searchId"  class="btn btn-primary"  onclick="searchSTFunc()"><span class="glyphicon glyphicon-search"> Търси</span></button>
+    </div>
+
+    <button type="button" id="cleanId"  class="btn btn-primary pull-right" style="text-align: center;"  onclick="cleanSTFunc()"><span class="glyphicon glyphicon-erase"> Изчисти резултатът от търсенето</span></button>
+
+    <br/><br/><br/>
+
+    <script th:inline="javascript">
+
+        var telephoneNumbers = [[*{telephoneNumbers}]];
+
+    </script>
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Внимание, лицето ще бъде премахнато от системата!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сигурни ли сте, че искате да го премахнете?</p>
+                </div>
+                <div class="modal-footer">
+                    <a  href="javascript: void(0);" id="confirmDelete" class="btn btn-success success" data-dismiss="modal" onclick="confirmDeleteFunc()">Да</a>
+                    <a  href="javascript: void(0);" id="rejectDelete" class="btn btn-default" data-dismiss="modal" onclick="dismisDeleteFunc()">Не</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sportTeacherTable">
+
+        <table style="border: 1px solid white;" >
+            <tr>
+                <th style="border: 1px solid white; width:40% " >Име </th>
+                <th style="border: 1px solid white; width:30% " >Телефонен номер </th>
+                <th style="border: 1px solid white; width:40% " >E-mail </th>
+                <th style="border: 1px solid white; width:15% ">Редакция </th>
+                <th style="border: 1px solid white; width:15% ">Изтриване </th>
+            </tr>
+            <tr th:each="sportTeacher : *{allSportTeachers}" >
+                <td th:text="${sportTeacher.sportTeacherName}" style="border: 1px solid white;" ></td>
+                <td th:text="${sportTeacher.sportTeacherTelephoneNumber}" style="border: 1px solid white;" ></td>
+                <td th:text="${sportTeacher.user.email}" style="border: 1px solid white;" ></td>
+
+                <script th:inline="javascript">
+                /*<![CDATA[*/
+                    function editSTFunc(currentST) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/editSTData?stId=" + currentST.value,
+                                contentType: 'text/plain; charset=UTF-8',
+                                success: function (response) {
+                                    var placeholder = document.getElementById("sportTeacherTable");
+                                    placeholder.innerHTML = "";
+                                    $("#stInput").html(response);
+                                }
+                            });
+                    }
+                 /*]]>*/
+                </script>
+                <td style="border: 1px solid white; text-align: center; padding: 5px;" >
+                    <button type="button" id="editST_${sportTeacher.id}"  class="btn btn-secondary" th:value="${sportTeacher.id}"
+                            onclick="editSTFunc(this)"><span class="glyphicon glyphicon-pencil"> Редактирай</span></button>
+                </td>
+                <td style="border: 1px solid white; text-align: center; padding: 5px;" >
+                    <script th:inline="javascript">
+                    /*<![CDATA[*/
+                        function deleteSTFunc(currentST) {
+                            currentSportTeacherId = currentST.value;
+
+                            return $("#deleteModal").modal('show');
+
+
+                            <!--$.ajax({-->
+                                <!--type: "POST",-->
+                                <!--url: "/deleteSTData?stId=" + currentSportTeacherId,-->
+                                <!--contentType: 'text/plain; charset=UTF-8',-->
+                                <!--success: function () {-->
+                                    <!--location.reload();-->
+                                <!--}-->
+                            <!--});-->
+                        }
+                    /*]]>*/
+                </script>
+                    <button type="button" id="deleteST_${sportTeacher.id}"  class="btn btn-secondary"
+                            th:value="${sportTeacher.id}" onclick="deleteSTFunc(this)"><span class="glyphicon glyphicon-trash"> Изтрий</span></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript" th:inline="javascript">
+          /*<![CDATA[*/
+                 $('#saveId').on('click', function(e) {
+                     e.preventDefault();
+                 });
+
+                 function checkForSTFunc() {
+
+                  var sportTeacherId = $("#sportTeacherId").val();
+                  var isPresent = telephoneNumbers.includes( $("#telephoneNumber").val());
+
+                  if (isPresent && sportTeacherId == "") {
+                        return $("#submitModal").modal('show');
+                  }
+
+                  $('#formId').submit();
+                  return true;
+                  }
+        /*]]>*/
+    </script>
+
+</form>
+</th:div>
+
+</body>
+</html>
