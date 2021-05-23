@@ -95,13 +95,13 @@ public class GPController {
          }
 
          GP gp = gpService.createOrUpdateGP(gpForm.getGp());
-         // Ако е в системата е влязло училищното медицинско лице и създава за пръв път запис за личния лекар на ученика,
+         // Акo в системата е влязло училищното медицинско лице и създава за пръв път запис за личния лекар на ученика,
         // то тогава трябва да се запише id на GP в записа на конкретния ученик. Или в случая, когато личния лекар
         // въвежда данните за ученик, също трябва да се запише id на GP в записа на ученикa.
        // Student student = studentService.findStudentById(studentId);
        // сет гп ид и ъпдейт на ученика
 
-        modelAndView = new ModelAndView("redirect:/parents");
+        modelAndView = new ModelAndView("redirect:/gp");
         return modelAndView;
     }
 }

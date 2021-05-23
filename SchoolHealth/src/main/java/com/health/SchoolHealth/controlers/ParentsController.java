@@ -5,12 +5,13 @@ import com.health.SchoolHealth.controlers.formPOJOs.ParentForm;
 import com.health.SchoolHealth.model.entities.Parent;
 import com.health.SchoolHealth.model.entities.ParentType;
 import com.health.SchoolHealth.model.entities.StudentParent;
-import com.health.SchoolHealth.services.AddressService;
-import com.health.SchoolHealth.services.ParentService;
-import com.health.SchoolHealth.services.StudentParentService;
-import com.health.SchoolHealth.services.StudentService;
+import com.health.SchoolHealth.model.entities.User;
+import com.health.SchoolHealth.services.*;
+import com.health.SchoolHealth.util.ControllerUtil;
 import com.health.SchoolHealth.util.FormUtil;
+import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +34,13 @@ public class ParentsController {
 
     @Autowired
     private StudentParentService studentParentService;
+
+    @Autowired
+    private UserService userService;
+
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     ModelAndView modelAndView;
 
@@ -97,6 +105,9 @@ System.out.println("IN getParentData httpsession address about " + httpSession.g
 //            System.out.println("!!!!! "+parentNumber+" !!!!! " + parent.getParentName());
 //        }
 
+        // Потребител
+        parentForm.getParent1().setUser(setParentUser(parentForm.getParent1(), addressForm));
+        parentForm.getParent2().setUser(setParentUser(parentForm.getParent2(), addressForm2));
 
         modelAndView.addObject("parentForm", parentForm);
 
@@ -106,8 +117,18 @@ System.out.println("IN getParentData httpsession address about " + httpSession.g
 
         System.out.println("addressForm.getAddress().getId() " + addressForm.getAddress().getId());
         System.out.println("addressForm2.getAddress2().getId() " + addressForm2.getAddress2().getId());
+
         return modelAndView;
 
+    }
+
+    private User setParentUser(Parent parent, AddressForm addressForm) {
+        User user = new User();
+        if (parent.getUser() != null && parent.getUser().getId() != null) {
+            user = userService.findUser(parent.getUser().getId());
+
+        }
+        return user;
     }
 
     //addressId, ownerId, adressAbout like post parameters
@@ -150,7 +171,28 @@ System.out.println("ADDRESS 1 ID addressId1 " + addressId1);
     @RequestMapping(value = {"parentPostData"})
     public ModelAndView parentPostData(@ModelAttribute("parentForm") ParentForm parentForm, HttpSession httpSession) {
 
+        User savedUser = null;
+
         if (parentForm.getParent1() != null) {
+
+            if (parentForm.getParent1().getUser() != null && parentForm.getParent1().getUser().getEmail() != null) {
+                if (parentForm.getParent1().getUser().getId() == null) {
+                    // Задаваме стойности в полетата на потребителя, за случаите, когато на родителя все още не е създаден акаунт.
+                    ControllerUtil.setUserData(parentForm.getParent1().getUser(), UserType.PARENT.getCode(), userService, mailSender);
+                    System.out.println("e-mail: " + parentForm.getParent1().getUser().getEmail());
+                    savedUser = userService.createOrUpdateUser(parentForm.getParent1().getUser());
+
+                    //Ако Потребителя не е съществувал като запис в базата,
+                    // слагаме вече записания потребител като поле на родителя (със съществуващо вече id)
+                    parentForm.getParent1().setUser(savedUser);
+                } else {
+                    User foundUser = userService.findUser(parentForm.getParent1().getUser().getId());
+                    // Актуализираме имейла на родителя
+                    foundUser.setEmail(parentForm.getParent1().getUser().getEmail());
+                    savedUser = userService.createOrUpdateUser(foundUser);
+                }
+            }
+
             // Ако нямаме записан адрес, сетвавме полето на null, защото в противен случай при запис на родителя,
             // hibernate търси свързан обект в таблицата с адреси, а нямаме Id
             if (parentForm.getParent1().getParentAddress() != null
@@ -176,7 +218,27 @@ System.out.println("ADDRESS 1 ID addressId1 " + addressId1);
             System.out.println("parent1Id " + parent.getId());
             System.out.println("StudentId  " + httpSession.getAttribute("studentId"));
             httpSession.setAttribute("parent1Id", parent.getId());
-        } else {
+        } else if (parentForm.getParent2() != null) {
+
+            if (parentForm.getParent2().getUser() != null &&  parentForm.getParent2().getUser().getEmail() != null) {
+                if (parentForm.getParent2().getUser().getId() == null) {
+                    System.out.println("e-mail 2: " + parentForm.getParent2().getUser().getEmail());
+                    // Задаваме стойности в полетата на потребителя, за случаите, когато на родителя все още не е създаден акаунт.
+                    ControllerUtil.setUserData(parentForm.getParent2().getUser(), UserType.PARENT.getCode(), userService, mailSender);
+
+                    savedUser = userService.createOrUpdateUser(parentForm.getParent2().getUser());
+
+                    //Ако Потребителя не е съществувал като запис в базата,
+                    // слагаме вече записания потребител като поле на родителя (със съществуващо вече id)
+                    parentForm.getParent2().setUser(savedUser);
+                } else {
+                    User foundUser = userService.findUser(parentForm.getParent2().getUser().getId());
+                    // Актуализираме имейла на родителя
+                    foundUser.setEmail(parentForm.getParent2().getUser().getEmail());
+                    savedUser = userService.createOrUpdateUser(foundUser);
+                }
+            }
+
             // Ако нямаме записан адрес, сетвавме полето на null, защото в противен случай при запис на родителя,
             // hibernate търси свързан обект в таблицата с адреси, а нямаме Id
             if (parentForm.getParent2().getParentAddress() != null

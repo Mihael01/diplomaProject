@@ -1,9 +1,11 @@
 package com.health.SchoolHealth.controlers.formPOJOs;
 
-import com.health.SchoolHealth.model.entities.*;
+import com.health.SchoolHealth.model.entities.Parent;
+import com.health.SchoolHealth.model.entities.ParentType;
+import com.health.SchoolHealth.model.entities.User;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Data

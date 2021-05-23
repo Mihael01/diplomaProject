@@ -1,13 +1,19 @@
 package com.health.SchoolHealth.controlers;
 
-import com.health.SchoolHealth.controlers.formPOJOs.UserLoginForm;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import com.health.SchoolHealth.model.entities.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.apache.commons.lang3.RandomStringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -19,40 +25,64 @@ public class UserLoginController {
     ModelAndView modelAndView;
 
 //  Forms
-    UserLoginForm userLoginnForm = new UserLoginForm();
+    User user = new User();
 
-    @GetMapping
-    @RequestMapping(value = { "/user/login"})
-    public ModelAndView getUserLoginData(HttpSession httpSession) {
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
-        modelAndView = new ModelAndView("/user/login");
-//        System.out.println("studentId w getStudentBaseDatadata" +  httpSession.getAttribute("studentId"));
-//        Long studentId = (Long) httpSession.getAttribute("studentId");
-//        System.out.println("studentId w getStudentBaseDatadata" + studentId);
-//        if (studentId != null) {
-//            studentBaseForm.setStudent(studentService.findStudentById(studentId));
-//        } else {
-//            studentBaseForm.setStudent(new Student());
-//        }
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+    public ModelAndView getUserRegistrationData(ModelAndView modelAndView) {
+        System.out.println("getUserRegistrationData");
 
-        modelAndView.addObject("userLoginForm", userLoginnForm);
+        if (!modelAndView.hasView()) {
+            modelAndView = new ModelAndView("/user/login");
+        }
 
-        return modelAndView;
-
-    }
-
-    @PostMapping
-    @RequestMapping(value = {"userLoginPostData"})
-    public ModelAndView userLoginPostData(
-            @ModelAttribute("userLoginForm") @Valid UserLoginForm userLoginForm,
-            HttpServletRequest request, Errors errors) {
-        System.out.println("NAME " + userLoginForm.getUser().getFirstName());
-
-        modelAndView = new ModelAndView("redirect:/user/login");
+        modelAndView.addObject("user", user);
 
         return modelAndView;
     }
 
+    @RequestMapping(value = "/user/login", method=RequestMethod.POST)
+    public ModelAndView userRegistration(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, ModelAndView modelAndView) {
+
+        System.out.println("user code : " + user.getUserCode());
+        System.out.println("user password : " + user.getPassword());
+
+        List<FieldError> fr = bindingResult.getFieldErrors();
+        for (FieldError f : fr) {
+            System.out.println("ERROR: " + f.getField());
+        }
+
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("user", user);
+
+            System.out.println("VALIDATION ERROR");
+
+            return modelAndView;
+        }
+
+        if (modelAndView == null) {
+            modelAndView = new ModelAndView();
+        }
+
+//Да се прави сравнение с хешираната парола във базата
+        bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
+        System.out.println("encodePassword" + encodePassword);
+        System.out.println(bCryptPasswordEncoder.matches(user.getPassword(),encodePassword));
+
+        System.out.println("\n[a-zA-Z0-9]");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println(RandomStringUtils.randomAlphanumeric(10));
+        }
+
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo("mariya_rumenova_g@abv.bg");
+//        message.setSubject("test email from spring");
+//        message.setText("email from spring\n keep it");
+//        mailSender.send(message);
+        return modelAndView;
+    }
 }
-
-
