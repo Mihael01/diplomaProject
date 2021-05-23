@@ -34,6 +34,10 @@ public class Parent {
     @OneToMany(mappedBy = "parent")
     List<StudentParent> studentParents;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     public Long getId() {
         return this.id;
     }
@@ -96,5 +100,13 @@ public class Parent {
 
     public void setParentType(ParentType parentType) {
         this.parentType = parentType;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

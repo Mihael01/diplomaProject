@@ -22,6 +22,10 @@ public class SchoolMedics {
     @Column(name = "active_to")
     private java.sql.Date activeTo;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
 //    @OneToMany
 //    private List<School> schools;
 
@@ -72,4 +76,12 @@ public class SchoolMedics {
 //    public void setSchools(List<School> schools) {
 //        this.schools = schools;
 //    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

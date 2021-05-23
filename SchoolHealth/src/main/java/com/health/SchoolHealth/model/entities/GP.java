@@ -23,6 +23,10 @@ public class GP {
     @OneToMany(mappedBy = "gp")
     private List<Student> students;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     public Long getId() {
         return this.id;
     }
@@ -61,5 +65,13 @@ public class GP {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

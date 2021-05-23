@@ -2,6 +2,7 @@ package com.health.SchoolHealth.model.DAOs;
 
 import com.health.SchoolHealth.model.entities.SchoolMedics;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
@@ -10,4 +11,9 @@ import javax.transaction.Transactional;
 @Transactional
 public interface SchoolMedicsDao extends CrudRepository<SchoolMedics, Long> {
 
+    @Query("select sm from SchoolMedics as sm join User as u on sm.user.id=u.id")
+    public Iterable<SchoolMedics> findAllSchoolMedicsWithUser();
+
+    @Query("select sm from SchoolMedics as sm join User as u on sm.user.id=u.id where sm.schoolMedicsTelephoneNumber=:schoolMedicsTelephoneNumber")
+    public Iterable<SchoolMedics> findSchoolMedicWithUserByTelephoneNumber(String schoolMedicsTelephoneNumber);
 }

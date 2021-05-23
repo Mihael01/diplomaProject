@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "school")
@@ -33,6 +34,9 @@ public class School {
     @ManyToOne
     @JoinColumn(name = "school_medics_id", referencedColumnName = "id")
     private SchoolMedics schoolMedics;
+
+    @OneToMany(mappedBy = "sportTeacherSchool")
+    private List<SportTeacher> sportTeachers;
 
     public Integer getId() {
         return this.id;
@@ -96,5 +100,13 @@ public class School {
 
     public void setSchoolMedics(SchoolMedics schoolMedics) {
         this.schoolMedics = schoolMedics;
+    }
+
+    public List<SportTeacher> getSportTeachers() {
+        return sportTeachers;
+    }
+
+    public void setSportTeachers(List<SportTeacher> sportTeachers) {
+        this.sportTeachers = sportTeachers;
     }
 }
