@@ -11,7 +11,7 @@
 	<groupId>com.health</groupId>
 	<artifactId>SchoolHealth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>SchoolHealth</description>
+	<name>SchoolHealth</name>
 	<description>Information system for school health</description>
 	<properties>
 		<java.version>1.8</java.version>
