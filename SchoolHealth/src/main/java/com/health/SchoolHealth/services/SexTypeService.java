@@ -1,10 +1,7 @@
 package com.health.SchoolHealth.services;
 
-import com.health.SchoolHealth.model.DAOs.SchoolDao;
 import com.health.SchoolHealth.model.DAOs.SexTypeDao;
-import com.health.SchoolHealth.model.DAOs.StudentDao;
 import com.health.SchoolHealth.model.entities.SexType;
-import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +21,7 @@ public class SexTypeService {
         return RepositoryUtil.iterableToList(sexTypeDao.findAll());
     }
 
-
+    public SexType getSexTypeByCode(String code) {
+        return sexTypeDao.findSexTypeByCode(code).orElse(null);
+    }
 }
