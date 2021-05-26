@@ -16,7 +16,7 @@
         <th:div class="container" >
             <div class="row">
                 <div class="form-group">
-                    <label class="labelWidthExtra col-lg-4"  > Родител/Настойник
+                    <label class="labelWidthExtra col-lg-4"   > Родител/Настойник
                         <!--<div class="col-lg-4">-->
                         <select  class="form-control" style="width:auto;"  th:field="*{parent1.parentType.parentTypeCode}" >
                             <option th:each="parentType : *{parentTypes}"
@@ -149,7 +149,7 @@
                 </label>
             </div>
             <div class="col-lg-5" th:disabled="*{isSettlementPlaceEnable}">
-                <label class="labelWidthExtra"> Населено място:
+                <label class="labelWidthExtra"> Населено място *:
                     <!--/*@thymesVar id="address" type="model"*/-->
                         <select th:field="*{address.settlementPlace.ekatte}" style="width:150px;" title="Изберете община преди селище" required="true"
                             oninvalid="this.setCustomValidity('Населеното място е задължително поле')" oninput="this.setCustomValidity('')" >
@@ -195,9 +195,9 @@
     <form action="#" th:action="@{/parentPostData}" th:object="${parentForm}" method="post" th:fragment="parentFragment" class="container alert alert-info">
         <th:div class="container" >
             <div class="row">
-                <div class="col-lg-2">
-                    <label class="labelWidthExtra"> Родител/Настойник
-                        <select th:field="*{parent2.parentType.parentTypeCode}">
+                <div class="form-group">
+                    <label class="labelWidthExtra col-lg-4" > Родител/Настойник
+                        <select class="form-control" style="width:auto;" th:field="*{parent2.parentType.parentTypeCode}">
                             <option th:each="parentType : *{parentTypes}"
                                     th:text="${parentType.parentTypeName}"
                                     th:value="${parentType.parentTypeCode}">
@@ -205,17 +205,19 @@
                     </label>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label  class="labelWidthExtra"> Име:
-                        <input type="text" th:field="*{parent2.parentName}" size="50" />
+                        <input type="text"  class="form-control" th:field="*{parent2.parentName}" size="30%"  />
                     </label>
                 </div>
+
                 <div class="col-lg-4">
                     <label> Телефонен номер:
-                        <input type="text" th:field="*{parent2.telephoneNumber}" />
+                        <input type="text"  class="form-control" size="20%" th:field="*{parent2.telephoneNumber}" />
                     </label>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-4 ">
                     <label  class="labelWidthExtra"> E-mail* :
@@ -226,15 +228,16 @@
                         <span th:if="${#fields.hasErrors('parent2.user.email')}" class="help-block" th:errors="*{parent2.user.email}"></span>
                     </label>
                 </div>
-                <div class="col-lg-2"></div>
-                <div class="col-lg-6 ">
+
+                <div class="col-lg-4 ">
                     <label  class="labelWidthExtra"> Месторабота:
-                        <input type="text" th:field="*{parent2.placeOfWork}" size="50" />
+                        <input type="text" class="form-control" size="30%"  th:field="*{parent2.placeOfWork}" />
                     </label>
                 </div>
+
                 <div class="col-lg-4">
                     <label> Бизнес телефонен номер:
-                        <input type="text" th:field="*{parent2.businessTelephoneNumber}" />
+                        <input type="text"  class="form-control" size="20%" th:field="*{parent2.businessTelephoneNumber}" />
                     </label>
                 </div>
             </div>
@@ -317,7 +320,7 @@
                 </label>
             </div>
             <div class="col-lg-5" th:disabled="*{isSettlementPlaceEnable2}">
-                <label class="labelWidthExtra"> Населено място:
+                <label class="labelWidthExtra"> Населено място *:
                     <select th:field="*{address2.settlementPlace.ekatte}" style="width:150px;" title="Изберете община преди селище" required="true"
                             oninvalid="this.setCustomValidity('Населеното място е задължително поле')" oninput="this.setCustomValidity('')" >
                         <option th:each="settlementPlace : *{settlementPlaces2}"

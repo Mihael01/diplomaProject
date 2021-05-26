@@ -14,14 +14,14 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6">
-            <label class="labelWidthExtra" > Име:
+            <label class="labelWidthExtra" > Име *:
                 <input type="text" th:field="*{gp.gpName}"   required="true" style="width: 400px !important; min-width: 400px; max-width: 400px;"
                 oninvalid="this.setCustomValidity('Името е задължително поле.')"
                 oninput="this.setCustomValidity('')" />
             </label>
         </div>
         <div class="col-lg-6">
-            <label class="labelWidthExtra"> Телефонен номер:
+            <label class="labelWidthExtra"> Телефонен номер *:
                 <input type="text" th:field="*{gp.gpTelephoneNumber}"  required="true"
                        pattern= "(^[0-9]+$)"
                        oninvalid="this.setCustomValidity('Телефонът е задължително поле. Моля, въведете валиден номер само от цифри!')"
@@ -37,12 +37,12 @@
             </label>
         </div>
         <div class="col-lg-4 ">
-            <label  class="labelWidthExtra"> E-mail* :
+            <label  class="labelWidthExtra"> E-mail *:
 
                 <input class="form-control" size="30%" th:field="*{gp.user.email}"  required="true"
                        pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
                        oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
-                       oninput="this.setCustomValidity('')" />
+                       oninput="this.setCustomValidity('')"  />
                 <span th:if="${#fields.hasErrors('gp.user.email')}" class="help-block" th:errors="*{gp.user.email}"></span>
             </label>
         </div>

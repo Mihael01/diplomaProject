@@ -17,14 +17,14 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6 form-group form-inline">
-            <label class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> Име: </label>
+            <label class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> Име *: </label>
                 <input class="form-control  col-lg-9" style="width:70%" type="text" th:field="*{sportTeacher.sportTeacherName}"   required="true"
                        oninvalid="this.setCustomValidity('Името е задължително поле.')"
                        oninput="this.setCustomValidity('')" />
 
         </div>
         <div class="col-lg-6 form-group form-inline">
-                    <label class="col-form-label col-lg-4" style="white-space: nowrap; width:40" > Телефонен номер: </label>
+                    <label class="col-form-label col-lg-4" style="white-space: nowrap; width:40" > Телефонен номер *: </label>
                     <input class="form-control  col-lg-8" style="width:60%" type="text" th:field="*{sportTeacher.sportTeacherTelephoneNumber}"
                            id="telephoneNumber" required="true"
                            pattern= "(^[0-9]+$)"
@@ -35,7 +35,7 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6 form-group form-inline">
-            <label  class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> E-mail* : </label>
+            <label  class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> E-mail *: </label>
                 <input  class="form-control  col-lg-9" style="width:70%" th:field="*{sportTeacher.user.email}"  required="true"
                        pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
                        oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
@@ -52,8 +52,8 @@
     <div class="col-lg-1 ">
         <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
     </div>
-
-    <input type="submit" id="saveId" value="Запишете данните" class="btn btn-primary pull-right"  onclick="return checkForSTFunc();"/>
+    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+    <!--<input type="submit" id="saveId" value="Запишете данните" class="btn btn-primary pull-right"  onclick="return checkForSTFunc();"/>-->
 
             <div class="modal" id="submitModal">
                 <div class="modal-dialog modal-lg">

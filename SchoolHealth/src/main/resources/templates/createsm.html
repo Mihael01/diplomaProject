@@ -11,20 +11,21 @@
 
 
 <th:div class="container" id="smInput">
-<form id="formId" action="#" th:action="@{/createSMPostData}" th:object="${createSMForm}" method="post"  class="container alert alert-info" >
+<form id="formId" action="#" th:action="@{/createSMPostData}" th:object="${createSMForm}" method="post"  class="container alert alert-info"  >
 
     <H3 class="text-center">Регистрация на училищни медици</H3>
     <br/><br/>
     <div class="row">
         <div class="col-lg-6 form-group form-inline">
-            <label class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> Име: </label>
-                <input class="form-control  col-lg-9" style="width:70%" type="text" th:field="*{schoolMedic.schoolMedicsName}"   required="true"
+            <label class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> Име *: </label>
+                <input type="text" th:field="*{schoolMedic.schoolMedicsName}"  id="schoolMedicsName" required="true" style="width:70%"
                        oninvalid="this.setCustomValidity('Името е задължително поле.')"
                        oninput="this.setCustomValidity('')" />
 
         </div>
+
         <div class="col-lg-6 form-group form-inline">
-                    <label class="col-form-label col-lg-4" style="white-space: nowrap; width:40" > Телефонен номер: </label>
+                    <label class="col-form-label col-lg-4" style="white-space: nowrap; width:40" > Телефонен номер *: </label>
                     <input class="form-control  col-lg-8" style="width:60%" type="text" th:field="*{schoolMedic.schoolMedicsTelephoneNumber}"
                            id="telephoneNumber" required="true"
                            pattern= "(^[0-9]+$)"
@@ -35,10 +36,10 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6 form-group form-inline">
-            <label  class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> E-mail* : </label>
-                <input  class="form-control  col-lg-9" style="width:70%" th:field="*{schoolMedic.user.email}"  required="true"
-                       pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
-                       oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
+            <label  class="col-form-label col-lg-3" style="white-space: nowrap; width:30"> E-mail * : </label>
+                <input  class="form-control  col-lg-9" style="width:70%" th:field="*{schoolMedic.user.email}" required="true"
+                       pattern= "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
+                        oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
                        oninput="this.setCustomValidity('')" />
                 <span th:if="${#fields.hasErrors('schoolMedic.user.email')}" class="help-block" th:errors="*{schoolMedic.user.email}"></span>
         </div>
@@ -53,7 +54,8 @@
         <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
     </div>
 
-    <input type="submit" id="saveId" value="Запишете данните" class="btn btn-primary pull-right"  onclick="return checkForSMFunc();"/>
+    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+    <!--<input type="submit" id="saveId" value="Запишете данните" class="btn btn-primary pull-right"  onclick="return checkForSMFunc();"/>-->
 
             <div class="modal" id="submitModal">
                 <div class="modal-dialog modal-lg">

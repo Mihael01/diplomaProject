@@ -7,14 +7,17 @@
 
 <body>
 <form action="#"  th:action="@{/user/login}" th:object="${user}"  method="post"  class="container alert alert-info">
-
     <br>
     <H2 class="text-center">Информационна система "УЧИЛИЩНО ЗДРАВЕ"</H2>
     <br>
     <H3 class="text-center"><b>Вход в системата</b></H3>
     <br><br>
-
     <fieldset>
+        <div class="row">
+            <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+                <H2 class="alert alert-danger col-lg-6" role="alert" style="text:center; width:auto !important">Невалидно потребителско име или парола!</H2>
+            </div>
+        </div>
         <br><br>
         <div class="row">
             <div class="col-lg-2"><label>Потребителски код *</label></div>
@@ -28,21 +31,12 @@
             <div class="col-lg-6"><span th:if="${#fields.hasErrors('password')}" class="help-block" th:errors="*{password}"></span></div>
         </div>
         <br><br>
-        <!--<div class="row">-->
-            <!--<div class="col-lg-2"><label>E-mail *</label></div>-->
-            <!--<div class="col-lg-2"><input th:field="*{email}" /></div>-->
-            <!--<div class="col-lg-6"><span th:if="${#fields.hasErrors('email')}" class="help-block" th:errors="*{email}"></span></div>-->
-        <!--</div>-->
         <br><br>
         <div class="row">
             <div class="col-lg-9 float-right"></div>
             <div class="col-lg-1 float-right">
                 <button type="submit"  class="btn btn-primary" ><b>Вход</b></button>
             </div>
-            <!--<div class="col-lg-1 float-right">-->
-                <!--&lt;!&ndash;<button type="submit"  class="btn btn-primary" ><b>Смяна на парола</b></button>&ndash;&gt;-->
-                <!--<a th:href="@{/login.html}" class="btn btn-primary" ><b>Смяна на парола</b></a>-->
-            <!--</div>-->
         </div>
     </fieldset>
 </form>

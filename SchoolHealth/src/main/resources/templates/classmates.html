@@ -96,7 +96,6 @@
                         <th style="border: 1px solid white;  width:20% ">Име</th>
                         <th style="border: 1px solid white; width:5% ">Презиме</th>
                         <th style="border: 1px solid white; width:20% ">Фамилия</th>
-                        <th style="border: 1px solid white; width:5% ">id</th>
                         <th style="border: 1px solid white; width:15% ">Данни за ученика</th>
                     </tr>
                     <tr th:each="classmate : *{classmates}" >
@@ -106,7 +105,6 @@
                         <td th:text="${classmate.firstName}" style="border: 1px solid white;" ></td>
                         <td th:text="${classmate.middleName}" style="border: 1px solid white;" ></td>
                         <td th:text="${classmate.lastName}" style="border: 1px solid white;" ></td>
-                        <td th:text="${classmate.id}" style="border: 1px solid white;" ></td>
                         <td>
                             <a class="btn btn-secondary" th:href="@{/lzpk/} + ${classmate.id}" >Към данни за ученика</a>
                         </td>

@@ -33,16 +33,14 @@
     </div>
     <input type="hidden" th:field="*{gp.id}" />
     <br/><br/>
-    <div class="row">
-        <div class="col-lg-1 ">
-            <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
-        </div>
-        <div class="col-lg-10 ">
-        </div>
-        <div class="col-lg-1 float-right">
-            <input type="submit" value="Запишете данните за  личния лекар" class="btn btn-primary pull-right"/>
-        </div>
+
+    <div class="col-lg-2">
+        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
     </div>
+    <div class="col-lg-3 ">
+        <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
+    </div>
+    <input type="submit" value="Запишете данните за  личния лекар" class="btn btn-primary pull-right"/>
 </form>
 </body>
 </html>

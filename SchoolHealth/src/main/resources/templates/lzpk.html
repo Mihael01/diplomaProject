@@ -163,16 +163,16 @@
                     /*]]>*/
                 </script>
                 <div class="col-lg-2">
-                    <a class="btn btn-primary рull-right " th:href="@{/home}"  id="home" role="button"  >Към начало</a>
+                    <a class="btn btn-primary рull-right " th:href="@{/home}"  id="home" role="button" onclick="cleanDataOnHomeRedirect()" >Към начало</a>
                 </div>
+
                 <script th:inline="javascript">
                     /*<![CDATA[*/
                     function cleanDataOnParentsRedirect() {
                         $("#parents").click(function () {
-                        alert("cleanDataOnParentsRedirect");
-                            $.ajax({
+                        $.ajax({
                                 type: "POST",
-                                url: "/cleanSessionDataOnLzpkRedirect",
+                                url: "/cleanSessionDataOnParentsRedirect",
                                 contentType: 'text/plain; charset=UTF-8',
                                 success: function () {
                                     location.reload();
@@ -183,44 +183,53 @@
                     $(function() { cleanDataOnParentsRedirect(); });
                     /*]]>*/
                 </script>
+
+            <div th:if="${isStudentDataVisible == 'true'}" >
                 <div class="col-lg-3">
                     <a class="btn btn-primary рull-right " th:href="@{/gp}"  id="gp" role="button" th:disabled="*{hasNotStudent}" >Към личен лекар</a>
                 </div>
                 <div class="col-lg-3">
                     <a class="btn btn-primary рull-right " th:href="@{/parents}"  id="parents" role="button" th:disabled="*{hasNotStudent}" >Към данни за родителите</a>
                 </div>
-                <div th:if="${session.containsKey('studentId')}" th:text="${session.studentId}"></div>
+            </div>
+            <div class="col-lg-3">
+                <a class="btn btn-primary рull-right" th:href="@{/physicalcapacity}" role="button"  th:disabled="*{hasNotStudent}"  >Към физическа дееспособност</a>
+            </div>
+            </div>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div th:if="${isStudentDataVisible == 'true'}" >
                 <div class="col-lg-3 text-center">
                     <a th:href="@{/basedata}" class="btn btn-primary рull-right"
                        th:disabled="*{hasNotStudent}"  >Към основна здравна информация</a>
                 </div>
-            </div>
-            <br/><br/>
-            <div class="row">
-                <div class="col-lg-2">
-                </div>
                 <div class="col-lg-3">
                     <a class="btn btn-primary рull-right" href="/healthcondition" role="button"  th:disabled="*{hasNotStudent}"  >Към здравословно състояние</a>.
                 </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към физическа дееспособност</a>
                 </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary рull-right" href="/anthropological" role="button"  th:disabled="*{hasNotStudent}"  >Към антропологични показатели</a>
+
+                <div th:if="${isStudentDataVisible == 'true'}" >
+                    <div class="col-lg-3">
+                        <a class="btn btn-primary рull-right" href="/anthropological" role="button"  th:disabled="*{hasNotStudent}"  >Към антропологични показатели</a>
+                    </div>
                 </div>
             </div>
             <br/><br/>
             <div class="row">
-                <div class="col-lg-2">
-                </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към профилактични прегледи</a>
-                </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към паразити</a>
-                </div>
-                <div class="col-lg-3">
-                    <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към вредни навици и пристрастявания</a>
+                <div th:if="${isStudentDataVisible == 'true'}" >
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към профилактични прегледи</a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към паразити</a>
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към вредни навици и пристрастявания</a>
+                    </div>
                 </div>
             </div>
 

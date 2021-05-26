@@ -14,15 +14,17 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6">
-            <label class="labelWidthExtra" > Име:
+            <label class="labelWidthExtra" > Име *:
                 <input type="text" th:field="*{admin.adminName}"   required="true" style="width: 400px !important; min-width: 400px; max-width: 400px;"
                 oninvalid="this.setCustomValidity('Името е задължително поле.')"
                 oninput="this.setCustomValidity('')" />
             </label>
         </div>
         <div class="col-lg-6">
-            <label class="labelWidthExtra" > Фамилия:
-                <input type="text" th:field="*{admin.adminLastName}"  style="width: 285px !important; min-width: 285px; max-width: 285px;" />
+            <label class="labelWidthExtra" > Фамилия *:
+                <input type="text" th:field="*{admin.adminLastName}"  required="true"  style="width: 285px !important; min-width: 285px; max-width: 285px;"
+                       oninvalid="this.setCustomValidity('Фамилията е задължително поле.')"
+                       oninput="this.setCustomValidity('')" />
             </label>
         </div>
         
@@ -30,7 +32,7 @@
     <br/><br/>
     <div class="row">
         <div class="col-lg-6">
-            <label class="labelWidthExtra"> Телефонен номер:
+            <label class="labelWidthExtra"> Телефонен номер *:
                 <input type="text" th:field="*{admin.adminTelephoneNumber}"  required="true"
                        pattern= "(^[0-9]+$)"
                        oninvalid="this.setCustomValidity('Телефонът е задължително поле. Моля, въведете валиден номер само от цифри!')"
@@ -39,7 +41,7 @@
         </div>
         
         <div class="col-lg-6">
-            <label  class="labelWidthExtra"> E-mail* :
+            <label  class="labelWidthExtra"> E-mail *:
                 <input th:field="*{admin.user.email}"  required="true"
                        pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
                        oninput="this.setCustomValidity('')" />

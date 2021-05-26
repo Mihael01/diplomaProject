@@ -14,6 +14,32 @@
     <br/>
     <H3 class="text-center" th:text="'Основни данни'" > </H3>
     <br/><br/>
+
+    <div class="row">
+        <div th:if="${isCreateAdminButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="createadmin" th:text="'Създай профил на администратор'" id="createAdminLink" class="btn btn-primary pull-center"></a>
+            </div>
+        </div>
+        <br/> <br/>
+    </div>
+    <div class="row">
+            <div th:if="${isCreateGPButtonVisible == 'true'}" >
+                <div class="col-lg-4 text-center" >
+                    <a th:href="creategp" th:text="'Създай профил на личен лекар'" id="createGpLink" class="btn btn-primary pull-center"></a>
+                </div>
+            </div>
+            <div th:if="${isCreateSMandSTButtonVisible == 'true'}" >
+                <div class="col-lg-4 text-center" >
+                    <a th:href="createsm" th:text="'Създай профил на училищно медицинско лице'" id="createSchoolMedicLink" class="btn btn-primary pull-center"></a>
+                </div>
+                <div class="col-lg-4 text-center" >
+                    <a th:href="createst" th:text="'Създай профил на учител по ФВС'" id="createSportTeacherLink" class="btn btn-primary pull-center"></a>
+                </div>
+            </div>
+            <br/> <br/>
+
+    </div>
     <div class="row">
         <script th:inline="javascript">
             /*<![CDATA[*/
@@ -32,8 +58,10 @@
             $(function() { cleanDataOnSchoolRedirect(); });
             /*]]>*/
         </script>
-        <div class="col-lg-4 text-center" >
-            <a th:href="school" id="schoolLink" th:text="'Към данни за училището и училищното медицинско лице'" class="btn btn-primary pull-center"></a>
+        <div th:if="${isSchoolButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="school" id="schoolLink" th:text="'Към данни за училището и училищното медицинско лице'" class="btn btn-primary pull-center"></a>
+            </div>
         </div>
         <script th:inline="javascript">
             /*<![CDATA[*/
@@ -52,23 +80,17 @@
             $(function() { cleanDataOnLzpkRedirect(); });
             /*]]>*/
         </script>
-        <div class="col-lg-4 text-center" >
-            <a th:href="lzpk" th:text="'Създай ЛЗПК на ученик'" id="lzpkLink" class="btn btn-primary pull-center"></a>
+        <div th:if="${isCreateLZPKButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="@{lzpk}" th:text="'Създай ЛЗПК на ученик'" id="lzpkLink" class="btn btn-primary pull-center"></a>
+            </div>
         </div>
-        <div class="col-lg-4 text-center" >
-            <a th:href="classmates" th:text="'Списъци с ученици'" id="classmates" class="btn btn-primary pull-center"></a>
+        <div th:if="${isSchoolButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="classmates" th:text="'Списъци с ученици'" id="classmates" class="btn btn-primary pull-center"></a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 text-center" >
-            <a th:href="creategp" th:text="'Създай профил на личен лекар'" id="createGpLink" class="btn btn-primary pull-center"></a>
-        </div>
-        <div class="col-lg-4 text-center" >
-            <a th:href="createschoolmedic" th:text="'Създай профил на училищно медицинско лице'" id="createSchoolMedicLink" class="btn btn-primary pull-center"></a>
-        </div>
-    </div>
-    <div class="row">
-        <br/>
+        <br/> <br/>
     </div>
 
 </form>
