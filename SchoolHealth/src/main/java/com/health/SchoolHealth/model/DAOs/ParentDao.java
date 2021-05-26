@@ -13,7 +13,8 @@ import java.util.Optional;
 @Transactional
 public interface ParentDao extends CrudRepository<Parent, Long> {
 
-    @Query("select p from Parent as p join StudentParent as sp on p.id=sp.parent.id where sp.student.id=:studentId " +
+    @Query("select p from Parent as p join StudentParent as sp on p.id=sp.parent.id " +
+            "join User as u on p.user.id = u.id where sp.student.id=:studentId " +
             "order by p.parentType.parentTypeCode desc")
     public Iterable<Parent> findAllParentsByStudentId(Long studentId);
 }
