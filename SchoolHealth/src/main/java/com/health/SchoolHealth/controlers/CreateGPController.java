@@ -69,7 +69,7 @@ public class CreateGPController {
                 ControllerUtil.setUserData(createGPForm.getGp().getUser(), UserType.GP.getCode(), userService, mailSender);
                 System.out.println("e-mail: " + createGPForm.getGp().getUser().getEmail());
                 savedUser = userService.createOrUpdateUser(createGPForm.getGp().getUser());
-
+System.out.println();
                 //Ако Потребителя не е съществувал като запис в базата,
                 // слагаме вече записания потребител като поле на gp (със съществуващо вече id)
                 createGPForm.getGp().setUser(savedUser);
@@ -83,7 +83,7 @@ public class CreateGPController {
 
          GP gp = gpService.createOrUpdateGP(createGPForm.getGp());
 
-
+System.out.println("gp id " + gp.getId());
         modelAndView = new ModelAndView("redirect:/creategp");
         return modelAndView;
     }

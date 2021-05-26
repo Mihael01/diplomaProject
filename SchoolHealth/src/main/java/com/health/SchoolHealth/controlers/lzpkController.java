@@ -10,6 +10,7 @@ import com.health.SchoolHealth.services.LzpkService;
 import com.health.SchoolHealth.services.SexTypeService;
 import com.health.SchoolHealth.services.StudentService;
 import com.health.SchoolHealth.util.FormUtil;
+import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -129,6 +130,13 @@ System.out.println("studentId::param :::::: "+studentIdParam);
         modelAndView.addObject("addressForm", addressForm);
         modelAndView.addObject("buttonsForm", buttonsForm);
         System.out.println("VIEW " + modelAndView.getViewName() );
+        //Добавяме видимост на бутони спрямо роли
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        System.out.println("userTypeCode in lzpk " + userTypeCode);
+        if (!UserType.SPORT_TEACHER.getCode().equals(userTypeCode)) {
+            System.out.println("No SPORT_TEACHER");
+            modelAndView.addObject("isStudentDataVisible", "true");
+        }
         return modelAndView;
     }
 
@@ -144,6 +152,7 @@ System.out.println("studentId::param :::::: "+studentIdParam);
     @RequestMapping(value = {"lzpkPostData"})
     public ModelAndView lzpkPostData(@ModelAttribute("lzpkForm") LzpkForm lzpkForm, HttpSession httpSession) {
 
+        System.out.println("getSexTypeCode" + lzpkForm.getStudent().getSexType().getSexTypeCode());
         Student foundStudent = studentService.findStudentById((Long) httpSession.getAttribute("studentId"));
         if (foundStudent != null) {
             foundStudent.setLzpk(lzpkForm.getStudent().getLzpk());
@@ -156,10 +165,17 @@ System.out.println("studentId::param :::::: "+studentIdParam);
             foundStudent.setTelephoneNumber(lzpkForm.getStudent().getTelephoneNumber());
             foundStudent.setClass_(lzpkForm.getStudent().getClass_());
             foundStudent.setClassLetter(lzpkForm.getStudent().getClassLetter());
+            foundStudent.setSexType(sexTypeService.getSexTypeByCode(lzpkForm.getStudent().getSexType().getSexTypeCode()));
         }
 
         System.out.println("DATE getBirthDate " + lzpkForm.getStudent().getBirthDate());
-        Lzpk savedLzpk = lzpkService.createOrUpdateLzpk(lzpkForm.getStudent().getLzpk());
+        Lzpk savedLzpk = null;
+        if(foundStudent != null) {
+            savedLzpk = lzpkService.createOrUpdateLzpk(foundStudent.getLzpk());
+        } else {
+            savedLzpk = lzpkService.createOrUpdateLzpk(lzpkForm.getStudent().getLzpk());
+        }
+
         lzpkForm.getStudent().setLzpk(savedLzpk);
 
         Student student = studentService.createOrUpdateStudent(foundStudent != null? foundStudent : lzpkForm.getStudent());
@@ -178,6 +194,16 @@ System.out.println("studentId::param :::::: "+studentIdParam);
         httpSession.setAttribute("regionCode", null);
         httpSession.setAttribute("municipalityCode", null);
         modelAndView = new ModelAndView("redirect:/lzpk");
+        return modelAndView;
+    }
+
+    @PostMapping
+    @RequestMapping(value = {"/cleanSessionDataOnParentsRedirect"})
+    public ModelAndView cleanSessionDataOnParentsRedirect(HttpSession httpSession) {
+
+        httpSession.setAttribute("regionCode", null);
+        httpSession.setAttribute("municipalityCode", null);
+        modelAndView = new ModelAndView("redirect:/parents");
         return modelAndView;
     }
 
