@@ -1,7 +1,5 @@
 package com.health.SchoolHealth.util;
 
-import org.springframework.context.annotation.Bean;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +18,7 @@ public enum UserType {
 
     private final String code;
 
-
+    public static final Map<String, String> mMap = Collections.unmodifiableMap(initializeMapping());
 
     UserType(String description, String code) {
         this.description = description;
@@ -35,6 +33,22 @@ public enum UserType {
         return code;
     }
 
+    public static String getDescriptionByCode(String code) {
+        if (mMap == null) {
+            initializeMapping();
+        }
+        if (mMap.containsKey(code)) {
+            return mMap.get(code);
+        }
+        return null;
+    }
 
+    private static HashMap<String, String> initializeMapping() {
+        HashMap<String, String> types = new HashMap<>();
 
+        for (UserType userType : UserType.values()) {
+            types.put(userType.code, userType.description);
+        }
+        return types;
+    }
 }

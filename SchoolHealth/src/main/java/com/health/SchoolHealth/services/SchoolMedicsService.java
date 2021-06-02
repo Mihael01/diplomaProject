@@ -51,4 +51,8 @@ public class SchoolMedicsService {
         }
     }
 
+    public SchoolMedics getSchoolMedicByUserId(Long userId) {
+        return schoolMedicsDao.findSchoolMedicByUserId(userId).orElse(null);
+    }
+
 }

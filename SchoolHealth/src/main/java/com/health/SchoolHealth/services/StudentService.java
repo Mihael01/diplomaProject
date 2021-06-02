@@ -9,9 +9,7 @@ import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,12 +39,57 @@ public class StudentService {
 
 
 
-    public List<Student> findClassmatesByClassAndClassLetter(String class_, String classLetter) {
+    public List<Student> findClassmatesByClassAndClassLetter(String class_, String classLetter, Integer schoolId) {
 
         if (class_ == null || classLetter == null) {
             return new ArrayList<>();
         }
 
-        return RepositoryUtil.iterableToList(studentDao.findAllByClassAndClassLetter(class_, classLetter));
+        return RepositoryUtil.iterableToList(studentDao.findAllByClassAndClassLetter(class_, classLetter, schoolId));
     }
+
+    public Integer countAllClassesFofSchool(Integer schoolId) {
+
+        List<String> allClassesAndLetters =  RepositoryUtil.iterableToList(studentDao.countAllClassesFofSchool(schoolId));
+
+        Set<String> distinctClassesAndLetters = new HashSet<>(allClassesAndLetters);
+
+        return distinctClassesAndLetters.size();
+    }
+
+    public Integer countAllStudentsFofSchool(Integer schoolId) {
+
+        Integer studentCount =  studentDao.countAllStudentsFofSchool(schoolId).orElse(null);
+
+        return  studentCount;
+    }
+
+    public Integer countAllBoysFrom7to14FofSchool(Integer schoolId) {
+
+        Integer studentCount =  studentDao.countAllBoysFrom7to14FofSchool(schoolId).orElse(null);
+
+        return  studentCount;
+    }
+
+    public Integer countAllGirlsFrom7to14FofSchool(Integer schoolId) {
+
+        Integer studentCount =  studentDao.countAllGirlsFrom7to14FofSchool(schoolId).orElse(null);
+
+        return  studentCount;
+    }
+
+    public Integer countAllBoysFrom14to18FofSchool(Integer schoolId) {
+
+        Integer studentCount =  studentDao.countAllBoysFrom14to18FofSchool(schoolId).orElse(null);
+
+        return  studentCount;
+    }
+
+    public Integer countAllGirlsFrom14to18FofSchool(Integer schoolId) {
+
+        Integer studentCount =  studentDao.countAllGirlsFrom14to18FofSchool(schoolId).orElse(null);
+
+        return  studentCount;
+    }
+
 }

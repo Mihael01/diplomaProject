@@ -54,7 +54,9 @@ public class FormUtil {
         String municipalityCode2 = setMunicipalityCode2(addressForm, httpSession, foundAddress2);
 
         if (regionCode != null) {
+            System.out.println();
             addressForm.setMunicipalities(addressService.getAllMunicipalitiesInRegion(regionCode));
+            System.out.println("Municipalities size for region code " + addressForm.getMunicipalities().size() + " regionCode "); //да се види тук лога и защо не вади общините
         }
         if (regionCode2 != null) {
             addressForm.setMunicipalities2(addressService.getAllMunicipalitiesInRegion(regionCode2));
@@ -207,6 +209,7 @@ System.out.println("isSettlementPlaceEnable2 >>>> " + municipalityCode2);
         if(regionCode != null) {
             addressForm.setRegionCode(regionCode);
             addressForm.setIsMunicipalityEnable(true);
+            System.out.println("addressForm.setIsMunicipalityEnable(true);");
         }
         return regionCode;
     }

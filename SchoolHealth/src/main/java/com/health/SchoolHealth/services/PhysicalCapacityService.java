@@ -27,4 +27,25 @@ public class PhysicalCapacityService {
         return physicalCapacityDao.save(physicalCapacity);
     }
 
+    public Integer countStudentsHavingMarkGreaterThan3(Integer schoolId) {
+        return physicalCapacityDao.countStudentsHavingMarkGreaterThan3(schoolId).orElse(null);
+    }
+
+    public Integer countStudentsHavingMarkGreaterThan3GirlsFrom7to14FofSchool(Integer schoolId) {
+        return physicalCapacityDao.countStudentsHavingMarkGreaterThan3GirlsFrom7to14FofSchool(schoolId).orElse(null);
+    }
+
+
+    public Integer countStudentsHavingMarkGreaterThan3BoysFrom7to14FofSchool(Integer schoolId) {
+        return physicalCapacityDao.countStudentsHavingMarkGreaterThan3BoysFrom7to14FofSchool(schoolId).orElse(null);
+    }
+
+    public Integer countStudentsHavingMarkGreaterThan3GirlsFrom14to18FofSchool(Integer schoolId) {
+        return physicalCapacityDao.countStudentsHavingMarkGreaterThan3GirlsFrom14to18FofSchool(schoolId).orElse(null);
+    }
+
+    public Integer countStudentsHavingMarkGreaterThan3BoysFrom14to18FofSchool(Integer schoolId) {
+        return physicalCapacityDao.countStudentsHavingMarkGreaterThan3BoysFrom14to18FofSchool(schoolId).orElse(null);
+    }
 }
+

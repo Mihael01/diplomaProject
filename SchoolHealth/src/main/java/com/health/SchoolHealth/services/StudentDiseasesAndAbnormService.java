@@ -35,4 +35,39 @@ public class StudentDiseasesAndAbnormService {
         studentDiseasesAndAbnormalitiesDao.deleteById(studentDiseasesAndAbnormId);
     }
 
+    public Integer getNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCode(String diseasesAndAbnormTypeCode, Integer schoolId) {
+        List<StudentDiseasesAndAbnormalities> result = RepositoryUtil.iterableToList(
+                studentDiseasesAndAbnormalitiesDao.findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCode(diseasesAndAbnormTypeCode, schoolId));
+        if (result != null) {
+            return result.size();
+        }
+        return 0;
+    }
+
+    public Integer getNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeIClass(String diseasesAndAbnormTypeCode, Integer schoolId) {
+        List<StudentDiseasesAndAbnormalities> result = RepositoryUtil.iterableToList(
+                studentDiseasesAndAbnormalitiesDao.findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeIClass(diseasesAndAbnormTypeCode, schoolId));
+        if (result != null) {
+            return result.size();
+        }
+        return 0;
+    }
+
+    public Integer getNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeVIIClass(String diseasesAndAbnormTypeCode, Integer schoolId) {
+        List<StudentDiseasesAndAbnormalities> result = RepositoryUtil.iterableToList(
+                studentDiseasesAndAbnormalitiesDao.findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeVIIClass(diseasesAndAbnormTypeCode, schoolId));
+        if (result != null) {
+            return result.size();
+        }
+        return 0;
+    }
+
+    public Integer getNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeXClass(String diseasesAndAbnormTypeCode, Integer schoolId) {
+        List<StudentDiseasesAndAbnormalities> result = RepositoryUtil.iterableToList(
+                studentDiseasesAndAbnormalitiesDao.findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeXClass(diseasesAndAbnormTypeCode, schoolId));
+        if (result != null) {
+            return result.size();
+        }
+        return 0;
+    }
 }

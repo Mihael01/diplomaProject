@@ -20,7 +20,7 @@ public class DiseasesAndAbnormTypeService {
     }
 
     public List<DiseasesAndAbnormType> getAllDiseasesAndAbnormTypes() {
-        return RepositoryUtil.iterableToList(diseasesAndAbnormTypeDao.findAll());
+        return RepositoryUtil.iterableToList(diseasesAndAbnormTypeDao.findAllOrderByCode());
     }
 
     public DiseasesAndAbnormType getDiseasesAndAbnormTypeByCode(String diseasesAndAbnormTypeCode) {

@@ -2,23 +2,16 @@ package com.health.SchoolHealth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-
-import java.util.Locale;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
-//@PropertySource(value = "classpath:application.properties", encoding = "UTF-8")
 @EnableWebMvc
-public class SchoolHealthApplication implements WebMvcConfigurer  { // extends WebMvcConfigurerAdapter //implements WebMvcConfigurer { //
+//@Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled=true)
+public class SchoolHealthApplication implements WebMvcConfigurer  {
 
 	public static void main(String[] args) {
 

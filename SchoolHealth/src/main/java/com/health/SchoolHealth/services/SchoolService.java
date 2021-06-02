@@ -56,4 +56,14 @@ public class SchoolService {
         return RepositoryUtil.iterableToList(schoolDao.findAllSchoolsBySchoolMedic(medicId));
     }
 
+    public Integer findSchoolIdBySchoolMedicUserId(Long userId) {
+        School school = schoolDao.getFindSchoolBySchoolMedicUserId(userId).orElse(null);
+        return school != null ? school.getId() : null;
+    }
+
+//    public Long findSchoolIdBySportTeacherUserId(Long userId) {
+//        School school = schoolDao.getSchoolBySportTeacherUserId(userId).orElse(null);
+//        return school != null ? school.getId() : Long.valueOf(null);
+//    }
+
 }
