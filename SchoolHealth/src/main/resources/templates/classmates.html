@@ -16,6 +16,13 @@
 </head>
 
 <body>
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
+
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
 <form action="#" th:action="@{/classmatesPostData}" th:object="${classmatesForm}" method="post"  class="container alert alert-info">
     <span class="border border-danger">
     <H3 class="text-center">Списъци на учениците по класове</H3>
@@ -66,28 +73,26 @@
 
         </div>
         <div class="row">
-            <div>
-                <!--<table>-->
-                    <!--<tr>-->
-                        <!--<th>Клас</th>-->
-                        <!--<th>Паралелка</th>-->
-                        <!--<th>№</th>-->
-                        <!--<th>Име</th>-->
-                        <!--<th>Презиме</th>-->
-                        <!--<th>Фамилия</th>-->
-                        <!--<th>Данни за ученика</th>-->
-                    <!--</tr>-->
-                    <!--<tr th:each="classmate : *{classmates}" >-->
-                        <!--<td th:text="${classmate.class_}"></td>-->
-                        <!--<td th:text="${classmate.classLetter}" ></td>-->
-                        <!--<td th:text="${classmate.studentNumber}"></td>-->
-                        <!--<td th:text="${classmate.firstName}"></td>-->
-                        <!--<td th:text="${classmate.middleName}"></td>-->
-                        <!--<td th:text="${classmate.lastName}"></td>-->
-                        <!--<td th:value="${classmate.id}">Към данни за ученика </td>-->
-                    <!--</tr>-->
-                <!--</table>-->
+            <div class="col-lg-12">
                 <br/><br/>
+
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    function cleanDataOnStudentRedirect(currentLzpkNumber) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/cleanSessionDataOnStudentRedirect?lzpkNumber="+currentLzpkNumber.value,
+                            contentType: 'text/plain; charset=UTF-8',
+                            success: function () {
+                                location.reload();
+                            }
+                        });
+                    }
+
+                    /*]]>*/
+
+                </script>
+
                 <table style="border: 1px solid white;" >
                     <tr>
                         <th style="border: 1px solid white; width:5% " >Клас</th>
@@ -106,7 +111,8 @@
                         <td th:text="${classmate.middleName}" style="border: 1px solid white;" ></td>
                         <td th:text="${classmate.lastName}" style="border: 1px solid white;" ></td>
                         <td>
-                            <a class="btn btn-secondary" th:href="@{/lzpk/} + ${classmate.id}" >Към данни за ученика</a>
+                            <a class="btn btn-secondary" th:href="@{/lzpk/} + ${classmate.id}" id="classmateData + ${classmate.id}"
+                               th:value="${'/lzpk/' + classmate.id}" onclick="cleanDataOnStudentRedirect(this)" >Към данни за ученика</a>
                         </td>
                     </tr>
                 </table>
@@ -114,6 +120,12 @@
         </div>
         <br/>
     </th:div>
+    <div class="row">
+        <div class="col-lg-2">
+            <a class="btn btn-primary рull-left " href="home" role="button">Към начало</a>
+        </div>
+    </div>
  </form>
+</div>
 </body>
 </html>

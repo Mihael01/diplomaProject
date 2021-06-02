@@ -9,6 +9,14 @@
 
 <body>
 
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
+
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+<div id="addressWrapperId">
 <form action="#" th:action="@{/lzpkPostData}" th:object="${lzpkForm}" method="post"  class="container alert alert-info">
 
     <H3 class="text-center">Основни данни за Лична здравнопрофилактична карта</H3>
@@ -88,9 +96,9 @@
                 <div class="col-lg-4">
                     <label class="labelWidthExtra"> Клас:
                         <!--/*@thymesVar id="lzpk" type="model"*/-->
-                        <select th:field="*{student.class_}"
-                                oninvalid="this.setCustomValidity('Класът е задължително поле')" required="true" >
-                            <option value="" selected>Изберете клас</option>
+                        <select th:field="*{student.class_}" >
+                                <!--oninvalid="this.setCustomValidity('Класът е задължително поле')" required="true" >-->
+                            <option value="" selected >Изберете клас</option>
                             <option th:each="class_ : *{classesNomenclature}"
                                     th:text="${class_}"
                                     th:value="${class_}">
@@ -98,11 +106,11 @@
                         </select>
                     </label>
                 </div>
+
                 <div class="col-lg-4">
                     <label class="labelWidthExtra"> Паралелка:
-                        <select th:field="*{student.classLetter}"
-                                oninvalid="this.setCustomValidity('Паралелката е задължително поле')" required="true" >
-                            <option value="" selected>Изберете паралелка</option>
+                        <select th:field="*{student.classLetter}" >
+                            <option value="" selected >Изберете паралелка</option>
                             <option th:each="classLetter : *{classLettersNomenclature}"
                                     th:text="${classLetter}"
                                     th:value="${classLetter}">
@@ -136,9 +144,8 @@
 
     </form>
 
-    <div id="addressWrapperId">
-        <div th:insert="address :: addressFragment" ></div>
-    </div>
+    <div th:insert="address :: addressFragment" ></div>
+
     <form  class="container alert alert-info" th:object="${buttonsForm}">
         <th:div class="container">
             <div class="row">
@@ -146,7 +153,6 @@
                     /*<![CDATA[*/
                     function cleanDataOnHomeRedirect() {
                         $("#home").click(function () {
-                        alert("cleanDataOnHomeRedirect");
                             $.ajax({
                                 type: "POST",
                                 url: "/cleanSessionDataOnHomeRedirect",
@@ -222,20 +228,16 @@
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-3">
-                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към профилактични прегледи</a>
+                        <a class="btn btn-primary рull-right" th:href="@{/parasits}" role="button"  th:disabled="*{hasNotStudent}"  >Към паразити</a>
                     </div>
                     <div class="col-lg-3">
-                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към паразити</a>
-                    </div>
-                    <div class="col-lg-3">
-                        <a class="btn btn-primary рull-right" href="#" role="button"  th:disabled="*{hasNotStudent}"  >Към вредни навици и пристрастявания</a>
+                        <a class="btn btn-primary рull-right" th:href="@{/addictions}" role="button"  th:disabled="*{hasNotStudent}"  >Към вредни навици и пристрастявания</a>
                     </div>
                 </div>
             </div>
-
-
         </th:div>
     </form>
-
+</div>
+</div>
 </body>
 </html>

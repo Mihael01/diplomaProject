@@ -6,58 +6,65 @@
 </head>
 
 <body>
-<form action="#"  th:action="@{/physicalCapacityPostData}" th:object="${physicalCapacityForm}"  method="post"  class="container alert alert-info">
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
 
-    <H3 class="text-center"><b>Физическа дееспособност</b></H3>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label >Мускулна сила на лява ръка</label></div>
-            <div class="col-lg-3"><input type="text" th:field="*{physicalCapacity.strengthLeftHand}" id="strengthLeftHand"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label span="2">Мускулна сила на дясна ръка</label></div>
-            <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.strengthRightHand}" id="strengthRightHand"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label span="2" >Гладко бягане</label></div>
-            <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.running}"  id="running"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label span="2">Скок на дължина</label></div>
-            <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.longJump}"  id="longJump"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label >Хвърляне на малка плътна топка</label></div>
-            <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.throwingBall}" id="throwingBall"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label span="2">Mаксимален брой клякания</label></div>
-            <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.maximumSquats}" id="maximumSquats"/></div>
-        </div>
-        <br><br>
-        <div class="row">
-            <div class="col-lg-5"><label >Обща оценка на ученика за физическа дееспособност</label></div>
-            <div class="col-lg-3"><input type="text" th:field="*{physicalCapacity.physicalCapacityMark}" id="physicalCapacityMark"/></div>
-        </div>
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <form action="#"  th:action="@{/physicalCapacityPostData}" th:object="${physicalCapacityForm}"  method="post"  class="container alert alert-info">
 
-        <br><br>
+        <H3 class="text-center"><b>Физическа дееспособност</b></H3>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label >Мускулна сила на лява ръка</label></div>
+                <div class="col-lg-3"><input type="text" th:field="*{physicalCapacity.strengthLeftHand}" id="strengthLeftHand"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label span="2">Мускулна сила на дясна ръка</label></div>
+                <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.strengthRightHand}" id="strengthRightHand"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label span="2" >Гладко бягане</label></div>
+                <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.running}"  id="running"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label span="2">Скок на дължина</label></div>
+                <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.longJump}"  id="longJump"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label >Хвърляне на малка плътна топка</label></div>
+                <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.throwingBall}" id="throwingBall"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label span="2">Mаксимален брой клякания</label></div>
+                <div class="col-lg-3"><input span="2" type="text" th:field="*{physicalCapacity.maximumSquats}" id="maximumSquats"/></div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-5"><label >Обща оценка на ученика за физическа дееспособност</label></div>
+                <div class="col-lg-3"><input type="text" th:field="*{physicalCapacity.physicalCapacityMark}" id="physicalCapacityMark"/></div>
+            </div>
 
-        <div class="col-lg-2">
-            <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-        </div>
-        <div class="col-lg-3 ">
-            <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
-        </div>
+            <br><br>
 
-        <input hidden th:field = "*{physicalCapacity.id}" />
-        <input type="submit" value="Зпишете Данните" class="btn btn-primary pull-right"/>
+            <div class="col-lg-2">
+                <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+            </div>
+            <div class="col-lg-3 ">
+                <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
+            </div>
 
-</form>
+            <input hidden th:field = "*{physicalCapacity.id}" />
+            <input type="submit" value="Зпишете Данните" class="btn btn-primary pull-right"/>
 
+    </form>
+</div>
 </body>
 </html>

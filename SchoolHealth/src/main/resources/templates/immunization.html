@@ -6,97 +6,107 @@
 <head th:include="header :: headerFragment"></head>
 
 <body>
-<th:div class="container" id="immunizationInput">
-<form action="#" th:action="@{/immunizationPostData}" th:object="${immunizationForm}" method="post"  class="container alert alert-info">
-
-
-        <H3 class="text-center">Имунизации / реимунизации на ученика</H3>
-        <br/>
-
-        <div class="row" >
-            <div class="col-lg-4">
-                <label class="labelWidthExtra" th:label="'Въведете дата във формат: 01.01.2021'">  Имунизиран на:
-                    <input type="date" title="Изберете дата" th:field="*{immunization.immunizationDate}" required="true"
-                           oninvalid="this.setCustomValidity('Датата е задължително поле')" oninput="this.setCustomValidity('')" />
-                </label>
-            </div>
-
-            <div class="col-lg-6 ">
-                <label lass="labelWidthExtra"> Вид имунизация / реимунизация:
-                    <input type="text" th:field="*{immunization.immunizationName}" />
-                </label>
-            </div>
+    <div class="row">
+        <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+            <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
         </div>
+    </div>
 
-    <br/><br/>
+    <div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <th:div class="container" id="immunizationInput">
+            <form action="#" th:action="@{/immunizationPostData}" th:object="${immunizationForm}" method="post"  class="container alert alert-info">
 
-    <div id="immunizationTable">
-    <table style="border: 1px solid white;" >
-        <tr>
-            <th style="border: 1px solid white; width:40% " >Вид имунизацията / реимунизацията</th>
-            <th style="border: 1px solid white; width:30% " >Дата на иунизацията / реимунизацията</th>
-            <th style="border: 1px solid white; width:15% ">Редакция</th>
-            <th style="border: 1px solid white; width:15% ">Изтриване</th>
-        </tr>
-            <tr th:each="i : *{allImmunizations}" >
-            <td th:text="${i.immunizationName}" style="border: 1px solid white;" ></td>
-            <td style="border: 1px solid white; text-align: center;" >
-                <input type="date" disabled th:value="${i.immunizationDate}" >
-            </td>
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function editImmunizationFunc(immunizationId) {
-                            $.ajax({
-                                type: "POST",
-                                url: "/editImmunizationData?immunizationId=" + immunizationId.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function (response) {
-                                var placeholder = document.getElementById("immunizationTable");
-                                placeholder.innerHTML = "";
-                                $("#immunizationInput").html(response);
+
+                    <H3 class="text-center">Имунизации / реимунизации на ученика</H3>
+                    <br/>
+
+                    <div class="row" >
+                        <div class="col-lg-4">
+                            <label class="labelWidthExtra" th:label="'Въведете дата във формат: 01.01.2021'">  Имунизиран на:
+                                <input type="date" title="Изберете дата" th:field="*{immunization.immunizationDate}" required="true"
+                                       oninvalid="this.setCustomValidity('Датата е задължително поле')" oninput="this.setCustomValidity('')" />
+                            </label>
+                        </div>
+
+                        <div class="col-lg-6 ">
+                            <label lass="labelWidthExtra"> Вид имунизация / реимунизация:
+                                <input type="text" th:field="*{immunization.immunizationName}" />
+                            </label>
+                        </div>
+                    </div>
+
+                <br/><br/>
+
+                <div id="immunizationTable">
+                <table style="border: 1px solid white;" >
+                    <tr>
+                        <th style="border: 1px solid white; width:40% " >Вид имунизацията / реимунизацията</th>
+                        <th style="border: 1px solid white; width:30% " >Дата на иунизацията / реимунизацията</th>
+                        <th style="border: 1px solid white; width:15% ">Редакция</th>
+                        <th style="border: 1px solid white; width:15% ">Изтриване</th>
+                    </tr>
+                        <tr th:each="i : *{allImmunizations}" >
+                        <td th:text="${i.immunizationName}" style="border: 1px solid white;" ></td>
+                        <td style="border: 1px solid white; text-align: center;" >
+                            <input type="date" disabled th:value="${i.immunizationDate}" >
+                        </td>
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                function editImmunizationFunc(immunizationId) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/editImmunizationData?immunizationId=" + immunizationId.value,
+                                            contentType: 'text/plain; charset=UTF-8',
+                                            success: function (response) {
+                                            var placeholder = document.getElementById("immunizationTable");
+                                            placeholder.innerHTML = "";
+                                            $("#immunizationInput").html(response);
+                                            }
+                                        });
                                 }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-            <td style="border: 1px solid white; text-align: center;" >
-                <button type="button" id="editImmunization_${i.id}"  class="btn btn-secondary" th:value="${i.id}" onclick="editImmunizationFunc(this)">Редактирай</button>
-            </td>
-            <td style="border: 1px solid white; text-align: center;" >
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function deleteImmunizationFunc(immunizationId) {
+                                /*]]>*/
+                            </script>
+                        <td style="border: 1px solid white; text-align: center;" >
+                            <button type="button" id="editImmunization_${i.id}"  class="btn btn-secondary" th:value="${i.id}" onclick="editImmunizationFunc(this)">Редактирай</button>
+                        </td>
+                        <td style="border: 1px solid white; text-align: center;" >
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                function deleteImmunizationFunc(immunizationId) {
 
-                            $.ajax({
-                                type: "POST",
-                                url: "/deleteImmunizationData?immunizationId=" + immunizationId.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function () {
-                                    location.reload();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/deleteImmunizationData?immunizationId=" + immunizationId.value,
+                                            contentType: 'text/plain; charset=UTF-8',
+                                            success: function () {
+                                                location.reload();
+                                            }
+                                        });
                                 }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-                <button type="button" id="deleteImmunization_${i.id}"  class="btn btn-secondary" th:value="${i.id}" onclick="deleteImmunizationFunc(this)">Изтрий</button>
-            </td>
-        </tr>
-    </table>
-    </div>
-    <br/><br/>
-    <div class="col-lg-2">
-        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-    </div>
-    <div class="col-lg-1 ">
-        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
-    </div>
-    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+                                /*]]>*/
+                            </script>
+                            <button type="button" id="deleteImmunization_${i.id}"  class="btn btn-secondary" th:value="${i.id}" onclick="deleteImmunizationFunc(this)">Изтрий</button>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <br/><br/>
+                <div class="row">
+                    <div class="col-lg-2 text-center">
+                        <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
+                    </div>
+                    <div class="col-lg-3 text-center">
+                        <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
+                    </div>
+                </div>
+                <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
 
-    <input hidden th:field = "*{immunization.id}" />
+                <input hidden th:field = "*{immunization.id}" />
 
-    <br/><br/>
+                <br/><br/>
 
-</form>
-</th:div>
+            </form>
+        </th:div>
+    </div>
 </body>
 </html>

@@ -6,46 +6,40 @@
 <head th:insert="header.html :: headerFragment">
 </head>
 <body>
-    <form action="#" th:action="@{/healthConditionPostData}" th:object="${healthConditionForm}" method="post" class="container alert alert-info">
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
+
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <form action="#" th:action="@{/addictionsPostData}" th:object="${addictionsForm}" method="post" class="container alert alert-info">
         <H3 class="text-center">Пристрастявания и зависимости</H3>
         <th:div class="container">
-
-                <!--<label class="labelWidthExtra"> Дата на прегледа:-->
-                <!--<input type="text"-->
-                <!--th:field="*{healthCondition.examinationDate}" />-->
-                <!--</label>-->
-                <!--</div>-->
-                <br/>
                 <div class="row">
-                    <div class="col-lg-12" >
+                    <div class="col-lg-10" >
                         <label class="labelWidthExtra" > Пристрастявания:
-                            <textarea class="text-area text-box multi-line" data-val="true"
-                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="120" rows="4"></textarea>
+                            <textarea class="text-area text-box multi-line" data-val="true"  th:field="*{addictions.addictionsDescription}"
+                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="130" rows="4"></textarea>
                         </label>
                     </div>
                 </div>
                 <br/>
-                <!--<div class="row">-->
-                    <!--<label class="labelWidthExtra float-center"> Пристрастявания: <br/>-->
-                        <!--<textarea class="text-area text-box multi-line" data-val="true"-->
-                                  <!--cols="120" rows="3" id="addictionsDescription" ></textarea>-->
-                    <!--</label>-->
-                <!--</div>-->
                 <br/>
                 <div class="row">
-                    <div class="col-lg-12" >
+                    <div class="col-lg-10" >
                         <label class="labelWidthExtra"> Методологии: <br/>
-                            <textarea class="text-area text-box multi-line" data-val="true"
-                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="120" rows="4" ></textarea>
+                            <textarea class="text-area text-box multi-line" data-val="true" th:field="*{addictions.methodologies}"
+                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="130" rows="4" ></textarea>
                         </label>
                     </div>
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="col-lg-12" >
+                    <div class="col-lg-10" >
                         <label class="labelWidthExtra"> Резултати: <br/>
-                            <textarea class="text-area text-box multi-line" data-val="true"
-                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="120" rows="4"></textarea>
+                            <textarea class="text-area text-box multi-line" data-val="true" th:field="*{addictions.results}"
+                                      data-val-length="Maximum = 1000 characters" data-val-length-max="1000" cols="130" rows="4"></textarea>
                         </label>
                     </div>
                 </div>
@@ -55,15 +49,19 @@
 
         <br><br>
 
-        <div class="col-lg-2">
-            <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-        </div>
-        <div class="col-lg-3 ">
-            <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
-        </div>
+        <div class="row">
+            <div class="col-lg-2 text-center">
+                <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
+            </div>
+            <div class="col-lg-3 text-center">
+                <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
+            </div>
 
-        <input type="submit" value="Зпишете Данните" class="btn btn-primary pull-right"/>
+            <input type="submit" value="Зпишете Данните" class="btn btn-primary pull-right"/>
 
+            <input hidden th:field = "*{addictions.id}" />
+        </div>
     </form>
+</div>
 </body>
 </html>

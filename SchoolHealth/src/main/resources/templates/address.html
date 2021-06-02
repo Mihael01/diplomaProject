@@ -23,6 +23,7 @@
             function showMunicipalities() {
                 $("#regionCode").change(function () {
                     var regCode = $("#regionCode").val();
+                    alert(regCode);
                     $.ajax({
                         type: "POST",
                         url: "/regionPostData",
@@ -57,7 +58,7 @@
 
         <script th:inline="javascript">
             /*<![CDATA[*/
-            function showSettlementPalces() {
+            function showSettlementPlaces() {
                 $("#municipalityCode").change(function () {
                     var regCode = $("#municipalityCode").val();
                     $.ajax({
@@ -74,9 +75,13 @@
                     });
                 })
             }
-            $(function() { showSettlementPalces(); });
+            $(function() { showSettlementPlaces(); });
             /*]]>*/
         </script>
+        <script>
+
+        </script>
+
         <div class="col-lg-3" th:disabled="*{isMunicipalityEnable}">
             <label class="labelWidthExtra"  > Община:
                 <select id="municipalityCode" th:field="*{municipalityCode}" style="width:150px;" title="Изберете област преди община">

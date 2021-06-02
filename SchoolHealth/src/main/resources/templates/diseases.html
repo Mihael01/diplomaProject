@@ -6,129 +6,141 @@
 <head th:include="header :: headerFragment"></head>
 
 <body>
-<th:div class="container" id="immunizationInput">
-<form action="#" th:action="@{/diseasesPostData}" th:object="${diseasesForm}" method="post"  class="container alert alert-info">
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
 
-        <H3 class="text-center">Новооткрити остри и хронични заболявания</H3>
-        <br/><br/>
-        <H4 class="text-center">Заболявания, които изискват диспансерно наблюдение</H4>
-        <br/>
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <th:div class="container" id="immunizationInput">
+        <form action="#" th:action="@{/diseasesPostData}" th:object="${diseasesForm}" method="post"  class="container alert alert-info">
 
-        <div class="row" >
-            <div class="col-lg-6">
-                <label class="labelWidthExtra">  Заболявания:
-                    <select id="dispensaryObservIllnessTypeCode" th:field="*{dispensaryObservIllnessTypeCode}" style="width: 700px !important; min-width: 700px; max-width: 700px;"   >
-                        <option value="Изберете" selected>Изберете</option>
-                        <option th:each="dispensaryObservationIllnessType : *{dispensaryObservationIllnessTypes}"
-                                th:text="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeName}"
-                                th:value="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeCode}">
-                        </option>
-                    </select>
-                </label>
+                <H3 class="text-center">Новооткрити остри и хронични заболявания</H3>
+                <br/><br/>
+                <H4 class="text-center">Заболявания, които изискват диспансерно наблюдение</H4>
+                <br/>
+
+                <div class="row" >
+                    <div class="col-lg-6">
+                        <label class="labelWidthExtra">  Заболявания:
+                            <select id="dispensaryObservIllnessTypeCode" th:field="*{dispensaryObservIllnessTypeCode}" style="width: 700px !important; min-width: 700px; max-width: 700px;"   >
+                                <option value="Изберете" selected>Изберете</option>
+                                <option th:each="dispensaryObservationIllnessType : *{dispensaryObservationIllnessTypes}"
+                                        th:text="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeName}"
+                                        th:value="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeCode}">
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+            <br/><br/>
+
+            <div id="dispensaryObservIllnessTable">
+            <table style="border: 1px solid white;" >
+                <tr>
+                    <th style="border: 1px solid white; width:80% " >Ученикът е диспансерно наблюдаван поради:</th>
+                    <th style="border: 1px solid white; width:20% "></th>
+                </tr>
+                    <tr th:each="studentDispensaryObservation : *{studentDispensaryObservations}" >
+                    <td th:text="${studentDispensaryObservation.dispensaryObservIllnessType.dispensaryObservIllnessTypeName}" ></td>
+
+                    <td style="border: 1px solid white; text-align: center;" >
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function deleteObservationFunc(observationId) {
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/deleteStudentDispensaryObservationData?observationId=" + observationId.value,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function () {
+                                            location.reload();
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                        <button type="button" id="delete_${studentDispensaryObservation.id}"  class="btn btn-secondary" th:value="${studentDispensaryObservation.id}" onclick="deleteObservationFunc(this)">Изтрий</button>
+                    </td>
+                </tr>
+            </table>
             </div>
-        </div>
 
-    <br/><br/>
+            <br/><br/>
 
-    <div id="dispensaryObservIllnessTable">
-    <table style="border: 1px solid white;" >
-        <tr>
-            <th style="border: 1px solid white; width:80% " >Ученикът е диспансерно наблюдаван поради:</th>
-            <th style="border: 1px solid white; width:20% "></th>
-        </tr>
-            <tr th:each="studentDispensaryObservation : *{studentDispensaryObservations}" >
-            <td th:text="${studentDispensaryObservation.dispensaryObservIllnessType.dispensaryObservIllnessTypeName}" style="border: 1px solid white;" ></td>
+            <H4 class="text-center">Заболявания и аномалии</H4>
+            <br/>
 
-            <td style="border: 1px solid white; text-align: center;" >
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function deleteObservationFunc(observationId) {
+            <div class="row" >
+                <div class="col-lg-6">
+                    <label class="labelWidthExtra">  Заболявания:
+                        <select id="diseasesAndAbnormTypeCode" th:field="*{diseasesAndAbnormTypeCode}" style="width: 700px !important; min-width: 700px; max-width: 700px;"  >
+                            <option value="Изберете" selected>Изберете</option>
+                            <option th:each="diseasesAndAbnormType : *{diseasesAndAbnormTypes}"
+                                    th:text="${diseasesAndAbnormType.diseasesAndAbnormTypeName}"
+                                    th:value="${diseasesAndAbnormType.diseasesAndAbnormTypeCode}">
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div>
 
-                            $.ajax({
-                                type: "POST",
-                                url: "/deleteStudentDispensaryObservationData?observationId=" + observationId.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function () {
-                                    location.reload();
-                                }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-                <button type="button" id="delete_${studentDispensaryObservation.id}"  class="btn btn-secondary" th:value="${studentDispensaryObservation.id}" onclick="deleteObservationFunc(this)">Изтрий</button>
-            </td>
-        </tr>
-    </table>
-    </div>
+            <br/><br/>
 
-    <br/><br/>
+            <div id="diseasesAndAbnormTable">
+                <table style="border: 1px solid white;" >
+                    <tr>
+                        <th style="border: 1px solid white; width:80% " >Ученикът има следните заболявания и аномалии:</th>
+                        <th style="border: 1px solid white; width:20% "></th>
+                    </tr>
+                    <tr th:each="studentDiseasesAndAbnormalitie : *{studentDiseasesAndAbnormalities}" >
+                        <td th:text="${studentDiseasesAndAbnormalitie.diseasesAndAbnormType.diseasesAndAbnormTypeName}" ></td>
 
-    <H4 class="text-center">Заболявания и аномалии</H4>
-    <br/>
+                        <td style="border: 1px solid white; text-align: center;" >
+                            <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function deleteAbnormalitiesFunc(abnormalitiesId) {
 
-    <div class="row" >
-        <div class="col-lg-6">
-            <label class="labelWidthExtra">  Заболявания:
-                <select id="diseasesAndAbnormTypeCode" th:field="*{diseasesAndAbnormTypeCode}" style="width: 700px !important; min-width: 700px; max-width: 700px;"  >
-                    <option value="Изберете" selected>Изберете</option>
-                    <option th:each="diseasesAndAbnormType : *{diseasesAndAbnormTypes}"
-                            th:text="${diseasesAndAbnormType.diseasesAndAbnormTypeName}"
-                            th:value="${diseasesAndAbnormType.diseasesAndAbnormTypeCode}">
-                    </option>
-                </select>
-            </label>
-        </div>
-    </div>
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/deletestudentDiseasesAndAbnormalitiesData?abnormalitiesId=" + abnormalitiesId.value,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function () {
+                                            location.reload();
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                            <button type="button" id="delete_${studentDiseasesAndAbnormalitie.id}"  class="btn btn-secondary" th:value="${studentDiseasesAndAbnormalitie.id}" onclick="deleteAbnormalitiesFunc(this)">Изтрий</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-    <br/><br/>
+            <br/><br/>
 
-    <div id="diseasesAndAbnormTable">
-        <table style="border: 1px solid white;" >
-            <tr>
-                <th style="border: 1px solid white; width:80% " >Ученикът има следните заболявания и аномалии:</th>
-                <th style="border: 1px solid white; width:20% "></th>
-            </tr>
-            <tr th:each="studentDiseasesAndAbnormalitie : *{studentDiseasesAndAbnormalities}" >
-                <td th:text="${studentDiseasesAndAbnormalitie.diseasesAndAbnormType.diseasesAndAbnormTypeName}" style="border: 1px solid white;" ></td>
+            <div class="row">
+                <div class="col-lg-2">
+                    <a class="btn btn-primary pull-left " href="home" role="button">Към начало</a>
+                </div>
+                <div class="col-lg-3">
+                    <a class="btn btn-primary pull-left" href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
+                </div>
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+                    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+                </div>
 
-                <td style="border: 1px solid white; text-align: center;" >
-                    <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function deleteAbnormalitiesFunc(abnormalitiesId) {
+            </div>
 
-                            $.ajax({
-                                type: "POST",
-                                url: "/deletestudentDiseasesAndAbnormalitiesData?abnormalitiesId=" + abnormalitiesId.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function () {
-                                    location.reload();
-                                }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-                    <button type="button" id="delete_${studentDiseasesAndAbnormalitie.id}"  class="btn btn-secondary" th:value="${studentDiseasesAndAbnormalitie.id}" onclick="deleteAbnormalitiesFunc(this)">Изтрий</button>
-                </td>
-            </tr>
-        </table>
-    </div>
+            <!--<input hidden th:field = "*{immunization.id}" />-->
 
-    <br/><br/>
-
-
-
-    <div class="col-lg-2">
-        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-    </div>
-    <div class="col-lg-1 ">
-        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
-    </div>
-    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
-
-    <!--<input hidden th:field = "*{immunization.id}" />-->
-
-    <br/><br/>
-</form>
-</th:div>
+            <br/><br/>
+        </form>
+    </th:div>
+</div>
 </body>
 </html>

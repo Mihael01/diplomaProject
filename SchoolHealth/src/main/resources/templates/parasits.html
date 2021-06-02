@@ -6,43 +6,79 @@
 <head th:include="header :: headerFragment"></head>
 
 <body>
-<th:div class="container" id="immunizationInput">
-<form action="#" th:action="@{/parasitsPostData}" th:object="${gpForm}" method="post"  class="container alert alert-info">
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
+    </div>
+</div>
 
-        <H4 class="text-center">Открити паразити на ученика</H4>
-        <br/>
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <th:div class="container" id="immunizationInput">
+            <form action="#" th:action="@{/parasitsPostData}" th:object="${parasitsForm}" method="post"  class="container alert alert-info">
 
-        <div class="row" >
-            <div class="col-lg-6">
-                <label class="labelWidthExtra">  Паразити:
-                    <select id="dispensaryObservIllnessTypeCode" style="width: 700px !important; min-width: 700px; max-width: 700px;"   >
-                        <option value="Изберете" selected>Изберете</option>
-                        <!--<option th:each="dispensaryObservationIllnessType : *{dispensaryObservationIllnessTypes}"-->
-                                <!--th:text="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeName}"-->
-                                <!--th:value="${dispensaryObservationIllnessType.dispensaryObservIllnessTypeCode}">-->
-                        <!--</option>-->
-                    </select>
-                </label>
+                <H4 class="text-center">Открити паразити на ученика</H4>
+                <br/>
+
+                <div class="row" >
+                    <div class="col-lg-6">
+                        <label class="labelWidthExtra"> Паразити:
+                            <select id="parasiteTypeCode" th:field="*{parasiteTypeCode}" style="width: 700px !important; min-width: 700px; max-width: 700px;"   >
+                                <option value="Изберете" selected>Изберете</option>
+                                <option th:each="parasiteType : *{parasiteTypes}"
+                                        th:text="${parasiteType.parasitTypeName}"
+                                        th:value="${parasiteType.parasitTypeCode}">
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            <br/><br/>
+            <div id="gpTable">
+                <table style="border: 1px solid white;" >
+                    <tr>
+                        <th style="border: 1px solid white; width:40% " >Паразити</th>
+                        <th style="border: 1px solid white; width:15% ">Изтриване</th>
+                    </tr>
+                    <tr th:each="studentParasite : *{studentParasites}" >
+                        <td th:text="${studentParasite.parasitType.parasitTypeName}" style="border: 1px solid white;" ></td>
+                        <td style="border: 1px solid white; text-align: center; padding: 5px;" >
+                            <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function deleteStudentParasiteFunc(currentParasite) {
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/deleteSPData?currentParasiteCode=" + currentParasite.value,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function () {
+                                            location.reload();
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                            <button type="button" id="deleteSP_${studentParasite.parasitType.parasitTypeCode}"  class="btn btn-secondary"
+                                    th:value="${studentParasite.parasitType.parasitTypeCode}" onclick="deleteStudentParasiteFunc(this)"><span class="glyphicon glyphicon-trash"> Изтрий</span></button>
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </div>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-2 text-center">
+                    <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
+                </div>
+                <div class="col-lg-3 text-center">
+                    <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
+                </div>
+            </div>
+            <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
 
-    <br/><br/>
+            <input hidden th:field = "*{studentParasites}"/>
+            <br/><br/>
 
-
-
-    <div class="col-lg-2">
-        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-    </div>
-    <div class="col-lg-1 ">
-        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
-    </div>
-    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
-
-    <!--<input hidden th:field = "*{immunization.id}" />-->
-
-    <br/><br/>PhysicalCapacity
-
-</form>
-</th:div>
+        </form>
+    </th:div>
+</div>
 </body>
 </html>

@@ -10,88 +10,76 @@
 </head>
 
 <body>
-<!--/*@thymesVar id="addressForm" type="model"*/-->
-<form action="#" th:action="@{/studentBasePostData}" th:object="${studentBaseForm}" method="post" class="container alert alert-info">
-    <H3 class="text-center">Основни медицински данни за ученика</H3>
-    <br/><br/>
     <div class="row">
-        <div class="col-lg-12">
-            <label class="labelWidthExtra"> Фамилна обремененост:
-                <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.familyBurden}"
-                          cols="110" rows="6"></textarea>
-            </label>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-lg-12">
-            <label class="labelWidthExtra"> Минали заболявания и функционални смущения и на каква възраст са прекарани:
-                <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.pastIllnesses}"
-                          cols="110" rows="6"></textarea>
-            </label>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-lg-3">
-            <label class="labelWidthExtra"> Кръвна група:
-                <input type="text"  th:field="*{student.bloodType}" />
-            </label>
-        </div>
-        <div class="col-lg-2">
-            <label class="labelWidthExtra"> Rh:
-                <input type="text"  th:field="*{student.rh}" />
-            </label>
-        </div>
-    </div>
-    <br/></br>
-    <div class="row">
-        <div class="col-lg-12">
-            <label class="labelWidthExtra"> НЕПОНОСИМОСТ / АЛЕРГИИ:
-                <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.allergies}"
-                          cols="110" rows="6"></textarea>
-            </label>
+        <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+            <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
         </div>
     </div>
 
+    <div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <!--/*@thymesVar id="addressForm" type="model"*/-->
+        <form action="#" th:action="@{/studentBasePostData}" th:object="${studentBaseForm}" method="post" class="container alert alert-info">
+            <H3 class="text-center">Основни медицински данни за ученика</H3>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-10">
+                    <label class="labelWidthExtra"> Фамилна обремененост:
+                        <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.familyBurden}"
+                                  cols="130" rows="6"></textarea>
+                    </label>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-12">
+                    <label class="labelWidthExtra"> Минали заболявания и функционални смущения и на каква възраст са прекарани:
+                        <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.pastIllnesses}"
+                                  cols="130" rows="6"></textarea>
+                    </label>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="labelWidthExtra"> Кръвна група:
+                        <input type="text"  th:field="*{student.bloodType}" />
+                    </label>
+                </div>
+                <div class="col-lg-2">
+                    <label class="labelWidthExtra"> Rh:
+                        <input type="text"  th:field="*{student.rh}" />
+                    </label>
+                </div>
+            </div>
+            <br/></br>
+            <div class="row">
+                <div class="col-lg-10">
+                    <label class="labelWidthExtra"> НЕПОНОСИМОСТ / АЛЕРГИИ:
+                        <textarea class="text-area text-box multi-line" data-val="true" th:field="*{student.allergies}"
+                                  cols="130" rows="6"></textarea>
+                    </label>
+                </div>
+            </div>
 
-    <input hidden th:field = "*{student.id}" />
-    <br/>
-    <input type="submit" value="Запишете медицинските данни" class="btn btn-primary pull-right"/>
-</form>
 
-<form  class="container alert alert-info" th:fragment="linksFragment">
-    <th:div class="container">
-        <div class="row">
-            <div class="col-lg-2 text-center">
-                <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center " href="#" role="button">Към данни за родителите</a>
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center" href="#" role="button">Към профилактични прегледи</a>
-            </div>
-        </div>
-        <br/><br/>
-        <div class="row">
-            <div class="col-lg-2 text-center">
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center" href="#" role="button">Към здравословно състояние</a>
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center" href="#" role="button">Към физическа дееспособност</a>
-            </div>
-            <div class="col-lg-3 text-center">
-                <a class="btn btn-primary рull-center" href="#" role="button">Към вредни навици и пристрастявания</a>
-            </div>
+            <input hidden th:field = "*{student.id}" />
+            <br/>
+            <input type="submit" value="Запишете медицинските данни" class="btn btn-primary pull-right"/>
+        </form>
 
-        </div>
-    </th:div>
-</form>
+        <form  class="container alert alert-info" th:fragment="linksFragment">
+            <th:div class="container">
+                <div class="row">
+                    <div class="col-lg-2 text-center">
+                        <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
+                    </div>
+                    <div class="col-lg-3 text-center">
+                        <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
+                    </div>
+                </div>
+                <br/><br/>
+            </th:div>
+        </form>
+    </div>
 </body>
 </html>

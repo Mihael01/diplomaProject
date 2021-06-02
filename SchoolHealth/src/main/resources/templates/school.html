@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<div id="addressWrapperId">
 <div th:insert="schoolMedic :: schoolMedicFragment"></div>
 
 <form action="#" th:action="@{/schoolPostData}" th:object="${schoolForm}" method="post"  class="container alert alert-info">
@@ -66,7 +67,7 @@
     </th:div>
 </form>
 
-<div th:insert="address :: addressFragment"></div>
+    <div th:insert="address :: addressFragment" ></div>
 
 <form  class="container alert alert-info" th:fragment="linksFragment">
     <th:div class="container">
@@ -80,6 +81,6 @@
         </div>
     </th:div>
 </form>
-
+</div>
 </body>
 </html>

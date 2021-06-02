@@ -7,41 +7,46 @@
 </head>
 
 <body>
-<form action="#" th:action="@{/anthropologicalPostData}" th:object="${anthropologicalForm}" method="post" class="container alert alert-info">
-    <H3 class="text-center">Антропологични показатели на ученика</H3>
-    <br/><br/><br/>
-
-    <div class="row">
-        <div class="col-lg-4">
-            <label class="labelWidthExtra"> Височина:
-                <input type="text"  th:field="*{anthropologicalIndicators.bodyHeight}" />
-            </label>
-        </div>
-        <div class="col-lg-4">
-            <label class="labelWidthExtra"> Тегло:
-                <input type="text"  th:field="*{anthropologicalIndicators.bodyWeight}" />
-            </label>
-        </div>
-         <div class="col-lg-4">
-            <label class="labelWidthExtra"> Обиколка на тялото:
-                <input type="text"  th:field="*{anthropologicalIndicators.bodyCircumference}" />
-            </label>
-        </div>
+<div class="row">
+    <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
     </div>
-    <input hidden th:field = "*{anthropologicalIndicators.id}" />
-    <br/><br/><br/>
+</div>
 
-    <div class="col-lg-2">
-        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
-    </div>
-    <div class="col-lg-2 ">
-        <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
-    </div>
+<div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+    <form action="#" th:action="@{/anthropologicalPostData}" th:object="${anthropologicalForm}" method="post" class="container alert alert-info">
+        <H3 class="text-center">Антропологични показатели на ученика</H3>
+        <br/><br/><br/>
 
-    <input type="submit" value="Запишете антропологичните показатели" class="btn btn-primary pull-right"/>
-</form>
+        <div class="row">
+            <div class="col-lg-4">
+                <label class="labelWidthExtra"> Височина:
+                    <input type="text"  th:field="*{anthropologicalIndicators.bodyHeight}" />
+                </label>
+            </div>
+            <div class="col-lg-4">
+                <label class="labelWidthExtra"> Тегло:
+                    <input type="text"  th:field="*{anthropologicalIndicators.bodyWeight}" />
+                </label>
+            </div>
+             <div class="col-lg-4">
+                <label class="labelWidthExtra"> Обиколка на тялото:
+                    <input type="text"  th:field="*{anthropologicalIndicators.bodyCircumference}" />
+                </label>
+            </div>
+        </div>
+        <input hidden th:field = "*{anthropologicalIndicators.id}" />
+        <br/><br/><br/>
 
+        <div class="col-lg-2">
+            <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+        </div>
+        <div class="col-lg-2 ">
+            <a class="btn btn-primary pull-left " href="lzpk" id="lzpk" role="button">Към ЛЗПК</a>
+        </div>
 
-
+        <input type="submit" value="Запишете антропологичните показатели" class="btn btn-primary pull-right"/>
+    </form>
+</div>
 </body>
 </html>

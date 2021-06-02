@@ -22,21 +22,23 @@
         <div class="row">
             <div class="col-lg-2"><label>Потребителски код *</label></div>
             <div class="col-lg-2"><input th:field="*{userCode}"/></div>
-            <div class="col-lg-6"><span th:if="${#fields.hasErrors('userCode')}" class="help-block" th:errors="*{userCode}"></span></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('userCode')}" th:errors="*{userCode}"></span></div>
         </div>
         <br><br>
         <div class="row">
             <div class="col-lg-2"><label>Парола *</label></div>
             <div class="col-lg-2"><input th:field="*{password}"/></div>
-            <div class="col-lg-6"><span th:if="${#fields.hasErrors('password')}" class="help-block" th:errors="*{password}"></span></div>
+            <div class="col-lg-6"><span th:if="${#fields.hasErrors('password')}"  th:errors="*{password}"></span></div>
         </div>
         <br><br>
         <br><br>
         <div class="row">
-            <div class="col-lg-9 float-right"></div>
-            <div class="col-lg-1 float-right">
-                <button type="submit"  class="btn btn-primary" ><b>Вход</b></button>
+            <!--<div class="col-lg-11 float-right"></div>-->
+            <!--<div class="col-lg-1 float-right">-->
+            <div class="col-lg-11">
             </div>
+            <button type="submit"  class="btn btn-primary рull-right" ><b>Вход</b></button>`
+            <!--</div>-->
         </div>
     </fieldset>
 </form>
