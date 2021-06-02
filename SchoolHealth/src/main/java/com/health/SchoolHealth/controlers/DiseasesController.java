@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
+
 
 @RestController
 public class DiseasesController {
@@ -45,23 +47,29 @@ public class DiseasesController {
     @GetMapping
     @RequestMapping(value = {"/diseases"})
     public ModelAndView getDiseasesData(HttpSession httpSession) {
-        System.out.println("in immunization");
+
         modelAndView = new ModelAndView("diseases");
 
-        Long healthConditionId = (Long) httpSession.getAttribute("healthConditionId");
-        Long studentId = (Long) httpSession.getAttribute("studentId");
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
 
-        System.out.println("studentId in getDiseasesData " + studentId);
-        if (healthConditionId != null) {
-            diseasesForm.setDiseasesAndAbnormTypes(diseasesAndAbnormTypeService.getAllDiseasesAndAbnormTypes());
-            diseasesForm.setDispensaryObservationIllnessTypes(dispensaryObservationIllnessTypeService.getAllDispensaryObservationIllnessTypes());
-            diseasesForm.setStudentDiseasesAndAbnormalities(studentDiseasesAndAbnormService.getAllDiseasesAndAbnormByStudentId(studentId));
-            diseasesForm.setStudentDispensaryObservations(studentDispensaryObservationService.getAllDispensaryObservationByStudentId(studentId));
+        if (authorizedForLZPKData.contains(userTypeCode)) {
+            Long healthConditionId = (Long) httpSession.getAttribute("healthConditionId");
+            Long studentId = (Long) httpSession.getAttribute("studentId");
+
+            System.out.println("studentId in getDiseasesData " + studentId);
+            if (healthConditionId != null) {
+                diseasesForm.setDiseasesAndAbnormTypes(diseasesAndAbnormTypeService.getAllDiseasesAndAbnormTypes());
+                diseasesForm.setDispensaryObservationIllnessTypes(dispensaryObservationIllnessTypeService.getAllDispensaryObservationIllnessTypes());
+                diseasesForm.setStudentDiseasesAndAbnormalities(studentDiseasesAndAbnormService.getAllDiseasesAndAbnormByStudentId(studentId));
+                diseasesForm.setStudentDispensaryObservations(studentDispensaryObservationService.getAllDispensaryObservationByStudentId(studentId));
+            } else {
+                diseasesForm.setDiseasesAndAbnormTypes(new ArrayList<>());
+                diseasesForm.setDispensaryObservationIllnessTypes(new ArrayList<>());
+                diseasesForm.setStudentDiseasesAndAbnormalities(new ArrayList<>());
+                diseasesForm.setStudentDispensaryObservations(new ArrayList<>());
+            }
         } else {
-            diseasesForm.setDiseasesAndAbnormTypes(new ArrayList<>());
-            diseasesForm.setDispensaryObservationIllnessTypes(new ArrayList<>());
-            diseasesForm.setStudentDiseasesAndAbnormalities(new ArrayList<>());
-            diseasesForm.setStudentDispensaryObservations(new ArrayList<>());
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
         modelAndView.addObject("diseasesForm", diseasesForm);
@@ -92,7 +100,8 @@ public class DiseasesController {
 
         Long count2 = 0L;
         if (diseasesForm.getDispensaryObservIllnessTypeCode() != null  && !"Изберете".equals(diseasesForm.getDispensaryObservIllnessTypeCode()) && studentId != null) {
-            count2 = studentDispensaryObservationService.getCountByStudentIdAndDispensaryObservIllnessTypeCode(studentId, diseasesForm.getDispensaryObservIllnessTypeCode());
+            Integer schoolId = (Integer) httpSession.getAttribute("schoolId");
+            count2 = studentDispensaryObservationService.getCountByStudentIdAndDispensaryObservIllnessTypeCode(studentId, diseasesForm.getDispensaryObservIllnessTypeCode(), schoolId);
             if (count2 == 0) {
                 StudentDispensaryObservation studentDispensaryObservation = new StudentDispensaryObservation();
                 studentDispensaryObservation.setDispensaryObservIllnessType(

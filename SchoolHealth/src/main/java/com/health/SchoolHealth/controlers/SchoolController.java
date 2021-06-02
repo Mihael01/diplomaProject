@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 
 @RestController
@@ -44,13 +43,24 @@ public class SchoolController {
 
     @GetMapping
     @RequestMapping(value ={"school", "school/{medicId}"})
-    public ModelAndView getSchooldata(@PathVariable(value = "medicId", required = false) Optional<Long> medicId, HttpSession httpSession) {
+     public ModelAndView getSchooldata(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("school");
 
         // Училищно медицинско лице
-        Long schoolMedicId = medicId.orElse(1L);
-        SchoolMedics schoolMedic = schoolMedicsService.getSchoolMedic(schoolMedicId);
+        SchoolMedics schoolMedic = (SchoolMedics) httpSession.getAttribute("schoolMedic");
+        Long schoolMedicId = null;
+
+        if (schoolMedic != null){
+            System.out.println(">>>> " + schoolMedic.getId());
+            schoolMedicId = schoolMedic.getId();
+        }
+
+        //Да се добави логика, ако логнатия потребител не е училищно медицинско лице!
+
+
+//        Long schoolMedicId = medicId.orElse(1L);
+//        SchoolMedics schoolMedic = schoolMedicsService.getSchoolMedic(schoolMedicId);
         if (schoolMedic != null) {
             schoolMedicForm.setSchoolMedic(schoolMedic);
         } else {
@@ -88,11 +98,18 @@ public class SchoolController {
             addressId = schoolForm.getSchool().getSchoolAddress().getId();
         }
 
+        System.out.println( "schoolForm.getSchool() == null  " + schoolForm.getSchool() == null );
+        System.out.println( "schoolForm.getSchool().getId() == null  " + (schoolForm.getSchool().getId() == null)  + ' '
+                + (schoolForm.getSchool() == null || schoolForm.getSchool().getId() == null));
         if (schoolForm.getSchool() == null || schoolForm.getSchool().getId() == null) {
             addressForm.setIsOwnerNotPresent(true);
         } else {
             addressForm.setIsOwnerNotPresent(false);
         }
+
+        // Осигуряваме адреса да се запише за дадено училище
+        addressForm.setIsOwnerNotPresent(schoolForm.getSchool() == null || schoolForm.getSchool().getId() == null);
+
         FormUtil.setAddressForm(FormUtil.ADDRESS_ABOUT_SCHOOL, addressId, null,
                 addressService, addressForm, httpSession);
 
@@ -109,7 +126,8 @@ public class SchoolController {
     public ModelAndView schoolMedicPostData(@ModelAttribute("schoolMedicForm") SchoolMedicForm schoolMedicForm,
                                             HttpSession httpSession) {
 
-        schoolMedicsService.createOrUpdateSchoolMedic(schoolMedicForm.getSchoolMedic());
+        SchoolMedics schoolMedics = schoolMedicsService.createOrUpdateSchoolMedic(schoolMedicForm.getSchoolMedic());
+        httpSession.setAttribute("schoolMedic", schoolMedics);
 
         newModelAndView = new ModelAndView((String) httpSession.getAttribute("redirect"));
 
@@ -121,11 +139,19 @@ public class SchoolController {
     public ModelAndView postSchoolData(@ModelAttribute("schoolForm") SchoolForm schoolForm,
                                        HttpSession httpSession) {
 
-        // Ако нямаме записан адрес, сетвавме полето на null, защото в противен случай при запис на училище,
+        // Ако нямаме записан адрес, сетваме полето на null, защото в противен случай при запис на училище,
         // hibernate търси свързан обект в таблицата с адреси, а нямаме Id
         if (schoolForm.getSchool().getSchoolAddress() != null
                 && schoolForm.getSchool().getSchoolAddress().getId() == null) {
             schoolForm.getSchool().setSchoolAddress(null);
+        }
+
+        if (schoolForm.getSchool() != null && (schoolForm.getSchool().getSchoolMedics() == null || schoolForm.getSchool().getSchoolMedics().getId() == null)) {
+            SchoolMedics schoolMedic = (SchoolMedics) httpSession.getAttribute("schoolMedic");
+            if (schoolMedic != null) {
+                schoolForm.getSchool().setSchoolMedics(schoolMedic);
+            }
+
         }
         schoolService.createOrUpdateSchool(schoolForm.getSchool());
         modelAndView = new ModelAndView((String) httpSession.getAttribute("redirect"));

@@ -1,7 +1,11 @@
 package com.health.SchoolHealth.controlers;
 
+import com.health.SchoolHealth.model.entities.SchoolMedics;
 import com.health.SchoolHealth.model.entities.User;
+import com.health.SchoolHealth.services.SchoolMedicsService;
+import com.health.SchoolHealth.services.SchoolService;
 import com.health.SchoolHealth.services.UserService;
+import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -22,6 +26,12 @@ public class UserLoginController {
     // Services
     @Autowired
     UserService userService;
+
+    @Autowired
+    SchoolService schoolService;
+
+    @Autowired
+    SchoolMedicsService schoolMedicsService;
 
     // ModelAndViews
     ModelAndView modelAndView;
@@ -53,7 +63,25 @@ public class UserLoginController {
 
         if (foundUser != null) {
             // В зависимост от вида потребител имаме нива на достъп
-            httpSession.setAttribute("userTypeCode", foundUser.getUserType());
+            Integer userTypeCode = foundUser.getUserType();
+            httpSession.setAttribute("userTypeCode", userTypeCode);
+
+
+            Integer schoolId = null;
+
+            if (UserType.SCHOOL_MEDIC.getCode().equals(String.valueOf(userTypeCode))) {
+                schoolId = schoolService.findSchoolIdBySchoolMedicUserId(foundUser.getId());
+                System.out.println("schoolId in login" + schoolId);
+                SchoolMedics schoolMedic = schoolMedicsService.getSchoolMedicByUserId(foundUser.getId());
+                System.out.println("school medic id " + schoolMedic.getId());
+                httpSession.setAttribute("schoolMedic", schoolMedic);
+            }
+
+//            if (UserType.SPORT_TEACHER.getCode().equals(String.valueOf(userTypeCode))) {
+//                schoolService.findSchoolIdBySportTeacherUserId(foundUser.getId());
+//            }
+
+            httpSession.setAttribute("schoolId", schoolId);
 
             bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

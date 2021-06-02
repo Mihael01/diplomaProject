@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
+
 
 @RestController
 public class ParentsController {
@@ -56,6 +58,10 @@ public class ParentsController {
     public ModelAndView getParentData(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("parents");
+
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode)) {
         httpSession.setAttribute("redirect", "redirect:/parents");
 
         System.out.println("STUDENT ID " +  httpSession.getAttribute("studentId"));
@@ -117,6 +123,9 @@ System.out.println("IN getParentData httpsession address about " + httpSession.g
 
         System.out.println("addressForm.getAddress().getId() " + addressForm.getAddress().getId());
         System.out.println("addressForm2.getAddress2().getId() " + addressForm2.getAddress2().getId());
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
 
         return modelAndView;
 

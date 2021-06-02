@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
+
 
 @RestController
 public class AnthropologicalController {
@@ -34,16 +36,24 @@ public class AnthropologicalController {
     public ModelAndView getAnthropologicalData(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("/anthropological");
-        System.out.println("studentId w getStudentBaseDatadata" +  httpSession.getAttribute("studentId"));
-        Long studentId = (Long) httpSession.getAttribute("studentId");
-System.out.println("studentId w getStudentBaseDatadata" + studentId);
-        if (studentId != null) {
-            anthropologicalForm.setAnthropologicalIndicators(anthropologicalService.getAnthropologicalIndicatorsByStudentId(studentId));
+
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode)) {
+            System.out.println("studentId w getStudentBaseDatadata" +  httpSession.getAttribute("studentId"));
+            Long studentId = (Long) httpSession.getAttribute("studentId");
+    System.out.println("studentId w getStudentBaseDatadata" + studentId);
+            if (studentId != null) {
+                anthropologicalForm.setAnthropologicalIndicators(anthropologicalService.getAnthropologicalIndicatorsByStudentId(studentId));
+            } else {
+                anthropologicalForm.setAnthropologicalIndicators(new AnthropologicalIndicators());
+            }
+
+            modelAndView.addObject("anthropologicalForm", anthropologicalForm);
         } else {
-            anthropologicalForm.setAnthropologicalIndicators(new AnthropologicalIndicators());
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
-        modelAndView.addObject("anthropologicalForm", anthropologicalForm);
 
         return modelAndView;
 

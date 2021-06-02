@@ -134,7 +134,7 @@ public class AddressController {
     }
 
     @PostMapping
-    @RequestMapping(value = {"regionPostData"})
+    @RequestMapping(value = {"/regionPostData"})
     public ModelAndView regionPostData(@RequestParam(value = "element", required = false) String element,
                                        @RequestBody String value, HttpSession httpSession) {
         //През дропдаун value имаме кода на областта
@@ -146,6 +146,7 @@ public class AddressController {
             httpSession.setAttribute("regionCode", value);
             httpSession.setAttribute("regionCode2", null);
         }
+        System.out.println(">>> httpSession.getAttribute(\"redirect\") " + httpSession.getAttribute("redirect"));
 
         // Връщаме "redirect" в зависимост от страницата, от която сме извикали смяна на областта
         modelAndView = new ModelAndView((String) httpSession.getAttribute("redirect"));

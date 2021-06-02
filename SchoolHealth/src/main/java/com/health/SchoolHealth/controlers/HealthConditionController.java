@@ -7,12 +7,14 @@ import com.health.SchoolHealth.model.entities.ImmunizationComment;
 import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.services.HealthConditionService;
 import com.health.SchoolHealth.services.StudentService;
+import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
 import static com.health.SchoolHealth.util.FormUtil.CONFIRM_FLAG;
 
 
@@ -35,59 +37,62 @@ public class HealthConditionController {
     @RequestMapping(value = {"/healthcondition"})
     public ModelAndView getHealthconditionData(HttpSession httpSession) {
 
-        System.out.println("in healthcondition");
-
         modelAndView = new ModelAndView("healthcondition");
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
 
-        Long studentId = (Long) httpSession.getAttribute("studentId");
-        System.out.println("Student id w helt 12345678999990 1234567890" + studentId);
+        if (authorizedForLZPKData.contains(userTypeCode)) {
 
-        HealthCondition foundHealthCondition = healthConditionService.getHealthConditionByStudentId(studentId);
+            Long studentId = (Long) httpSession.getAttribute("studentId");
+            System.out.println("Student id w helt 12345678999990 1234567890" + studentId);
 
-        if(foundHealthCondition != null) {
-            healthConditionForm.setHealthCondition(foundHealthCondition);
-            httpSession.setAttribute("healthConditionId", foundHealthCondition.getId());
+            HealthCondition foundHealthCondition = healthConditionService.getHealthConditionByStudentId(studentId);
+
+            if(foundHealthCondition != null) {
+                healthConditionForm.setHealthCondition(foundHealthCondition);
+                httpSession.setAttribute("healthConditionId", foundHealthCondition.getId());
+            } else {
+                healthConditionForm.setHealthCondition(new HealthCondition());
+            }
+
+
+
+            if (healthConditionForm.getHealthCondition().getMandatoryImmunizationFlag() != null
+                    && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getMandatoryImmunizationFlag().getImmunizationCommentCode())) {
+                healthConditionForm.setMandatoryImmunizationFlag("on");
+            } else {
+                healthConditionForm.setMandatoryImmunizationFlag(null);
+            }
+
+            if (healthConditionForm.getHealthCondition().getAdditionalActivities() != null
+                    && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getAdditionalActivities().getConfirmationFlagCode())) {
+                healthConditionForm.setAdditionalActivities("on");
+            } else {
+                healthConditionForm.setAdditionalActivities(null);
+            }
+
+            if (healthConditionForm.getHealthCondition().getTherapeuticPhysicalEducation() != null
+                    && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getTherapeuticPhysicalEducation().getConfirmationFlagCode())) {
+                healthConditionForm.setTherapeuticPhysicalEducation("on");
+            } else {
+                healthConditionForm.setTherapeuticPhysicalEducation(null);
+            }
+
+            if (healthConditionForm.getHealthCondition().getExemptFromPhysicalEducation() != null
+                    && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getExemptFromPhysicalEducation().getConfirmationFlagCode())) {
+                healthConditionForm.setExemptFromPhysicalEducation("on");
+            } else {
+                healthConditionForm.setExemptFromPhysicalEducation(null);
+            }
+
+            if (healthConditionForm.getHealthCondition().getMissingImmunizationFlag() != null
+                    && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getMissingImmunizationFlag().getConfirmationFlagCode())) {
+                healthConditionForm.setMissingImmunizationFlag("on");
+            } else {
+                healthConditionForm.setMissingImmunizationFlag(null);
+            }
         } else {
-            healthConditionForm.setHealthCondition(new HealthCondition());
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
-
-
-
-        if (healthConditionForm.getHealthCondition().getMandatoryImmunizationFlag() != null
-                && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getMandatoryImmunizationFlag().getImmunizationCommentCode())) {
-            healthConditionForm.setMandatoryImmunizationFlag("on");
-        } else {
-            healthConditionForm.setMandatoryImmunizationFlag(null);
-        }
-
-        if (healthConditionForm.getHealthCondition().getAdditionalActivities() != null
-                && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getAdditionalActivities().getConfirmationFlagCode())) {
-            healthConditionForm.setAdditionalActivities("on");
-        } else {
-            healthConditionForm.setAdditionalActivities(null);
-        }
-
-        if (healthConditionForm.getHealthCondition().getTherapeuticPhysicalEducation() != null
-                && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getTherapeuticPhysicalEducation().getConfirmationFlagCode())) {
-            healthConditionForm.setTherapeuticPhysicalEducation("on");
-        } else {
-            healthConditionForm.setTherapeuticPhysicalEducation(null);
-        }
-
-        if (healthConditionForm.getHealthCondition().getExemptFromPhysicalEducation() != null
-                && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getExemptFromPhysicalEducation().getConfirmationFlagCode())) {
-            healthConditionForm.setExemptFromPhysicalEducation("on");
-        } else {
-            healthConditionForm.setExemptFromPhysicalEducation(null);
-        }
-
-        if (healthConditionForm.getHealthCondition().getMissingImmunizationFlag() != null
-                && CONFIRM_FLAG.equals(healthConditionForm.getHealthCondition().getMissingImmunizationFlag().getConfirmationFlagCode())) {
-            healthConditionForm.setMissingImmunizationFlag("on");
-        } else {
-            healthConditionForm.setMissingImmunizationFlag(null);
-        }
-
 
         modelAndView.addObject("healthConditionForm", healthConditionForm);
 
@@ -101,6 +106,7 @@ public class HealthConditionController {
     public ModelAndView healthConditionPostData(@ModelAttribute("healthConditionForm") HealthConditionForm healthConditionForm,
                                                 HttpSession httpSession) {
 
+        System.out.println("healthConditionForm.getMandatoryImmunizationFlag() "+ healthConditionForm.getMandatoryImmunizationFlag());
         // Сетваме в healthCondition избраните чекбоксове
         if (healthConditionForm.getMandatoryImmunizationFlag() != null) {
             healthConditionForm.getHealthCondition().setMandatoryImmunizationFlag(new ImmunizationComment());

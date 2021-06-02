@@ -8,11 +8,14 @@ import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.services.GPService;
 import com.health.SchoolHealth.services.PhysicalCapacityService;
 import com.health.SchoolHealth.services.StudentService;
+import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
 
 
 @RestController
@@ -37,6 +40,9 @@ public class PhysicalCapacityController {
     public ModelAndView getParasitsdata(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("physicalcapacity");
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode) || UserType.SPORT_TEACHER.getCode().equals(userTypeCode)) {
         Long studentId = (Long) httpSession.getAttribute("studentId");
         PhysicalCapacity foundPhysicalCapacity = physicalCapacityService.getPhysicalCapacityDaoByStudentId(studentId);
         if (foundPhysicalCapacity != null) {
@@ -46,6 +52,9 @@ public class PhysicalCapacityController {
         }
 
         modelAndView.addObject("physicalCapacityForm" , physicalCapacityForm);
+    } else {
+        modelAndView.addObject("isReturnedErrorOnValidation", "true");
+    }
 
         return modelAndView;
 

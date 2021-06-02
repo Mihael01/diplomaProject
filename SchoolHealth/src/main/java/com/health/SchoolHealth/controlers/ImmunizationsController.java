@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
 import static com.health.SchoolHealth.util.RepositoryUtil.iterableToList;
 
 
@@ -41,22 +42,27 @@ public class ImmunizationsController {
     public ModelAndView getImmunizationData(HttpSession httpSession) {
         System.out.println("in immunization");
         modelAndView = new ModelAndView("immunization");
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
 
-        Long healthConditionId = (Long) httpSession.getAttribute("healthConditionId");
-        Long immunizationId = (Long) httpSession.getAttribute("immunizationId");
-        if (immunizationId != null) {
-            immunizationForm.setImmunization(immunizationService.findImmunizationById(immunizationId));
-        } else {
-            immunizationForm.setImmunization(new Immunization());
-        }
-        System.out.println("healthConditionId: " + healthConditionId);
-        System.out.println("immunizationId: " + immunizationId);
-        httpSession.setAttribute("immunizationId", null);
+        if (authorizedForLZPKData.contains(userTypeCode)) {
+            Long healthConditionId = (Long) httpSession.getAttribute("healthConditionId");
+            Long immunizationId = (Long) httpSession.getAttribute("immunizationId");
+            if (immunizationId != null) {
+                immunizationForm.setImmunization(immunizationService.findImmunizationById(immunizationId));
+            } else {
+                immunizationForm.setImmunization(new Immunization());
+            }
+            System.out.println("healthConditionId: " + healthConditionId);
+            System.out.println("immunizationId: " + immunizationId);
+            httpSession.setAttribute("immunizationId", null);
 
-        if (healthConditionId != null) {
-            immunizationForm.setAllImmunizations(immunizationService.getAllImmunizationOfStudent(healthConditionId));
+            if (healthConditionId != null) {
+                immunizationForm.setAllImmunizations(immunizationService.getAllImmunizationOfStudent(healthConditionId));
+            } else {
+                immunizationForm.setAllImmunizations(new ArrayList<>());
+            }
         } else {
-            immunizationForm.setAllImmunizations(new ArrayList<>());
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
         modelAndView.addObject("immunizationForm", immunizationForm);

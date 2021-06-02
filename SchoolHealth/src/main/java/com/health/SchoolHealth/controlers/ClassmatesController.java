@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForStudentListData;
+
 
 @RestController
 public class ClassmatesController {
@@ -31,24 +34,24 @@ public class ClassmatesController {
     public ModelAndView getClassmatesData(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("classmates");
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
 
-        classmatesForm.setClassesNomenclature(FormUtil.getClassesNomenclature());
-        classmatesForm.setClassLettersNomenclature(FormUtil.getClassLettersNomenclature());
+        if (authorizedForStudentListData.contains(userTypeCode)) {
 
-        httpSession.getAttribute("class_");
-        httpSession.getAttribute("classLetter");
+            classmatesForm.setClassesNomenclature(FormUtil.getClassesNomenclature());
+            classmatesForm.setClassLettersNomenclature(FormUtil.getClassLettersNomenclature());
 
-        List<Student> classmates = studentService.findClassmatesByClassAndClassLetter((String) httpSession.getAttribute("class_"),
-                (String) httpSession.getAttribute("classLetter"));
-        classmatesForm.setClassmates(classmates);
-        System.out.println("IN GET classmates");
-        if (classmates != null) {
-            for (Student student : classmates) {
-                System.out.println("IN GET student name " + student.getFirstName());
-            }
+            httpSession.getAttribute("class_");
+            httpSession.getAttribute("classLetter");
+
+            List<Student> classmates = studentService.findClassmatesByClassAndClassLetter((String) httpSession.getAttribute("class_"),
+                    (String) httpSession.getAttribute("classLetter"), (Integer) httpSession.getAttribute("schoolId"));
+            classmatesForm.setClassmates(classmates);
+
+            modelAndView.addObject("classmatesForm", classmatesForm);
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
-
-        modelAndView.addObject("classmatesForm", classmatesForm);
 
         return modelAndView;
     }
@@ -59,28 +62,24 @@ public class ClassmatesController {
                                            @RequestParam(value = "classLetter", required = false) String classLetter,
             @ModelAttribute("classmateForm") ClassmatesForm classmatesForm, HttpSession httpSession) {
 
-        System.out.println("class_ " + class_);
-        System.out.println("classLetter " + classLetter);
-        System.out.println("form.classLetter " + classmatesForm.getClassLetter());
-        System.out.println("form.class_ " + classmatesForm.getClass_());
         httpSession.setAttribute("class_", classmatesForm.getClass_());
         httpSession.setAttribute("classLetter", classmatesForm.getClassLetter());
-//
-//        List<Student> classmates = studentService.findClassmatesByClassAndClassLetter(classmatesForm.getClass_(), classmatesForm.getClassLetter());
-//
-//        for(Student student : classmates){
-//            System.out.println("student name "+ student.getFirstName());
-//        }
-        System.out.println("'''''''''''''''''''''''''''''''");
-//        httpSession.setAttribute("studentId", student.getId());
-//        System.out.println("(String) httpSession.getAttribute(\"redirect\") " + (String) httpSession.getAttribute("redirect"));
-//
-//        classmatesForm.setClassmates(classmates);
+
         modelAndView = new ModelAndView("redirect:/classmates");
         modelAndView.addObject("classmatesForm", classmatesForm);
 
         return modelAndView;
     }
+
+    @PostMapping
+    @RequestMapping(value = {"/cleanSessionDataOnStudentRedirect"})
+    public ModelAndView cleanSessionDataOnStudentRedirect(@RequestParam(value = "lzpkNumber", required = false) String lzpkNumber, HttpSession httpSession) {
+        httpSession.setAttribute("class_", null);
+        httpSession.setAttribute("classLetter", null);
+        modelAndView = new ModelAndView("redirect:/lzpkNumber");
+        return modelAndView;
+    }
+
 
 }
 

@@ -1,15 +1,21 @@
 package com.health.SchoolHealth.controlers;
 
-import com.health.SchoolHealth.controlers.formPOJOs.GPForm;
-import com.health.SchoolHealth.model.entities.GP;
-import com.health.SchoolHealth.services.GPService;
+import com.health.SchoolHealth.controlers.formPOJOs.ParasitsForm;
+import com.health.SchoolHealth.model.entities.ParasitType;
+import com.health.SchoolHealth.model.entities.StudentParasit;
+import com.health.SchoolHealth.services.ParasitTypeService;
+import com.health.SchoolHealth.services.StudentParasiteService;
 import com.health.SchoolHealth.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.health.SchoolHealth.util.ControllerUtil.authorizedForLZPKData;
 
 
 @RestController
@@ -17,7 +23,10 @@ public class ParasitsController {
 
     // Services
     @Autowired
-    private GPService gpService;
+    private StudentParasiteService studentParasiteService;
+
+    @Autowired
+    private ParasitTypeService parasitTypeService;
 
     @Autowired
     private StudentService studentService;
@@ -27,49 +36,72 @@ public class ParasitsController {
 
 
     // Forms
-    GPForm gpForm = new GPForm();
+    ParasitsForm parasitsForm = new ParasitsForm();
 
     @GetMapping
     @RequestMapping(value = {"parasits"})
     public ModelAndView getParasitsdata(HttpSession httpSession) {
 
         modelAndView = new ModelAndView("parasits");
-//
-//        // Запис в базата за личния лекар може да бъде създаден:
-//        // I. При регистрация на личния лекар
-//        // II. При запис на ученик от училищното медицинско лице, ако личния лекар не може да бъде намерен в базата данни по телефонен номер
-//        // Телефонния номер на личния лекар е задължително поле; При регистрацията на личния лекар се прави проверка
-//        // дали съществува лекар с такъв телефонен номер, ако съществува се актуализира записа
-//
-//        System.out.println("STUDENT ID " +  httpSession.getAttribute("studentId"));
-//        Long studentId = (Long) httpSession.getAttribute("studentId");
-//
-//        // Училищно медицинско лице
-//        Long gpId = gpIdParam.orElse(1L);
-//
-//        // Ако в системата се е логнал личният лекар, тогава го намираме по неговото id,
-//        // но aко в системата се е логналo училищното медицинско лице, тогава GP се намира studentId (За случая, ако вече на ученика е записано GP)
-//        GP gp = gpService.getGP(gpId);
-//        GP gpOfStudent = gpService.getGpOfStudent(studentId);
-//
-//        if (gp != null) {
-//            gpForm.setGp(gp);
-//        }
-//        else if (gpOfStudent != null) {
-//            gpForm.setGp(new GP());
-//        }
-//        else {
-//            gpForm.setGp(new GP());
-//        }
-//
-//        modelAndView.addObject("gpForm", gpForm);
-//
-//        gpForm.setIsListOfStudentsVisible(isListOfStudentsVisible());
-//
-//        gpForm.setStudentsOfGP(gpService.getAllStudentsOfGP(gpId));
 
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode)) {
+            parasitsForm.setParasiteTypes(parasitTypeService.findAllParasitTypes());
+//
+
+            Long studentId = (Long) httpSession.getAttribute("studentId");
+            parasitsForm.setStudentParasites(studentParasiteService.getParasitesByStudent(studentId));
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
+
+
+        modelAndView.addObject("parasitsForm", parasitsForm);
         return modelAndView;
 
+    }
+
+    @PostMapping
+    @RequestMapping(value = {"parasitsPostData"})
+    public ModelAndView parasitsPostData(@ModelAttribute("parasitsForm") ParasitsForm parasitsForm, HttpSession httpSession) {
+
+        List<StudentParasit> studentParasits = parasitsForm.getStudentParasites();
+
+        List<String> parasitTypeCodes = new ArrayList<>();
+        if (parasitsForm.getStudentParasites() != null) {
+            List<ParasitType> parasitTypes = parasitsForm.getStudentParasites().stream().map(StudentParasit::getParasitType).collect(Collectors.toList());
+
+            parasitTypeCodes = parasitTypes.stream().map(ParasitType::getParasitTypeCode).collect(Collectors.toList());
+        }
+
+        Long studentId = (Long) httpSession.getAttribute("studentId");
+        //Правим проверка дали вече този паразит не е записан за ученика
+        if (parasitsForm.getParasiteTypeCode() != null && !parasitTypeCodes.contains(parasitsForm.getParasiteTypeCode())) {
+            StudentParasit newStudentParasit = new StudentParasit();
+            newStudentParasit.setStudent(studentService.findStudentById(studentId));
+            newStudentParasit.setParasitType(parasitTypeService.getParasitTypeByCode(parasitsForm.getParasiteTypeCode()));
+            StudentParasit savedStudentParasit = studentParasiteService.createOrUpdateStudentParasit(newStudentParasit);
+        }
+
+        modelAndView = new ModelAndView("redirect:/parasits");
+        return modelAndView;
+    }
+
+    @PostMapping
+    @RequestMapping(value = {"deleteSPData"})
+    public ModelAndView deleteSPData(@RequestParam(value = "currentParasiteCode", required = false) String currentParasiteCode, HttpSession httpSession) {
+
+        Long studentId = (Long) httpSession.getAttribute("studentId");
+        List<StudentParasit> foundStudentParasites = studentParasiteService.getStudentParasitByParasiteCodeAndStudentId(currentParasiteCode, studentId);
+
+        for (StudentParasit studentParasit : foundStudentParasites) {
+            studentParasiteService.deleteGPById(studentParasit.getId());
+        }
+
+        modelAndView = new ModelAndView("redirect:/parasits");
+
+        return modelAndView;
     }
 }
 
