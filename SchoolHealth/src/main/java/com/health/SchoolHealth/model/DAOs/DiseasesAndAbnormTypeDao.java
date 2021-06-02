@@ -14,4 +14,7 @@ public interface DiseasesAndAbnormTypeDao extends CrudRepository<DiseasesAndAbno
 
     @Query("select d from DiseasesAndAbnormType as d where d.diseasesAndAbnormTypeCode=:diseasesAndAbnormTypeCode")
     public Optional<DiseasesAndAbnormType> findByCode(String diseasesAndAbnormTypeCode);
+
+    @Query("select d from DiseasesAndAbnormType as d order by diseasesAndAbnormTypeCode")
+    public Iterable<DiseasesAndAbnormType> findAllOrderByCode();
 }

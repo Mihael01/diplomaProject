@@ -20,4 +20,21 @@ public interface StudentDiseasesAndAbnormalitiesDao extends CrudRepository<Stude
             "sda.diseasesAndAbnormType.diseasesAndAbnormTypeCode = :diseasesAndAbnormTypeCode")
     public Optional<Long> findAllStudentDiseasesAndAbnormalitiesByStudentIdAndCode(Long studentId, String diseasesAndAbnormTypeCode);
 
+
+    @Query("select sda from StudentDiseasesAndAbnormalities as sda join Student s on sda.student.id = s.id " +
+            "where sda.diseasesAndAbnormType.diseasesAndAbnormTypeCode = :diseasesAndAbnormTypeCode and  s.school.id = :schoolId")
+    public Iterable<StudentDiseasesAndAbnormalities> findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCode(String diseasesAndAbnormTypeCode, Integer schoolId);
+
+    @Query("select sda from StudentDiseasesAndAbnormalities as sda join Student s on sda.student.id = s.id " +
+            "where  s.class_ = 'I' and sda.diseasesAndAbnormType.diseasesAndAbnormTypeCode = :diseasesAndAbnormTypeCode and  s.school.id = :schoolId")
+    public Iterable<StudentDiseasesAndAbnormalities> findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeIClass(String diseasesAndAbnormTypeCode, Integer schoolId);
+
+    @Query("select sda from StudentDiseasesAndAbnormalities as sda join Student s on sda.student.id = s.id " +
+            "where s.class_ = 'VII' and sda.diseasesAndAbnormType.diseasesAndAbnormTypeCode = :diseasesAndAbnormTypeCode and  s.school.id = :schoolId")
+    public Iterable<StudentDiseasesAndAbnormalities> findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeVIIClass(String diseasesAndAbnormTypeCode, Integer schoolId);
+
+    @Query("select sda from StudentDiseasesAndAbnormalities as sda join Student s on sda.student.id = s.id " +
+            "where s.class_ = 'X' and sda.diseasesAndAbnormType.diseasesAndAbnormTypeCode = :diseasesAndAbnormTypeCode and  s.school.id = :schoolId")
+    public Iterable<StudentDiseasesAndAbnormalities> findNumberOfStudentDiseasesAndAbnormalitiesBySchoolIdAndCodeXClass(String diseasesAndAbnormTypeCode, Integer schoolId);
+
 }
