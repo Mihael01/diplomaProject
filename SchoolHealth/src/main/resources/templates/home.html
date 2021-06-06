@@ -92,6 +92,26 @@
         </div>
         <br/> <br/>
     </div>
+    <div class="row">
+        <div th:if="${isCreateLZPKButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="@{analysis}" th:text="'Схема за анализ - първа част'" id="analysisLink" class="btn btn-primary pull-center"></a>
+            </div>
+        </div>
+        <div th:if="${isCreateLZPKButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="@{analysis2}" th:text="'Схема за анализ - втора част'" id="analysis2Link" class="btn btn-primary pull-center"></a>
+            </div>
+        </div>
+        <div th:if="${isCreateLZPKButtonVisible == 'true'}" >
+            <div class="col-lg-4 text-center" >
+                <a th:href="@{analysis3}" th:text="'Схема за анализ - трета част'" id="analysis3Link" class="btn btn-primary pull-center"></a>
+            </div>
+        </div>
+    <br><br>
+        <br>
+        <h4 class="text-center"><a th:href="@{/export/pdf}">Генерирай "Схема за анализ на здравословното състояние на учениците" в pdf формат</a></h4>
+    </div>
 
 </form>
 </div>

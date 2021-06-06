@@ -7,173 +7,181 @@
 
 <body>
 <th:div class="container" id="gpInput">
-<form action="#" th:action="@{/createGPPostData}" th:object="${createGPForm}" method="post"  class="container alert alert-info">
-
-
-    <H3 class="text-center">Регистрация на лични лекари</H3>
-    <br/><br/>
     <div class="row">
-        <div class="col-lg-6">
-            <label class="labelWidthExtra" > Име *:
-                <input type="text" th:field="*{gp.gpName}"   required="true" style="width: 400px !important; min-width: 400px; max-width: 400px;"
-                oninvalid="this.setCustomValidity('Името е задължително поле.')"
-                oninput="this.setCustomValidity('')" />
-            </label>
-        </div>
-        <div class="col-lg-6">
-            <label class="labelWidthExtra"> Телефонен номер *:
-                <input type="text" th:field="*{gp.gpTelephoneNumber}"  required="true"
-                       pattern= "(^[0-9]+$)"
-                       oninvalid="this.setCustomValidity('Телефонът е задължително поле. Моля, въведете валиден номер само от цифри!')"
-                       oninput="this.setCustomValidity('')"/>
-            </label>
-        </div>
-    </div>
-    <br/><br/>
-    <div class="row">
-        <div class="col-lg-6">
-            <label class="labelWidthExtra" > Медицински център:
-                <input type="text" th:field="*{gp.medicalCenter}"  style="width: 285px !important; min-width: 285px; max-width: 285px;" />
-            </label>
-        </div>
-        <div class="col-lg-4 ">
-            <label  class="labelWidthExtra"> E-mail *:
-
-                <input class="form-control" size="30%" th:field="*{gp.user.email}"  required="true"
-                       pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
-                       oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
-                       oninput="this.setCustomValidity('')"  />
-                <span th:if="${#fields.hasErrors('gp.user.email')}" class="help-block" th:errors="*{gp.user.email}"></span>
-            </label>
+        <div th:if="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+            <H2 class="alert alert-danger text-center" role="alert" style="text:center; width:auto !important">Нямате права да достъпите тази страница!</H2>
         </div>
     </div>
 
-    <br/><br/>
+    <div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
+        <form action="#" th:action="@{/createGPPostData}" th:object="${createGPForm}" method="post"  class="container alert alert-info">
 
-    <div class="col-lg-2">
-        <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+
+            <H3 class="text-center">Регистрация на лични лекари</H3>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="labelWidthExtra" > Име *:
+                        <input type="text" th:field="*{gp.gpName}"   required="true" style="width: 400px !important; min-width: 400px; max-width: 400px;"
+                        oninvalid="this.setCustomValidity('Името е задължително поле.')"
+                        oninput="this.setCustomValidity('')" />
+                    </label>
+                </div>
+                <div class="col-lg-6">
+                    <label class="labelWidthExtra"> Телефонен номер *:
+                        <input type="text" th:field="*{gp.gpTelephoneNumber}"  required="true"
+                               pattern= "(^[0-9]+$)"
+                               oninvalid="this.setCustomValidity('Телефонът е задължително поле. Моля, въведете валиден номер само от цифри!')"
+                               oninput="this.setCustomValidity('')"/>
+                    </label>
+                </div>
+            </div>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-6">
+                    <label class="labelWidthExtra" > Медицински център:
+                        <input type="text" th:field="*{gp.medicalCenter}"  style="width: 285px !important; min-width: 285px; max-width: 285px;" />
+                    </label>
+                </div>
+                <div class="col-lg-4 ">
+                    <label  class="labelWidthExtra"> E-mail *:
+
+                        <input class="form-control" size="30%" th:field="*{gp.user.email}"  required="true"
+                               pattern= "(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
+                               oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
+                               oninput="this.setCustomValidity('')"  />
+                        <span th:if="${#fields.hasErrors('gp.user.email')}" class="help-block" th:errors="*{gp.user.email}"></span>
+                    </label>
+                </div>
+            </div>
+
+            <br/><br/>
+
+            <div class="col-lg-2">
+                <a class="btn btn-primary pull-left " href="home" id="home" role="button">Към начало</a>
+            </div>
+            <div class="col-lg-1 ">
+                <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
+            </div>
+            <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
+
+            <input hidden th:field = "*{gp.id}" />
+            <input type="hidden" th:field="*{gp.user.id}" />
+            <br/><br/><br/><br/>
+
+            <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function searchGPFunc() {
+                            <!--var gpTelephoneNumber = document.getElementById("gpTelephoneNumber");-->
+                             var gpTelephoneNumber = $("#gpTelephoneNumber").val();
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/creategp?gpTelephoneNumber=" + gpTelephoneNumber,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function (response) {
+                                        var placeholder = document.getElementById("gpTable");
+                                        placeholder.innerHTML = "";
+                                        <!--alert($(response).find("gpTable"));-->
+                                        <!--$("#gpTable").html($(response).find("gpTable").html);-->
+                                        $("#gpInput").html(response);
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                        <script th:inline="javascript">
+                        /*<![CDATA[*/
+                            function cleanGPFunc() {
+                                    $.ajax({
+                                            type: "GET",
+                                            url: "/creategp",
+                                            contentType: 'text/plain; charset=UTF-8',
+                                            success: function (response) {
+                                            var placeholder = document.getElementById("gpTable");
+                                            placeholder.innerHTML = "";
+                                            $("#gpInput").html(response);
+                                        }
+                                    });
+                            }
+                        /*]]>*/
+                        </script>
+            <div class="row  ">
+                <div class="col-lg-5">
+                    <label class="labelWidthExtra"> Търсене по телефонен номер:
+                        <input type="text" th:field="*{gpTelephoneNumber}" id="gpTelephoneNumber" title="Телефонен номер за търсене"/>
+                    </label>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" id="searchId"  class="btn btn-primary"  onclick="searchGPFunc()"><span class="glyphicon glyphicon-search"> Търси</span></button>
+                </div>
+
+                <button type="button" id="cleanId"  class="btn btn-primary pull-right" style="text-align: center;"  onclick="cleanGPFunc()"><span class="glyphicon glyphicon-erase"> Изчисти резултатът от търсенето</span></button>
+
+            </div>
+
+            <br/><br/>
+            <div id="gpTable">
+            <table style="border: 1px solid white;" >
+                <tr>
+                    <th style="border: 1px solid white; width:40% " >Име</th>
+                    <th style="border: 1px solid white; width:30% " >Телефонен номер</th>
+                    <th style="border: 1px solid white; width:40% " >Медицински център</th>
+                    <th style="border: 1px solid white; width:40% " >E-mail</th>
+                    <th style="border: 1px solid white; width:15% ">Редакция</th>
+                    <th style="border: 1px solid white; width:15% ">Изтриване</th>
+                </tr>
+                    <tr th:each="gp : *{allGPs}" >
+                        <td th:text="${gp.gpName}" style="border: 1px solid white;" ></td>
+                        <td th:text="${gp.gpTelephoneNumber}" style="border: 1px solid white;" ></td>
+                        <td th:text="${gp.medicalCenter}" style="border: 1px solid white;" ></td>
+                        <td th:text="${gp.user.email}" style="border: 1px solid white;" ></td>
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function editGPFunc(currentGp) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/editGPData?gpId=" + currentGp.value,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function (response) {
+                                        var placeholder = document.getElementById("gpTable");
+                                        placeholder.innerHTML = "";
+                                        $("#gpInput").html(response);
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                    <td style="border: 1px solid white; text-align: center; padding: 5px;" >
+                        <button type="button" id="editGP_${gp.id}"  class="btn btn-secondary" th:value="${gp.id}"
+                                onclick="editGPFunc(this)"><span class="glyphicon glyphicon-pencil"> Редактирай</span></button>
+                    </td>
+                    <td style="border: 1px solid white; text-align: center; padding: 5px;" >
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function deleteGPFunc(currentGp) {
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/deleteGPData?gpId=" + currentGp.value,
+                                        contentType: 'text/plain; charset=UTF-8',
+                                        success: function () {
+                                            location.reload();
+                                        }
+                                    });
+                            }
+                            /*]]>*/
+                        </script>
+                        <button type="button" id="deleteGP_${gp.id}"  class="btn btn-secondary"
+                                th:value="${gp.id}" onclick="deleteGPFunc(this)"><span class="glyphicon glyphicon-trash"> Изтрий</span></button>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+
+        </form>
     </div>
-    <div class="col-lg-1 ">
-        <input type="button" value="Назад" onclick="history.back()" class="btn btn-primary pull-left">
-    </div>
-    <input type="submit" value="Запишете данните" class="btn btn-primary pull-right"/>
-
-    <input hidden th:field = "*{gp.id}" />
-    <input type="hidden" th:field="*{gp.user.id}" />
-    <br/><br/><br/><br/>
-
-    <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function searchGPFunc() {
-                    <!--var gpTelephoneNumber = document.getElementById("gpTelephoneNumber");-->
-                     var gpTelephoneNumber = $("#gpTelephoneNumber").val();
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/creategp?gpTelephoneNumber=" + gpTelephoneNumber,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function (response) {
-                                var placeholder = document.getElementById("gpTable");
-                                placeholder.innerHTML = "";
-                                <!--alert($(response).find("gpTable"));-->
-                                <!--$("#gpTable").html($(response).find("gpTable").html);-->
-                                $("#gpInput").html(response);
-                                }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-                <script th:inline="javascript">
-                /*<![CDATA[*/
-                    function cleanGPFunc() {
-                            $.ajax({
-                                    type: "GET",
-                                    url: "/creategp",
-                                    contentType: 'text/plain; charset=UTF-8',
-                                    success: function (response) {
-                                    var placeholder = document.getElementById("gpTable");
-                                    placeholder.innerHTML = "";
-                                    $("#gpInput").html(response);
-                                }
-                            });
-                    }
-                /*]]>*/
-                </script>
-    <div class="row  ">
-        <div class="col-lg-5">
-            <label class="labelWidthExtra"> Търсене по телефонен номер:
-                <input type="text" th:field="*{gpTelephoneNumber}" id="gpTelephoneNumber" title="Телефонен номер за търсене"/>
-            </label>
-        </div>
-        <div class="col-lg-2">
-            <button type="button" id="searchId"  class="btn btn-primary"  onclick="searchGPFunc()"><span class="glyphicon glyphicon-search"> Търси</span></button>
-        </div>
-
-        <button type="button" id="cleanId"  class="btn btn-primary pull-right" style="text-align: center;"  onclick="cleanGPFunc()"><span class="glyphicon glyphicon-erase"> Изчисти резултатът от търсенето</span></button>
-
-    </div>
-
-    <br/><br/>
-    <div id="gpTable">
-    <table style="border: 1px solid white;" >
-        <tr>
-            <th style="border: 1px solid white; width:40% " >Име</th>
-            <th style="border: 1px solid white; width:30% " >Телефонен номер</th>
-            <th style="border: 1px solid white; width:40% " >Медицински център</th>
-            <th style="border: 1px solid white; width:40% " >E-mail</th>
-            <th style="border: 1px solid white; width:15% ">Редакция</th>
-            <th style="border: 1px solid white; width:15% ">Изтриване</th>
-        </tr>
-            <tr th:each="gp : *{allGPs}" >
-                <td th:text="${gp.gpName}" style="border: 1px solid white;" ></td>
-                <td th:text="${gp.gpTelephoneNumber}" style="border: 1px solid white;" ></td>
-                <td th:text="${gp.medicalCenter}" style="border: 1px solid white;" ></td>
-                <td th:text="${gp.user.email}" style="border: 1px solid white;" ></td>
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function editGPFunc(currentGp) {
-                            $.ajax({
-                                type: "POST",
-                                url: "/editGPData?gpId=" + currentGp.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function (response) {
-                                var placeholder = document.getElementById("gpTable");
-                                placeholder.innerHTML = "";
-                                $("#gpInput").html(response);
-                                }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-            <td style="border: 1px solid white; text-align: center; padding: 5px;" >
-                <button type="button" id="editGP_${gp.id}"  class="btn btn-secondary" th:value="${gp.id}"
-                        onclick="editGPFunc(this)"><span class="glyphicon glyphicon-pencil"> Редактирай</span></button>
-            </td>
-            <td style="border: 1px solid white; text-align: center; padding: 5px;" >
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    function deleteGPFunc(currentGp) {
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/deleteGPData?gpId=" + currentGp.value,
-                                contentType: 'text/plain; charset=UTF-8',
-                                success: function () {
-                                    location.reload();
-                                }
-                            });
-                    }
-                    /*]]>*/
-                </script>
-                <button type="button" id="deleteGP_${gp.id}"  class="btn btn-secondary"
-                        th:value="${gp.id}" onclick="deleteGPFunc(this)"><span class="glyphicon glyphicon-trash"> Изтрий</span></button>
-            </td>
-        </tr>
-    </table>
-    </div>
-
-
-</form>
 </th:div>
 
 

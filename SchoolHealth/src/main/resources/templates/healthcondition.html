@@ -13,12 +13,7 @@
 </div>
 
 <div th:unless="${isReturnedErrorOnValidation == 'true'}" class="alert alert-error">
-    <form class="container alert alert-info" >
 
-                <a class="btn btn-primary рull-center " href="home" role="button">Към начало</a>
-                <a class="btn btn-primary рull-center " href="lzpk" role="button">Към ЛЗПК и основни данни за ученика</a>
-
-    </form>
     <!--healthcondition.html-->
     <form action="#" th:action="@{/healthConditionPostData}" th:object="${healthConditionForm}" method="post" class="container alert alert-info">
         <H3 class="text-center">Здравословно състояние на ученика</H3>

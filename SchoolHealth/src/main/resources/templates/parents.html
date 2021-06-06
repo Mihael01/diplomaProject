@@ -57,7 +57,7 @@
 
                         <input class="form-control" size="30%" th:field="*{parent1.user.email}" pattern= "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
                                                      oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
-                                                     oninput="this.setCustomValidity('')" />
+                                                     oninput="this.setCustomValidity('')" required="true"/>
                         <span th:if="${#fields.hasErrors('parent1.user.email')}" class="help-block" th:errors="*{parent1.user.email}"></span>
                     </label>
                 </div>
@@ -230,7 +230,7 @@
 
                         <input class="form-control" size="30%" th:field="*{parent2.user.email}" pattern= "^$|(^[_A-Za-z0-9-+]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$)"
                                oninvalid="this.setCustomValidity('E-mail е задължително поле. Моля, въведете валиден e-mail!')"
-                               oninput="this.setCustomValidity('')" />
+                               oninput="this.setCustomValidity('')" required="true" />
                         <span th:if="${#fields.hasErrors('parent2.user.email')}" class="help-block" th:errors="*{parent2.user.email}"></span>
                     </label>
                 </div>
