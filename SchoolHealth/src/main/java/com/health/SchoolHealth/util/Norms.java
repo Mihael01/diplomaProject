@@ -1,9 +1,5 @@
 package com.health.SchoolHealth.util;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 public enum Norms {
 
     I_CLASS_GIRLS("I", "F", 4.1, 25.2, 13.0, 19.0, 22.0, 5.5, 124.6),

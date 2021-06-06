@@ -3,7 +3,6 @@ package com.health.SchoolHealth.util;
 import com.health.SchoolHealth.model.entities.User;
 import com.health.SchoolHealth.services.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,10 +13,6 @@ import java.util.List;
 
 @Component
 public class ControllerUtil {
-
-    public static final String BOY = "M";
-
-    public static final String GIRL = "F";
 
     public static final List<String> authorizedForLZPKData = new ArrayList<>();
 
@@ -57,28 +52,6 @@ public class ControllerUtil {
         authorizedForAnalysisData.add(UserType.SYS_ADMIN.getCode());
         authorizedForAnalysisData.add(UserType.SCHOOL_ADMIN.getCode());
         authorizedForAnalysisData.add(UserType.GP_ADMIN.getCode());
-    }
-
-    public static final List<String> aged7to14years = new ArrayList<>();
-
-    static {
-        aged7to14years.add("I");
-        aged7to14years.add("II");
-        aged7to14years.add("III");
-        aged7to14years.add("IV");
-        aged7to14years.add("V");
-        aged7to14years.add("VI");
-        aged7to14years.add("VII");
-    }
-
-    public static final List<String> aged14to18years = new ArrayList<>();
-
-    static {
-        aged14to18years.add("VIII");
-        aged14to18years.add("IX");
-        aged14to18years.add("X");
-        aged14to18years.add("XI");
-        aged14to18years.add("XII");;
     }
 
     static public void setUserData(User user, String userTypeCode, UserService userService, JavaMailSender mailSender) {

@@ -1,7 +1,9 @@
 package com.health.SchoolHealth.services;
 
-import com.health.SchoolHealth.model.DAOs.*;
-import com.health.SchoolHealth.model.entities.*;
+import com.health.SchoolHealth.model.DAOs.ParentDao;
+import com.health.SchoolHealth.model.DAOs.ParentTypeDao;
+import com.health.SchoolHealth.model.entities.Parent;
+import com.health.SchoolHealth.model.entities.ParentType;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 

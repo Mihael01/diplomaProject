@@ -1,9 +1,7 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.ParasitTypeDao;
-import com.health.SchoolHealth.model.DAOs.SexTypeDao;
 import com.health.SchoolHealth.model.entities.ParasitType;
-import com.health.SchoolHealth.model.entities.SexType;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 

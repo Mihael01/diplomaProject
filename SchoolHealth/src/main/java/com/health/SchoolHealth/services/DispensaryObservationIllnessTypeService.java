@@ -19,7 +19,7 @@ public class DispensaryObservationIllnessTypeService {
     }
 
     public List<DispensaryObservationIllnessType> getAllDispensaryObservationIllnessTypes() {
-        return RepositoryUtil.iterableToList(dispensaryObservationIllnessTypeDao.findAll());
+        return RepositoryUtil.iterableToList(dispensaryObservationIllnessTypeDao.findAllOrderByCode());
     }
 
 

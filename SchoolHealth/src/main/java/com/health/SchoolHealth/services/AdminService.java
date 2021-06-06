@@ -1,11 +1,7 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.AdminDao;
-import com.health.SchoolHealth.model.DAOs.GPDao;
-import com.health.SchoolHealth.model.DAOs.StudentDao;
 import com.health.SchoolHealth.model.entities.Admin;
-import com.health.SchoolHealth.model.entities.GP;
-import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +26,8 @@ public class AdminService {
         return adminDao.save(admin);
     }
 
-    public List<Admin> findAllAdmins() {
-        return  RepositoryUtil.iterableToList(adminDao.findAllAdminsWithUser());
+    public List<Admin> findAllAdmins(String userCode) {
+        return  RepositoryUtil.iterableToList(adminDao.findAllAdminsWithUser(userCode));
     }
 
     public List<Admin> findAdminByTelephoneNumber(String telephoneNumber) {

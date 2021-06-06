@@ -1,9 +1,7 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.AddictionsDao;
-import com.health.SchoolHealth.model.DAOs.AnthropologicalIndicatorsDao;
 import com.health.SchoolHealth.model.entities.Addictions;
-import com.health.SchoolHealth.model.entities.AnthropologicalIndicators;
 import org.springframework.stereotype.Service;
 
 @Service

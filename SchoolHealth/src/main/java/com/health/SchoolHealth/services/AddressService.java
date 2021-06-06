@@ -1,7 +1,13 @@
 package com.health.SchoolHealth.services;
 
-import com.health.SchoolHealth.model.DAOs.*;
-import com.health.SchoolHealth.model.entities.*;
+import com.health.SchoolHealth.model.DAOs.AddressDao;
+import com.health.SchoolHealth.model.DAOs.MunicipalityDao;
+import com.health.SchoolHealth.model.DAOs.RegionDao;
+import com.health.SchoolHealth.model.DAOs.SettlementPlaceDao;
+import com.health.SchoolHealth.model.entities.Address;
+import com.health.SchoolHealth.model.entities.Municipality;
+import com.health.SchoolHealth.model.entities.Region;
+import com.health.SchoolHealth.model.entities.SettlementPlace;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 

@@ -22,10 +22,6 @@ public class FormUtil {
 
     public static AddressForm setAddressForm(String addressAbout, Long addressId, Long addressId2, AddressService addressService,
                                              AddressForm addressForm, HttpSession httpSession) {
-        System.out.println("!!!!!!!!!!!!!httpSession  municipalityCode2 " + httpSession.getAttribute("municipalityCode2"));
-        System.out.println("!!!!!!!!!!!!!httpSession  municipalityCode " + httpSession.getAttribute("municipalityCode"));
-        System.out.println("!!!!!!!!!!!!!httpSession  regionCode2 " + httpSession.getAttribute("regionCode2"));
-        System.out.println("!!!!!!!!!!!!!httpSession regionCode " + httpSession.getAttribute("regionCode"));
 
         httpSession.setAttribute("addressAbout", addressAbout);
 //
@@ -56,7 +52,7 @@ public class FormUtil {
         if (regionCode != null) {
             System.out.println();
             addressForm.setMunicipalities(addressService.getAllMunicipalitiesInRegion(regionCode));
-            System.out.println("Municipalities size for region code " + addressForm.getMunicipalities().size() + " regionCode "); //да се види тук лога и защо не вади общините
+
         }
         if (regionCode2 != null) {
             addressForm.setMunicipalities2(addressService.getAllMunicipalitiesInRegion(regionCode2));
@@ -70,7 +66,7 @@ public class FormUtil {
                 municipalityCode = municipalityCodes.get(0);
             }
         }
-System.out.println("before Municipalities2 municipalityCode2   " + municipalityCode2);
+
         List<String> municipalityCodes2 = CollectionUtils.isEmpty(addressForm.getMunicipalities2()) ? new ArrayList<>() :
                 addressForm.getMunicipalities2().stream().map(Municipality::getMunicipalityCode).collect(Collectors.toList());
 
@@ -107,11 +103,7 @@ System.out.println("before Municipalities2 municipalityCode2   " + municipalityC
             List<SettlementPlace> allSettlementPlacesForMunicipality2 = addressService.getAllSettlementPlacesByMunicipality(municipalityCode2);
             addressForm.setSettlementPlaces2(allSettlementPlacesForMunicipality2);
         }
-        System.out.println("!!!!!!!!!!!!! municipalityCode2 " + municipalityCode2);
-        System.out.println("!!!!!!!!!!!!! municipalityCode " + municipalityCode);
-        System.out.println("!!!!!!!!!!!!! regionCode2 " + regionCode2);
-        System.out.println("!!!!!!!!!!!!! regionCode " + regionCode);
-        System.out.println("IS ENABLED getIsMunicipalityEnable " + addressForm.getIsMunicipalityEnable());
+
         return addressForm;
     }
 

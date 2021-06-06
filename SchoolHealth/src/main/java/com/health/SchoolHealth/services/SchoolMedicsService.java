@@ -1,19 +1,12 @@
 package com.health.SchoolHealth.services;
 
-import com.health.SchoolHealth.model.DAOs.SchoolDao;
 import com.health.SchoolHealth.model.DAOs.SchoolMedicsDao;
-import com.health.SchoolHealth.model.DAOs.SchoolTypeDao;
 import com.health.SchoolHealth.model.entities.SchoolMedics;
-import com.health.SchoolHealth.model.entities.SchoolType;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SchoolMedicsService {

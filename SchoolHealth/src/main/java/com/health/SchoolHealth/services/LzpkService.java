@@ -1,12 +1,8 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.LzpkDao;
-import com.health.SchoolHealth.model.DAOs.SchoolMedicsDao;
 import com.health.SchoolHealth.model.entities.Lzpk;
-import com.health.SchoolHealth.model.entities.SchoolMedics;
 import org.springframework.stereotype.Service;
-
-import java.sql.Date;
 
 @Service
 public class LzpkService {

@@ -1,6 +1,5 @@
 package com.health.SchoolHealth.util;
 
-import com.health.SchoolHealth.model.entities.School;
 import org.assertj.core.util.Lists;
 
 import java.util.Iterator;

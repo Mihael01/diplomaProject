@@ -1,8 +1,6 @@
 package com.health.SchoolHealth.services;
 
-import com.health.SchoolHealth.model.DAOs.HealthConditionDao;
 import com.health.SchoolHealth.model.DAOs.ImmunizationDao;
-import com.health.SchoolHealth.model.entities.HealthCondition;
 import com.health.SchoolHealth.model.entities.Immunization;
 import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;

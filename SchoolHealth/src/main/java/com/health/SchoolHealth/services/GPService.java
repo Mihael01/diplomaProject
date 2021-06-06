@@ -43,7 +43,8 @@ public class GPService {
     }
 
     public List<GP> findGPByTelephoneNumber(String telephoneNumber) {
-        return  RepositoryUtil.iterableToList(gpDao.findGPsWithUserByTelephoneNumber(telephoneNumber));
+//        return  RepositoryUtil.iterableToList(gpDao.findGPsWithUserByTelephoneNumber(telephoneNumber));!!!
+        return  gpDao.findGPsWithUserByTelephoneNumber(telephoneNumber);
     }
 
     public void deleteGPById(Long gpId) {

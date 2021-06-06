@@ -1,13 +1,8 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.PhysicalCapacityDao;
-import com.health.SchoolHealth.model.DAOs.SexTypeDao;
 import com.health.SchoolHealth.model.entities.PhysicalCapacity;
-import com.health.SchoolHealth.model.entities.SexType;
-import com.health.SchoolHealth.util.RepositoryUtil;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PhysicalCapacityService {

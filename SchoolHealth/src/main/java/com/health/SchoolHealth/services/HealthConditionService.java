@@ -1,9 +1,7 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.HealthConditionDao;
-import com.health.SchoolHealth.model.DAOs.LzpkDao;
 import com.health.SchoolHealth.model.entities.HealthCondition;
-import com.health.SchoolHealth.model.entities.Lzpk;
 import org.springframework.stereotype.Service;
 
 @Service

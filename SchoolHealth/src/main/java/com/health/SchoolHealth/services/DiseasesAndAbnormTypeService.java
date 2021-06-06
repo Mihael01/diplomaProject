@@ -1,9 +1,7 @@
 package com.health.SchoolHealth.services;
 
 import com.health.SchoolHealth.model.DAOs.DiseasesAndAbnormTypeDao;
-import com.health.SchoolHealth.model.entities.*;
-import com.health.SchoolHealth.util.FormUtil;
-import com.health.SchoolHealth.util.RepositoryUtil;
+import com.health.SchoolHealth.model.entities.DiseasesAndAbnormType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +18,8 @@ public class DiseasesAndAbnormTypeService {
     }
 
     public List<DiseasesAndAbnormType> getAllDiseasesAndAbnormTypes() {
-        return RepositoryUtil.iterableToList(diseasesAndAbnormTypeDao.findAllOrderByCode());
+//        return RepositoryUtil.iterableToList(diseasesAndAbnormTypeDao.findAllOrderByCode());
+        return diseasesAndAbnormTypeDao.findAllOrderByCode();
     }
 
     public DiseasesAndAbnormType getDiseasesAndAbnormTypeByCode(String diseasesAndAbnormTypeCode) {
