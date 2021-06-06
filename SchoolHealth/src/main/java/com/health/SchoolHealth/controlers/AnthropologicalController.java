@@ -1,9 +1,7 @@
 package com.health.SchoolHealth.controlers;
 
 import com.health.SchoolHealth.controlers.formPOJOs.AnthropologicalForm;
-import com.health.SchoolHealth.controlers.formPOJOs.StudentBaseForm;
 import com.health.SchoolHealth.model.entities.AnthropologicalIndicators;
-import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.services.AnthropologicalService;
 import com.health.SchoolHealth.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +61,18 @@ public class AnthropologicalController {
     @RequestMapping(value = {"anthropologicalPostData"})
     public ModelAndView anthropologicalPostData(@ModelAttribute("anthropologicalForm") AnthropologicalForm anthropologicalForm,
                                             HttpSession httpSession ) {
+
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode)) {
         System.out.println("<<<<<<<< getBodyHeight = " + anthropologicalForm.getAnthropologicalIndicators().getBodyHeight());
 
         anthropologicalForm.getAnthropologicalIndicators().setStudent(studentService.findStudentById((Long) httpSession.getAttribute("studentId")));
 
         anthropologicalService.createOrUpdateAnthropologicalIndicators(anthropologicalForm.getAnthropologicalIndicators());
-
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
 
 
 

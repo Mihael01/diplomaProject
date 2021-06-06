@@ -1,12 +1,9 @@
 package com.health.SchoolHealth.controlers;
 
 import com.health.SchoolHealth.controlers.formPOJOs.CreateAdminForm;
-import com.health.SchoolHealth.controlers.formPOJOs.CreateGPForm;
 import com.health.SchoolHealth.model.entities.Admin;
-import com.health.SchoolHealth.model.entities.GP;
 import com.health.SchoolHealth.model.entities.User;
 import com.health.SchoolHealth.services.AdminService;
-import com.health.SchoolHealth.services.GPService;
 import com.health.SchoolHealth.services.UserService;
 import com.health.SchoolHealth.util.ControllerUtil;
 import com.health.SchoolHealth.util.UserType;
@@ -17,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,6 +47,11 @@ public class CreateAdminController {
 
         modelAndView = new ModelAndView("createadmin");
 
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode)) {
+
+        modelAndView = new ModelAndView("createadmin");
+
         Long adminId = (Long) httpSession.getAttribute("adminId");
         if (adminId != null) {
             createAdminForm.setAdmin(adminService.getAdmin(adminId));
@@ -60,7 +61,8 @@ public class CreateAdminController {
 
         httpSession.setAttribute("adminId", null);
 
-        createAdminForm.setAllAdmins(adminService.findAllAdmins());
+        String userCode = (String) httpSession.getAttribute("userCode");
+        createAdminForm.setAllAdmins(adminService.findAllAdmins(userCode));
 
         List<UserType> adminUserTypes = new ArrayList<>();
 
@@ -81,28 +83,22 @@ public class CreateAdminController {
             System.out.println("Key = " + entry.getKey() +
                     ", Value = " + entry.getValue());
         }
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
 
         modelAndView.addObject("createAdminForm", createAdminForm);
         return modelAndView;
 
     }
 
-
-
-
-//    public static String getDescriptionByCode(String code) {
-//        if (mMap == null) {
-//            initializeMapping();
-//        }
-//        if (mMap.containsKey(code)) {
-//            return mMap.get(code);
-//        }
-//        return null;
-//    }
-
     @PostMapping
     @RequestMapping(value = {"createAdminPostData"})
     public ModelAndView createAdminPostData(@ModelAttribute("createAdminForm") CreateAdminForm createAdminForm, HttpSession httpSession) {
+
+
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode)) {
 
         User savedUser = null;
         if (createAdminForm.getAdmin() != null && createAdminForm.getAdmin().getUser() != null && createAdminForm.getAdmin().getUser().getEmail() != null) {
@@ -125,7 +121,9 @@ public class CreateAdminController {
 
          Admin admin = adminService.createOrUpdateAdmin(createAdminForm.getAdmin());
 
-
+    } else {
+        modelAndView.addObject("isReturnedErrorOnValidation", "true");
+    }
         modelAndView = new ModelAndView("redirect:/createadmin");
         return modelAndView;
     }
@@ -149,15 +147,22 @@ public class CreateAdminController {
     @RequestMapping(value = {"deleteAdminData"})
     public ModelAndView deleteAdminData(@RequestParam(value = "adminId", required = false) Long adminId, HttpSession httpSession) {
 
-        System.out.println("DELETE  adminId = " + adminId);
-        Admin foundAdmin = adminService.getAdmin(adminId);
 
-        adminService.deleteAdminById(adminId);
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode)) {
 
-        if (foundAdmin.getUser() != null && foundAdmin.getUser().getId() != null) {
-            userService.deleteUserById(foundAdmin.getUser().getId());
+
+            System.out.println("DELETE  adminId = " + adminId);
+            Admin foundAdmin = adminService.getAdmin(adminId);
+
+            adminService.deleteAdminById(adminId);
+
+            if (foundAdmin.getUser() != null && foundAdmin.getUser().getId() != null) {
+                userService.deleteUserById(foundAdmin.getUser().getId());
+            }
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
-
         modelAndView = new ModelAndView("redirect:/createadmin");
 
         return modelAndView;

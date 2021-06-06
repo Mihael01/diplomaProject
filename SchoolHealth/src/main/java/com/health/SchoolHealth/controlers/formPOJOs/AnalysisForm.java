@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class AnalysisForm {
 
+    private Integer numberOfClasses;
+
     private Integer numberOfStudents;
 
     private Integer aged7To14Girls;

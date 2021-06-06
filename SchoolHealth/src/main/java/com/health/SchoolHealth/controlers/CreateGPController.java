@@ -41,6 +41,9 @@ public class CreateGPController {
 
         modelAndView = new ModelAndView("creategp");
 
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.GP_ADMIN.getCode().equals(userTypeCode)) {
+
         Long gpId = (Long) httpSession.getAttribute("gpId");
         if (gpId != null) {
             createGPForm.setGp(gpService.getGP(gpId));
@@ -53,6 +56,9 @@ public class CreateGPController {
         createGPForm.setAllGPs(gpService.findAllGPs());
 
         modelAndView.addObject("createGPForm", createGPForm);
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
         return modelAndView;
 
     }
@@ -61,7 +67,8 @@ public class CreateGPController {
     @RequestMapping(value = {"createGPPostData"})
     public ModelAndView createGPPostData(@ModelAttribute("createGPForm") CreateGPForm createGPForm, HttpSession httpSession) {
 
-
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.GP_ADMIN.getCode().equals(userTypeCode)) {
         User savedUser = null;
         if (createGPForm.getGp() != null && createGPForm.getGp().getUser() != null && createGPForm.getGp().getUser().getEmail() != null) {
             if (createGPForm.getGp().getUser().getId() == null) {
@@ -84,6 +91,9 @@ System.out.println();
          GP gp = gpService.createOrUpdateGP(createGPForm.getGp());
 
 System.out.println("gp id " + gp.getId());
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
         modelAndView = new ModelAndView("redirect:/creategp");
         return modelAndView;
     }
@@ -107,13 +117,19 @@ System.out.println("gp id " + gp.getId());
     @RequestMapping(value = {"deleteGPData"})
     public ModelAndView deleteGPData(@RequestParam(value = "gpId", required = false) Long gpId, HttpSession httpSession) {
 
-        System.out.println("DELETE  gpId = " + gpId);
-        GP foundGP = gpService.getGP(gpId);
 
-        gpService.deleteGPById(gpId);
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.GP_ADMIN.getCode().equals(userTypeCode)) {
+            System.out.println("DELETE  gpId = " + gpId);
+            GP foundGP = gpService.getGP(gpId);
 
-        if (foundGP.getUser() != null && foundGP.getUser().getId() != null) {
-            userService.deleteUserById(foundGP.getUser().getId());
+            gpService.deleteGPById(gpId);
+
+            if (foundGP.getUser() != null && foundGP.getUser().getId() != null) {
+                userService.deleteUserById(foundGP.getUser().getId());
+            }
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
         modelAndView = new ModelAndView("redirect:/creategp");

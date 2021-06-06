@@ -65,6 +65,8 @@ public class UserLoginController {
             // В зависимост от вида потребител имаме нива на достъп
             Integer userTypeCode = foundUser.getUserType();
             httpSession.setAttribute("userTypeCode", userTypeCode);
+            String userCode = foundUser.getUserCode();
+            httpSession.setAttribute("userCode", userCode);
 
 
             Integer schoolId = null;

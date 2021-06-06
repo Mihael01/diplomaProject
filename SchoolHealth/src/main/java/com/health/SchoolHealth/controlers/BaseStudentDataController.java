@@ -4,7 +4,6 @@ import com.health.SchoolHealth.controlers.formPOJOs.StudentBaseForm;
 import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.services.SchoolService;
 import com.health.SchoolHealth.services.StudentService;
-import com.health.SchoolHealth.util.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,6 +62,9 @@ System.out.println("studentId w getStudentBaseDatadata" + studentId);
     @RequestMapping(value = {"studentBasePostData"})
     public ModelAndView studentBasePostData(@ModelAttribute("studentBaseForm") StudentBaseForm studentBaseForm,
                                             HttpSession httpSession ) {
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+
+        if (authorizedForLZPKData.contains(userTypeCode)) {
         System.out.println("<<<<<<<< getFamilyBurden = " + studentBaseForm.getStudent().getFamilyBurden());
 System.out.println("studentBaseForm.getStudent() name " + studentBaseForm.getStudent().getFirstName());
 
@@ -75,10 +77,12 @@ System.out.println("studentBaseForm.getStudent() name " + studentBaseForm.getStu
 
         studentService.createOrUpdateStudent(foundStudent);
 
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
 
 
-
-        modelAndView = new ModelAndView("redirect:/basedata");
+            modelAndView = new ModelAndView("redirect:/basedata");
 
         return modelAndView;
     }

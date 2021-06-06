@@ -1,11 +1,9 @@
 package com.health.SchoolHealth.controlers;
 
 import com.health.SchoolHealth.controlers.formPOJOs.AddictionsForm;
-import com.health.SchoolHealth.controlers.formPOJOs.GPForm;
 import com.health.SchoolHealth.model.entities.Addictions;
 import com.health.SchoolHealth.model.entities.Student;
 import com.health.SchoolHealth.services.AddictionsService;
-import com.health.SchoolHealth.services.GPService;
 import com.health.SchoolHealth.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,16 +62,20 @@ public class AddictionsController {
     @RequestMapping(value = {"/addictionsPostData"})
     public ModelAndView addictionsPostData(@ModelAttribute("addictionsForm") AddictionsForm addictionsForm,
                                                 HttpSession httpSession) {
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
 
-        System.out.println("addictionsForm.getAddictions()" + addictionsForm.getAddictions());
-        Long studentId = (Long) httpSession.getAttribute("studentId");
-        Student foundStudent = studentService.findStudentById(studentId);
-        addictionsForm.getAddictions().setStudent(foundStudent);
+        if (authorizedForLZPKData.contains(userTypeCode)) {
+            System.out.println("addictionsForm.getAddictions()" + addictionsForm.getAddictions());
+            Long studentId = (Long) httpSession.getAttribute("studentId");
+            Student foundStudent = studentService.findStudentById(studentId);
+            addictionsForm.getAddictions().setStudent(foundStudent);
 
-        Addictions savedAddictions = addictionsService.createOrUpdateAddictions(addictionsForm.getAddictions());
-        System.out.println("asavedAddictions " + savedAddictions);
+            Addictions savedAddictions = addictionsService.createOrUpdateAddictions(addictionsForm.getAddictions());
+            System.out.println("asavedAddictions " + savedAddictions);
 
-
+        } else {
+                modelAndView.addObject("isReturnedErrorOnValidation", "true");
+        }
 
 
         modelAndView = new ModelAndView("redirect:/addictions");

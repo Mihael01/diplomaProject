@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,20 +43,26 @@ public class CreateSMController {
 
         modelAndView = new ModelAndView("createsm");
 
-        Long smId = (Long) httpSession.getAttribute("smId");
-        if (smId != null) {
-            createSMForm.setSchoolMedic(schoolMedicsService.getSchoolMedic(smId));
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.SCHOOL_ADMIN.getCode().equals(userTypeCode)) {
+            Long smId = (Long) httpSession.getAttribute("smId");
+            if (smId != null) {
+                createSMForm.setSchoolMedic(schoolMedicsService.getSchoolMedic(smId));
+            } else {
+                createSMForm.setSchoolMedic(new SchoolMedics());
+            }
+
+            httpSession.setAttribute("smId", null);
+
+            List<SchoolMedics> allSchoolMedics = schoolMedicsService.findAllSchoolMedics();
+            createSMForm.setAllSchoolMedics(allSchoolMedics);
+
+            List<String> tns = allSchoolMedics.stream().map(SchoolMedics::getSchoolMedicsTelephoneNumber).collect(Collectors.toList());
+            createSMForm.setTelephoneNumbers(tns);
         } else {
-            createSMForm.setSchoolMedic(new SchoolMedics());
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
-        httpSession.setAttribute("smId", null);
-
-        List<SchoolMedics> allSchoolMedics = schoolMedicsService.findAllSchoolMedics();
-        createSMForm.setAllSchoolMedics(allSchoolMedics);
-
-        List<String> tns = allSchoolMedics.stream().map(SchoolMedics::getSchoolMedicsTelephoneNumber).collect(Collectors.toList());
-        createSMForm.setTelephoneNumbers(tns);
 
         modelAndView.addObject("createSMForm", createSMForm);
         return modelAndView;
@@ -68,28 +73,34 @@ public class CreateSMController {
     @RequestMapping(value = {"createSMPostData"})
     public ModelAndView createSMPostData(@ModelAttribute("createSMForm") CreateSMForm createSMForm, HttpSession httpSession) {
 
+
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.SCHOOL_ADMIN.getCode().equals(userTypeCode)) {
         User savedUser = null;
-        if (createSMForm.getSchoolMedic() != null && createSMForm.getSchoolMedic().getUser() != null
-                && createSMForm.getSchoolMedic().getUser().getEmail() != null) {
-            if (createSMForm.getSchoolMedic().getUser().getId() == null) {
-                // Задаваме стойности в полетата на потребителя, за случаите, когато на училищния медик все още не е създаден акаунт.
-                ControllerUtil.setUserData(createSMForm.getSchoolMedic().getUser(), UserType.SCHOOL_MEDIC.getCode(), userService, mailSender);
-                System.out.println("e-mail: " + createSMForm.getSchoolMedic().getUser().getEmail());
-                savedUser = userService.createOrUpdateUser(createSMForm.getSchoolMedic().getUser());
+            if (createSMForm.getSchoolMedic() != null && createSMForm.getSchoolMedic().getUser() != null
+                    && createSMForm.getSchoolMedic().getUser().getEmail() != null) {
+                if (createSMForm.getSchoolMedic().getUser().getId() == null) {
+                    // Задаваме стойности в полетата на потребителя, за случаите, когато на училищния медик все още не е създаден акаунт.
+                    ControllerUtil.setUserData(createSMForm.getSchoolMedic().getUser(), UserType.SCHOOL_MEDIC.getCode(), userService, mailSender);
+                    System.out.println("e-mail: " + createSMForm.getSchoolMedic().getUser().getEmail());
+                    savedUser = userService.createOrUpdateUser(createSMForm.getSchoolMedic().getUser());
 
-                //Ако Потребителя не е съществувал като запис в базата,
-                // слагаме вече записания потребител като поле на училищен медик (със съществуващо вече id)
-                createSMForm.getSchoolMedic().setUser(savedUser);
-            } else {
-                User foundUser = userService.findUser(createSMForm.getSchoolMedic().getUser().getId());
-                // Актуализираме имейла на медикa
-                foundUser.setEmail(createSMForm.getSchoolMedic().getUser().getEmail());
-                savedUser = userService.createOrUpdateUser(foundUser);
+                    //Ако Потребителя не е съществувал като запис в базата,
+                    // слагаме вече записания потребител като поле на училищен медик (със съществуващо вече id)
+                    createSMForm.getSchoolMedic().setUser(savedUser);
+                } else {
+                    User foundUser = userService.findUser(createSMForm.getSchoolMedic().getUser().getId());
+                    // Актуализираме имейла на медикa
+                    foundUser.setEmail(createSMForm.getSchoolMedic().getUser().getEmail());
+                    savedUser = userService.createOrUpdateUser(foundUser);
+                }
             }
+
+            SchoolMedics schoolMedic = schoolMedicsService.createOrUpdateSchoolMedic(createSMForm.getSchoolMedic());
+
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
-
-         SchoolMedics schoolMedic = schoolMedicsService.createOrUpdateSchoolMedic(createSMForm.getSchoolMedic());
-
 
         modelAndView = new ModelAndView("redirect:/createsm");
         return modelAndView;
@@ -113,16 +124,24 @@ public class CreateSMController {
     @RequestMapping(value = {"deleteSMData"})
     public ModelAndView deleteSMData(@RequestParam(value = "smId", required = false) Long smId, HttpSession httpSession) {
 
-        System.out.println("DELETE  smId = " + smId);
-        SchoolMedics foundSchoolMedic = schoolMedicsService.getSchoolMedic(smId);
+        String userTypeCode = String.valueOf(httpSession.getAttribute("userTypeCode"));
+        if (UserType.SYS_ADMIN.getCode().equals(userTypeCode) || UserType.SCHOOL_ADMIN.getCode().equals(userTypeCode)) {
 
-        schoolMedicsService.deleteSchoolMedicById(smId);
+            System.out.println("DELETE  smId = " + smId);
+            SchoolMedics foundSchoolMedic = schoolMedicsService.getSchoolMedic(smId);
 
-        if (foundSchoolMedic.getUser() != null && foundSchoolMedic.getUser().getId() != null) {
-            userService.deleteUserById(foundSchoolMedic.getUser().getId());
+            schoolMedicsService.deleteSchoolMedicById(smId);
+
+            if (foundSchoolMedic.getUser() != null && foundSchoolMedic.getUser().getId() != null) {
+                userService.deleteUserById(foundSchoolMedic.getUser().getId());
+            }
+
+        } else {
+            modelAndView.addObject("isReturnedErrorOnValidation", "true");
         }
 
-        modelAndView = new ModelAndView("redirect:/createsm");
+
+    modelAndView = new ModelAndView("redirect:/createsm");
 
         return modelAndView;
     }
