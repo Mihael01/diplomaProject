@@ -1,12 +1,12 @@
 package com.health.SchoolHealth.model.DAOs;
 
 import com.health.SchoolHealth.model.entities.GP;
-import com.health.SchoolHealth.model.entities.User;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Primary
@@ -20,5 +20,5 @@ public interface GPDao extends CrudRepository<GP, Long> {
     public Iterable<GP> findAllGPsWithUser();
 
     @Query("select gp from GP as gp join User as u on gp.user.id=u.id where gp.gpTelephoneNumber=:gpTelephoneNumber")
-    public Iterable<GP> findGPsWithUserByTelephoneNumber(String gpTelephoneNumber);
+    public List<GP> findGPsWithUserByTelephoneNumber(String gpTelephoneNumber);
 }

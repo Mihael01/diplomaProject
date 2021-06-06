@@ -20,4 +20,5 @@ public interface SchoolMedicsDao extends CrudRepository<SchoolMedics, Long> {
 
     @Query("select sm from SchoolMedics as sm join User as u on sm.user.id = u.id where u.id = :userId")
     public Optional<SchoolMedics> findSchoolMedicByUserId(Long userId);
+
 }

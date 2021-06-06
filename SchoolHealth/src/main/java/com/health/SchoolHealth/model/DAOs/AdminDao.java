@@ -11,8 +11,8 @@ import javax.transaction.Transactional;
 @Transactional
 public interface AdminDao extends CrudRepository<Admin, Long> {
 
-    @Query("select a from Admin as a join User as u on a.user.id=u.id")
-    public Iterable<Admin> findAllAdminsWithUser();
+    @Query("select a from Admin as a join User as u on a.user.id=u.id where u.userCode != :userCode")
+    public Iterable<Admin> findAllAdminsWithUser(String userCode);
 
     @Query("select a from Admin as a join User as u on a.user.id=u.id where a.adminTelephoneNumber=:adminTelephoneNumber")
     public Iterable<Admin> findAdminsWithUserByTelephoneNumber(String adminTelephoneNumber);

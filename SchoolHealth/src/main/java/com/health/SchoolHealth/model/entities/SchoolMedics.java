@@ -1,6 +1,7 @@
 package com.health.SchoolHealth.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "school_medics")
@@ -26,8 +27,8 @@ public class SchoolMedics {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-//    @OneToMany
-//    private List<School> schools;
+    @OneToMany(mappedBy = "schoolMedics")
+    private List<School> schools;
 
     public Long getId() {
         return this.id;

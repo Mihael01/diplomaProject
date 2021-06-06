@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Primary
@@ -16,5 +17,5 @@ public interface DiseasesAndAbnormTypeDao extends CrudRepository<DiseasesAndAbno
     public Optional<DiseasesAndAbnormType> findByCode(String diseasesAndAbnormTypeCode);
 
     @Query("select d from DiseasesAndAbnormType as d order by diseasesAndAbnormTypeCode")
-    public Iterable<DiseasesAndAbnormType> findAllOrderByCode();
+    public List<DiseasesAndAbnormType> findAllOrderByCode(); //!!!
 }

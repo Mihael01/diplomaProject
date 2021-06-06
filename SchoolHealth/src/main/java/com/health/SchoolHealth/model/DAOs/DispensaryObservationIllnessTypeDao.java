@@ -15,4 +15,7 @@ public interface DispensaryObservationIllnessTypeDao extends CrudRepository<Disp
     @Query("select d from DispensaryObservationIllnessType as d where d.dispensaryObservIllnessTypeCode=:dispensaryObservIllnessTypeCode")
     public Optional<DispensaryObservationIllnessType> findByCode(String dispensaryObservIllnessTypeCode);
 
+    @Query("select d from DispensaryObservationIllnessType as d order by d.dispensaryObservIllnessTypeCode")
+    public Iterable<DispensaryObservationIllnessType> findAllOrderByCode();
+
 }
